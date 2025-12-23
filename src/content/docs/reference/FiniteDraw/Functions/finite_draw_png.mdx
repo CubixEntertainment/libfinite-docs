@@ -17,7 +17,7 @@ void finite_draw_png(FiniteShell *shell, const char *path, double x, double y, d
 
 | Type                 | Description                                                                 |
 | -------------------- | --------------------------------------------------------------------------- |
-| `FiniteShell *shell` | The [`FiniteShell`](../../../finiteshell/finiteshell) where the window is.        |
+| `FiniteShell *shell` | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is.        |
 | `const char *path`   | The path to the png image.                                                  |
 | `double x`           | The X position of the png.                                                  |
 | `double y`           | The Y position of the png.                                                  |
@@ -57,6 +57,6 @@ finite_draw_png(myShell, fullPath, x, y, image_width, image_height, true);
 
 This function **only** supports pngs.
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

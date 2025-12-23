@@ -17,11 +17,11 @@ void finite_draw_text_group(FiniteShell *shell, FiniteTextGroup *groups, double 
 
 | Type                           | Description                                                                            |
 | ------------------------------ | -------------------------------------------------------------------------------------- |
-|`FiniteShell *shell`|The [`FiniteShell`](../../../types/FiniteShell) where the window  is.|
+|`FiniteShell *shell`|The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window  is.|
 |`FiniteTextGroup *groups`|An array of `FiniteTextGroups`.|
 |`double x`|The x position to set the draw position to.|
 |`double y`|The y position to set the draw position to.|
-|`size_t n`|The number of [`FiniteTextGroups`](../../../types/FiniteTextGroup) in groups|
+|`size_t n`|The number of [`FiniteTextGroups`](/reference/finitedraw/types/finitetextgroup/) in groups|
 
 ## Code Example
 
@@ -52,6 +52,6 @@ If `shell.cr` is undefined, this function will create a new Cairo draw tool and 
 
 ## Standard Usage
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

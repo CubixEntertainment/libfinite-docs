@@ -17,7 +17,7 @@ void finite_draw_set_font(FiniteShell *shell, char *font_name, bool isItalics, b
 
 | Type                 | Description                                                                     |
 | -------------------- | ------------------------------------------------------------------------------- |
-| `FiniteShell *shell` | The [`FiniteShell`](../../../types/FiniteShell) where the window  is. |
+| `FiniteShell *shell` | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window  is. |
 | `char *font_name`    | The name of the font.                                                           |
 | `bool isItalics`     | Toggles text italics.                                                           |
 | `bool isBold`        | Toggles text boldness.                                                          |
@@ -52,6 +52,6 @@ When using this function to setup text loading, you must use a valid libfinite f
 
 This function should be called whenever you're planning on changing the size or style of text. It will only impact text drawn after it's been called.
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

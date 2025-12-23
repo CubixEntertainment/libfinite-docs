@@ -19,12 +19,12 @@ void finite_draw_rect(FiniteShell *shell, double x, double y, double width, doub
 
 | Type                      | Description                                                                                                   |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `FiniteShell *shell`      | The [`FiniteShell`](../../../finiteshell/finiteshell) where the window is.                                    |
+| `FiniteShell *shell`      | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is.                                    |
 | `double x`                | The x position to draw the rectangle at.                                                                      |
 | `double y`                | The y position to draw the rectangle at.                                                                      |
 | `double width`            | The width of the rectangle.                                                                                   |
 | `double height`           | The height of the rectangle                                                                                   |
-| `FiniteColorGroup *color` | A single [`FiniteColorGroup`](../../../types/FiniteColorGroup)                                                |
+| `FiniteColorGroup *color` | A single [`FiniteColorGroup`](/reference/finitedraw/types/finitecolorgroup/)                                                |
 | `cairo_pattern_t *pat`    | A single Cairo Pattern.                                                                                       |
 | `bool withPreserve`       | Whether the rectangle should preserve it's path data. (Must be true to apply additional effects like strokes) |
 
@@ -44,12 +44,12 @@ finite_draw_rect(myShell, 0,0, 100, 100, &myColor, NULL);
 
 `finite_draw_rect` supports both solid colors with `FiniteColorGroup` and gradients with `cairo_pattern_t` but you CANNOT have both values set. One of the last two params MUST be NULL. Having two color values set will throw an error.
 
-This function doesn't use information from [`finite_draw_set_draw_position`](../finite_draw_set_draw_position) as of **v0.6.0**
+This function doesn't use information from [`finite_draw_set_draw_position`](/reference/finitedraw/functions/finite_draw_set_draw_position/) as of **v0.6.0**
 
 If `shell.cr` is undefined, this function will create a new Cairo draw tool and set it to `shell.cr`
 
 ## Standard Usage
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

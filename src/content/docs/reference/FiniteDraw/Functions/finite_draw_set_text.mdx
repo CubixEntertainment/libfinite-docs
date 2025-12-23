@@ -17,7 +17,7 @@ void finite_draw_set_text(FiniteShell *shell, char *text, FiniteColorGroup *colo
 
 | Type                      | Description                                                                |
 | ------------------------- | -------------------------------------------------------------------------- |
-| `FiniteShell *shell`      | The [`FiniteShell`](../../../finiteshell/finiteshell) where the window is. |
+| `FiniteShell *shell`      | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is. |
 | `char *text`              | The text the screen.                                                       |
 | `FiniteColorGroup *color` | The color of the text to draw.                                             |
 
@@ -38,8 +38,8 @@ finite_draw_set_text(myShell, "Hello there!", &white);
 
 ## Standard Usage
 
-This function is intended to be used to draw colored text to screen. However it does not take in a position. As such, you should call [`finite_draw_set_draw_position`](../finite_draw_set_draw_position) directly before each `finite_draw_set_text` call to ensure that things are rendered at the correctly.
+This function is intended to be used to draw colored text to screen. However it does not take in a position. As such, you should call [`finite_draw_set_draw_position`](/reference/finitedraw/functions/finite_draw_set_draw_position/) directly before each `finite_draw_set_text` call to ensure that things are rendered at the correctly.
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

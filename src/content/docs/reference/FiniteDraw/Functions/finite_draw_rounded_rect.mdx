@@ -25,7 +25,7 @@ void finite_draw_rounded_rect(FiniteShell *shell, double x, double y, double wid
 | `double width`            | The width of the rectangle.                                       |
 | `double height`           | The height of the rectangle                                       |
 | `double radius`           | The Radoius of the rounded edges of the rectangle.                |
-| `FiniteColorGroup *color` | A single [`FiniteColorGroup`](../../enums/FiniteColorGroup)       |
+| `FiniteColorGroup *color` | A single [`FiniteColorGroup`](/reference/finitedraw/types/finitecolorgroup/)       |
 | `cairo_pattern_t *pat`    | A single Cairo Pattern.                                           |
 | `bool withPreserve`       | Determines whether to 'preserve' the data for things like stroke. |
 
@@ -51,6 +51,6 @@ If `shell.cr` is undefined, this function will create a new Cairo draw tool and 
 
 ## Standard Usage
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

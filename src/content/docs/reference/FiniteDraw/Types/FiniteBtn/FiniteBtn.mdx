@@ -43,7 +43,7 @@ struct FiniteBtn {
 
 ## Notes
 
-Button ids refer to the position of the data in the buttons array inside of [`FiniteShell`](../FiniteShell/). This means that if a button is deleted, all [`FiniteBtnRelationShips`](../FiniteBtnRelationShips) and other references to buttons that come after that button are **invalid**. If you have a lot of buttons that rely on each other, be extreme careful when deleting buttons.
+Button ids refer to the position of the data in the buttons array inside of [`FiniteShell`](/reference/finiteshell/finiteshell//). This means that if a button is deleted, all [`FiniteBtnRelationShips`](/reference/finitedraw/types/finitebtn/finitebtnrelationships/) and other references to buttons that come after that button are **invalid**. If you have a lot of buttons that rely on each other, be extreme careful when deleting buttons.
 
 Additionall, when creating temporary buttons, ensure all base buttons have been made first to avoid unexpected behavior
 

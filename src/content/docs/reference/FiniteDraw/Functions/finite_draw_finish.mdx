@@ -17,7 +17,7 @@ bool finite_draw_finish(FiniteShell *shell, int width, int height, int stride, b
 
 | Type                 | Description                                                          |
 | -------------------- | -------------------------------------------------------------------- |
-| `FiniteShell *shell` | The [`FiniteShell`](../../../finiteshell/finiteshell) where the window is. |
+| `FiniteShell *shell` | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is. |
 | `int width`          | The width of the area to redraw.                                     |
 | `int height`         | The height of the area to redraw.                                    |
 | `stride`             | The stride of the window.                                            |
@@ -49,4 +49,4 @@ This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.
 
 This function destroys the cairo draw object within a given `FiniteShell`. The cairo_surface_t however is **not** destroyed.
 
-At some point (likely after the render loop) you should call [`finite_draw_cleanup`](../finite_draw_cleanup)
+At some point (likely after the render loop) you should call [`finite_draw_cleanup`](/reference/finitedraw/functions/finite_draw_cleanup/)

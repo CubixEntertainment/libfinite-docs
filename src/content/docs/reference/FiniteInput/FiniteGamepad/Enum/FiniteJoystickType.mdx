@@ -1,0 +1,32 @@
+---
+title: FiniteJoystickType
+description: The FiniteJoystickType enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteJoystickType was added in **v0.7.0** </Aside>
+
+A `FiniteGamepadKey` refers to specific joystick directional value
+
+```c
+typedef enum {
+    FINITE_JOYSTICK_LEFT_X,
+    FINITE_JOYSTICK_LEFT_Y,
+    FINITE_JOYSTICK_RIGHT_X,
+    FINITE_JOYSTICK_RIGHT_Y
+} FiniteJoystickType;
+```
+
+## Properties
+
+| Name                      | Value                        |
+| ------------------------- | ---------------------------- |
+| `FINITE_JOYSTICK_LEFT_X`  | The Left Joystick's X value  |
+| `FINITE_JOYSTICK_LEFT_Y`  | The Left Joystick's Y value  |
+| `FINITE_JOYSTICK_RIGHT_X` | The Right Joystick's X value |
+| `FINITE_JOYSTICK_RIGHT_Y` | The Right Joystick's Y value |
+
+## Specification
+
+These directional types should be used when getting the value of a joystick input with [`finite_gamepad_joystick_get_value`](/reference/finiteinput/finitegamepad/functions/finite_gamepad_joystick_get_value/)

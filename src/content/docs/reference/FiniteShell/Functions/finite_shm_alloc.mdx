@@ -9,7 +9,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside> finite_shm_alloc was last modifed in **v0.6.0** </Aside>
 
-The `finite_shm_alloc` function allocates a new shared memory buffer to allow rendering to a [`FiniteShell`](../../finiteshell).
+The `finite_shm_alloc` function allocates a new shared memory buffer to allow rendering to a [`FiniteShell`](/reference/finiteshell/finiteshell/).
 
 ```c
 void finite_shm_alloc(FiniteShell *shell, bool withAlpha)
@@ -46,4 +46,4 @@ finite_draw_cleanup(shell);
 
 ## Standard Usage
 
-When creating an overlay Developers should not ateempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](../finite_overlay_set_size_and_position)
+When creating an overlay Developers should not ateempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](/reference/finiteshell/functions/finite_overlay_set_size_and_position/)

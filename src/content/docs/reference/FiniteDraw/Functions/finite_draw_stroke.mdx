@@ -18,7 +18,7 @@ void finite_draw_stroke(FiniteShell *shell, FiniteColorGroup *color, cairo_patte
 | Type                      | Description                                           |
 | ------------------------- | ----------------------------------------------------- |
 | `FiniteShell *shell`      | The FiniteShell where the window  is.       |
-| `FiniteColorGroup *color` | A single [`FiniteColorGroup`](../../FiniteColorGroup) |
+| `FiniteColorGroup *color` | A single [`FiniteColorGroup`](/reference/finitedraw/types/finitecolorgroup/) |
 | `cairo_pattern_t *pat`    | A single Cairo Pattern.                               |
 | `int width`               | The thickness of the stroke.                          |
 
@@ -46,12 +46,12 @@ finite_draw_stroke(myShell, &myStroke, NULL, 5);
 
 ## Notes
 
-This function doesn't use information from [`finite_draw_set_draw_position`](../finite_draw_set_draw_position) as of **v0.6.0**
+This function doesn't use information from [`finite_draw_set_draw_position`](/reference/finitedraw/functions/finite_draw_set_draw_position/) as of **v0.6.0**
 
 If `shell.cr` is undefined, this function will **not** create a new Cairo draw tool and instead will throw an error.
 
 ## Standard Usage
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

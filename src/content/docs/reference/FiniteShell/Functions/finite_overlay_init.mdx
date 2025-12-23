@@ -9,7 +9,7 @@ import { Aside } from "@astrojs/starlight/components";
 
 <Aside> finite_overlay_init was last modifed in **v0.6.4** </Aside>
 
-The `finite_overlay_init` function creates a new layer-shell window with a given [`FiniteShell`](../../finiteshell).
+The `finite_overlay_init` function creates a new layer-shell window with a given [`FiniteShell`](/reference/finiteshell/finiteshell/).
 
 ```c
 void finite_overlay_init(FiniteShell *shell, int layer, char *name)
@@ -50,4 +50,4 @@ finite_draw_cleanup(shell);
 
 ## Standard Usage
 
-When creating an overlay Developers should not ateempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](../finite_overlay_set_size_and_position)
+When creating an overlay Developers should not ateempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](/reference/finiteshell/functions/finite_overlay_set_size_and_position/)

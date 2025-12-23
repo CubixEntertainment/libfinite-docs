@@ -17,7 +17,7 @@ void finite_draw_set_draw_position(FiniteShell *shell, double x, double y)
 
 | Type                 | Description                                                          |
 | -------------------- | -------------------------------------------------------------------- |
-| `FiniteShell *shell` | The [`FiniteShell`](../../../types/FiniteShell) where the window is. |
+| `FiniteShell *shell` | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is. |
 | `double x`           | The x position to set the draw position to.                          |
 | `double y`           | The y position to set the draw position to.                          |
 
@@ -44,6 +44,6 @@ If `shell.cr` is undefined, this function will create a new Cairo draw tool and 
 
 ## Standard Usage
 
-This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
 
 This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

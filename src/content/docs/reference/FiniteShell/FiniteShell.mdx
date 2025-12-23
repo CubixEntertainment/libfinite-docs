@@ -87,9 +87,9 @@ struct FiniteShell{
 
 Developers must call the wayland "keep alive" functions [`wl_display_dispatch`](https://wayland.freedesktop.org/docs/html/apb.html#Client-classwl__display_1a30a9c4f020f3e77581c7a81ecdb4913d) for cairo based applications or [`wl_display_dispatch_pending`](https://wayland.freedesktop.org/docs/html/apb.html#Client-classwl__display_1ac4b6b5ad31932bc3830ff362d2938560) for Vulkan based applications to handle frame updating.
 
-While the library provides the [`finite_window_size_set`](functions/finite_window_size_set) function, Infinite windows should use the size provided by the `FiniteShell.details` struct which contains the screen resolution in pixels.
+While the library provides the [`finite_window_size_set`](/reference/finiteshell/functions/finite_window_size_set/) function, Infinite windows should use the size provided by the `FiniteShell.details` struct which contains the screen resolution in pixels.
 
-Infinite compliant windows should call [`finite_shell_init`](functions/finite_shell_init) during the initialization phase of the window's lifespan (before the `wl_display_dispatch` loop) to get information about the current compositor. The wl_* data for the FiniteShell struct should not be filled out manually in production.
+Infinite compliant windows should call [`finite_shell_init`](/reference/finiteshell/functions/finite_shell_init/) during the initialization phase of the window's lifespan (before the `wl_display_dispatch` loop) to get information about the current compositor. The wl_* data for the FiniteShell struct should not be filled out manually in production.
 
 Developers should not create a seperate `cairo_t` from the one in the FiniteShell to maintain compatibilty with `finite_draw_finish` and `finite_draw_cleanup`. Additionally, most functions in the FiniteDraw function family populate `FiniteShell.cr` automatically if its NULL
 

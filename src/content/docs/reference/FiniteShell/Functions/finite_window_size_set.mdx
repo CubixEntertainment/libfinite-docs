@@ -13,7 +13,7 @@ import { Aside } from '@astrojs/starlight/components';
 void finite_window_size_set(FiniteShell *shell, int xPos, int yPos, int width, int height)
 ```
 
-The `finite_window_size_set` function attempts to resize a window with a given [`FiniteShell`](../../finiteshell).
+The `finite_window_size_set` function attempts to resize a window with a given [`FiniteShell`](/reference/finiteshell/finiteshell/).
 
 ## Parameters
 
@@ -37,6 +37,6 @@ finite_window_size_set(myShell, ((true_width * 20) / 100), ((true_height *25) / 
 
 ## Standard Usage
 
-In order to call this function you **must** call [`finite_window_init`](../finite_window_init). To achieve this behavior with a layer-shell window, use [`finite_overlay_set_size_and_position`](../finite_overlay_set_size_and_position) and [`finite_overlay_set_margin`](../finite_overlay_set_margin).
+In order to call this function you **must** call [`finite_window_init`](/reference/finiteshell/functions/finite_window_init/). To achieve this behavior with a layer-shell window, use [`finite_overlay_set_size_and_position`](/reference/finiteshell/functions/finite_overlay_set_size_and_position/) and [`finite_overlay_set_margin`](/reference/finiteshell/functions/finite_overlay_set_margin/).
 
 This function is meant to be used to resize windows but in production, all Infinite applications must be the full size of the screen which they are by default.

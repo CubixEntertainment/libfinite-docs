@@ -1,0 +1,51 @@
+---
+title: finite_render_cleanup
+description: The finite_render_cleanup function
+sidebar:
+  order: 1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_render_cleanup was last modifed in **v0.6.0** </Aside>
+
+The `finite_render_cleanup` function attempts to cleanup and destroy a [`FiniteRender`](/reference/finiterender/finiterender/) instance.
+
+```c
+FiniteRender *finite_render_init(FiniteRender *render);
+```
+
+## Parameters
+
+| Type                   | Description                           |
+| ---------------------- | ------------------------------------- |
+| `FiniteRender *render` | The FiniteRender instance to cleanup. |
+
+## Code Example
+
+```c
+#include <finite/log.h>
+#include <finite/render.h>
+
+FiniteShell *shell = finite_shell_init("wayland-0");
+
+char *extensions[] = {
+    VK_KHR_SURFACE_EXTENSION_NAME,
+    VK_EXT_DEBUG_UTILS_EXTENSION_NAME,
+    VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME
+};
+
+char *layers[] = {
+    "VK_LAYER_KHRONOS_validation"
+};
+
+FiniteRender *render = finite_render_init(shell, extensions, layers, 3, 1);
+FINITE_LOG("Made render");
+finite_render_cleanup(render);
+```
+
+## Standard Usage
+
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/).
+
+Call this function after creating a shell. It sets up the Vulkan instance and prepares a surface for rendering.
