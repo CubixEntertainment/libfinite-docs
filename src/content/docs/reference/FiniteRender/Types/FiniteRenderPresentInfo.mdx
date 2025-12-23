@@ -1,0 +1,36 @@
+---
+title: FiniteRenderPresentInfo
+description: Structure used to describe present information for submitting frames to a swapchain.
+---
+
+<Aside>FiniteRenderPresentInfo was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderPresentInfo` struct is used to describe the information needed when presenting rendered images to a Vulkan swapchain.
+
+```c
+struct FiniteRenderPresentInfo {
+    const void *next;
+    uint32_t _waitSemaphores;
+    const VkSemaphore *waitSemaphores;
+    uint32_t _swapchains;
+    const VkSwapchainKHR *swapchains;
+    const uint32_t *imageIndices;
+    VkResult *results;
+};
+```
+
+## Properties
+
+| Type                                | Description                                                       |
+| ----------------------------------- | ----------------------------------------------------------------- |
+| `const void *next`                  | Pointer to next structure in Vulkan chain (usually `NULL`).       |
+| `uint32_t _waitSemaphores`          | Number of semaphores to wait on before presenting.                |
+| `const VkSemaphore *waitSemaphores` | Array of semaphores that must be signaled before presentation.    |
+| `uint32_t _swapchains`              | Number of swapchains to present to.                               |
+| `const VkSwapchainKHR *swapchains`  | Array of Vulkan swapchains to present rendered images.            |
+| `const uint32_t *imageIndices`      | Array of image indices in the swapchains to present.              |
+| `VkResult *results`                 | Array to store results for each swapchain presentation operation. |
+
+## Standard Usage
+
+This struct should be created with [`finite_render_find_queue_families`](/reference/finiterender/functions/finite_render_find_queue_families).

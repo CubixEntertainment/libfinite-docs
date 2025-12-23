@@ -1,0 +1,37 @@
+---
+title: finite_button_delete_all
+description: The finite_button_delete_all function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_button_delete_all was last modified in **v0.6.0**
+</Aside>
+
+The `finite_button_delete_all` function removes all `FiniteBtn` instances from a `FiniteShell`, freeing their memory and clearing the button array.
+
+```c
+void finite_button_delete_all(FiniteShell *shell);
+```
+
+## Parameters
+
+| Type                 | Description                                      |
+| -------------------- | ------------------------------------------------- |
+| `FiniteShell *shell` | The shell from which all buttons will be deleted. |
+
+## Code Example
+
+```c
+FiniteBtn *btn = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+FiniteBtn *btn2 = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+
+finite_button_delete_all(shell);
+```
+
+## Standard Usage
+
+The `shell` must be valid and contain at least one button.
+This function frees all buttons and their associated `relations` data.
+After execution, `FiniteShell.btns` is set to `NULL` and `FiniteShell._btns` should be considered 0.

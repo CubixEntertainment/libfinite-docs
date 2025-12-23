@@ -1,0 +1,57 @@
+---
+title: finite_render_create_render_pass
+description: The finite_render_create_render_pass function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_render_pass was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_render_pass` function creates a Vulkan render pass based on the provided attachment, reference, subpass, and dependency information, and stores it in the `FiniteRender` context.
+
+```c
+void finite_render_create_render_pass(
+    FiniteRender *render,
+    FiniteRenderAttachmentDescriptionInfo **att_desc_info,
+    FiniteRenderAttachmentRefInfo **ref_info,
+    FiniteRenderSubpassDescriptionInfo **subpass_desc_info,
+    FiniteRenderSubpassDependencyInfo **subpass_dep_info,
+    FiniteRenderRenderPassInfo *info
+);
+```
+
+## Parameters
+
+| Type                                                     | Description                                                                |
+| -------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `FiniteRender *render`                                   | The Vulkan rendering context. Must be valid.                               |
+| `FiniteRenderAttachmentDescriptionInfo **att_desc_info`  | Array of attachment descriptions used in the render pass.                  |
+| `FiniteRenderAttachmentRefInfo **ref_info`               | Array of attachment references for subpasses (color or depth).             |
+| `FiniteRenderSubpassDescriptionInfo **subpass_desc_info` | Array describing each subpass in the render pass.                          |
+| `FiniteRenderSubpassDependencyInfo **subpass_dep_info`   | Array describing dependencies between subpasses.                           |
+| `FiniteRenderRenderPassInfo *info`                       | Render pass info struct containing counts, flags, and pointers for Vulkan. |
+
+```c
+FiniteRenderAttachmentDescriptionInfo *attachments[1]; 
+FiniteRenderAttachmentRefInfo *refs[1];
+FiniteRenderSubpassDescriptionInfo *subpasses[1];
+FiniteRenderSubpassDependencyInfo *deps[1];
+FiniteRenderRenderPassInfo rp_info = { 
+    ._attachments = 1, 
+    ._subpasses = 1, 
+    ._deps = 0, 
+    ._refs = 1, 
+    .next = NULL, 
+    .flags = 0 
+};
+
+finite_render_create_render_pass(render, attachments, refs, subpasses, deps, &rp_info);
+```
+
+## Standard Usage
+
+All pointer parameters (`render`, `att_desc_info`, `ref_info`, `subpass_desc_info`, `subpass_dep_info`, `info`) must not be NULL unless the corresponding feature is optional. For more information on that, see the [Vulkan Documentation](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreateInfo.html)
+
+The function assumes the `FiniteRender` context is fully initialized, including `FiniteRender.vk_device`.

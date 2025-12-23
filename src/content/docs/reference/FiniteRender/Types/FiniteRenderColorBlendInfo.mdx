@@ -1,0 +1,40 @@
+---
+title: FiniteRenderColorBlendInfo
+description: The FiniteRenderColorBlendInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteRenderColorBlendInfo was last modified in **v0.6.0**
+</Aside>
+
+The `FiniteRenderColorBlendInfo` struct stores information for configuring the overall color blending state in a Vulkan graphics pipeline.
+
+```c
+typedef struct {
+    const void* next;
+    VkPipelineColorBlendStateCreateFlags flags;
+    bool logicOpEnable;
+    VkLogicOp logicOp;
+    uint32_t _attachments;
+    const VkPipelineColorBlendAttachmentState *attachments;
+    float blendConstants[4];
+} FiniteRenderColorBlendInfo;
+```
+
+## Properties
+
+| Type                                                     | Description                                                         |
+| -------------------------------------------------------- | ------------------------------------------------------------------- |
+| `const void* next`                                       | Pointer for Vulkan extension chaining, usually `NULL`.              |
+| `VkPipelineColorBlendStateCreateFlags flags`             | Vulkan flags for color blend state creation.                        |
+| `bool logicOpEnable`                                     | Enables or disables the use of a logical operation in blending.     |
+| `VkLogicOp logicOp`                                      | The logical operation to apply if `logicOpEnable` is `true`.        |
+| `uint32_t _attachments`                                  | Number of color attachments in the `attachments` array.             |
+| `const VkPipelineColorBlendAttachmentState *attachments` | Array of color attachment blend states.                             |
+| `float blendConstants[4]`                                | Blend constants (RGBA) used if the pipeline uses constant blending. |
+
+## Standard Usage
+
+This struct should be created manually and used as a params [`finite_render_create_color_blend_state`](/reference/finiterender/functions/finite_render_create_color_blend_state)

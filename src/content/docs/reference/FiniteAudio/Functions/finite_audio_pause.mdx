@@ -1,0 +1,64 @@
+---
+title: finite_audio_pause
+description: The finite_audio_pause function.
+sidebar:
+  order: 6
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_audio_pause was last modifed in **v0.6.0** </Aside>
+
+The `finite_audio_pause` attempts to pause or unpause an audio file from a [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice)
+
+```c
+void finite_audio_pause(FinitePlaybackDevice *dev)
+```
+
+## Parameters
+
+| Type                        | Description                                                                                                    |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `FinitePlaybackDevice *dev` | The [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice) to get the audio to pause from.|
+
+## Code Example
+
+```c
+    #include <finite/audio.h>
+    #include <finite/log.h>
+
+    void *playMyAudio(void *) {
+        FinitePlaybackDevice *dev = data;
+        finite_audio_play(dev);
+    }
+
+    FinitePlaybackDevice *dev = finite_audio_device_init();
+    char *jingle = "jingle2.mp3";
+
+    finite_audio_get_audio_params(jingle, dev);
+    // print out the audio duration
+    finite_audio_get_audio_duration(dev);
+
+    // use params to init audio
+    finite_audio_init_audio(dev, jingle, false);
+
+    // audio is made so now play
+    pthread id;
+    pthread_create(&id, NULL, playMyAudio, dev);
+    
+    sleep(3);
+    finite_audio_pause(dev);
+
+    FINITE_LOG("Done\n");
+    // clean up when finished
+    finite_audio_cleanup(dev);
+```
+## Notes
+
+This function only works in a multi-threaded environment. Calling this function in the same thread as [`finite_audio_play`](/reference/finiteaudio/functions/finite_audio_play) makes this function a NOP.
+
+This function can both pause and unpause functions, while the now depricated [`finite_audio_unpause`](/reference/finiteaudio/function/finite_audio_unpause) function can only unpause paused audio. Use this function instead.
+
+## Standard Usage
+
+This function requires a valid [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice).

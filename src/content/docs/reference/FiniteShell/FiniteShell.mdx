@@ -1,0 +1,98 @@
+---
+title: FiniteShell
+description: The core of libfinite windows
+sidebar:
+    order: -1
+---
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside> FiniteShell was last modifed in **v0.7.0** </Aside>
+
+The `FiniteShell` struct stores general information about a window. It is **required** for an infinite compliant window.
+
+```c
+struct FiniteShell{
+    int shm_fd;
+    int pool_size;
+    int stride;
+    uint8_t *pool_data;
+    struct wl_display *display;
+    struct wl_registry *registry;
+    struct wl_output *output;
+    struct wl_shm *shm;
+    struct wl_shm_pool *pool;
+    struct wl_buffer *buffer;
+    struct wl_compositor *isle;
+    struct wl_surface *isle_surface;
+    struct xdg_wm_base *base;
+    struct xdg_surface *surface;
+    struct xdg_toplevel *window;
+    struct zwlr_layer_shell_v1 *shell;
+    struct zwlr_layer_surface_v1 *layer_surface;
+    FiniteWindowInfo *details;
+    FiniteOverlayInfo *overlay_details;
+    cairo_t *cr;
+    cairo_surface_t *cairo_surface;
+    unsigned char *snapshot;
+    FiniteBtn **btns;
+    int _btns;
+    int activeButton;
+    FiniteGamepad **gamepads;
+    int _gamepads;
+    int primaryGamepadId;
+    bool canInput;
+    bool canHomeMenu;
+    bool gamepadAvailable;
+    void *data;
+};
+```
+
+## Properties
+
+| Type                                          | Description                                                                                                                                                        |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `int shm_fd`                                  | An integer file descriptor for the shared memory(shm) buffer associated with the file.                                                                             |
+| `int pool_size`                               | The size of the shm pool                                                                                                                                           |
+| `int stride`                                  | The spacing between blocks of memory when drawing with Cairo.                                                                                                      |
+| `uint8_t pool_data`                           | The mmapped data in the pool.                                                                                                                                      |
+| `struct wl_display *display`                  | The Wayland display associated with the FiniteShell.                                                                                                               |
+| `struct wl_registry *registry`                | The Wayland registry associated with the display.                                                                                                                  |
+| `struct wl_output *output`                    | The Wayland Output that is currently connected. The Islands compositor only allows one output at a time                                                            |
+| `struct wl_shm *shm`                          | The Wayland shm struct associated with the FiniteShell                                                                                                             |
+| `struct wl_shm_pool *pool`                    | The Wayland shm pool associated with the shm                                                                                                                       |
+| `struct wl_buffer *buffer`                    | The Wayland shm buffer associated with the FiniteShell                                                                                                             |
+| `struct wl_compositor *isle`                  | The Compositor connected the display                                                                                                                               |
+| `struct wl_surface *isle_surface`             | The Wayland surface connected to display                                                                                                                           |
+| `struct xdg_wm_base *base`                    | The [xdg_wm_base](https://wayland.app/protocols/xdg-shell#xdg_wm_base) associated with the FiniteShell                                                             |
+| `struct xdg_surface *surface`                 | The xdg_surface associated with the base                                                                                                                           |
+| `struct xdg_toplevel *window`                 | The xdg_toplevel where data will be rendered to.                                                                                                                   |
+| `struct zwlr_layer_shell_v1 *shell`           | The [layer shell](https://wayland.app/protocols/wlr-layer-shell-unstable-v1#zwlr_layer_shell_v1) associated with the FiniteShell                                   |
+| `struct zwlr_layer_surface_v1 *layer_surface` | The layer surface associated with the layer shell                                                                                                                  |
+| `FiniteWindowInfo *details`                   | Data about the window                                                                                                                                              |
+| `cairo_t *cr`                                 | The Cairo drawing object.                                                                                                                                          |
+| `cairo_surface_t *cairo_surface`              | The cairo surface associated with the window.                                                                                                                      |
+| `unsigned char *snapshot`                     | A single cairo snapshot                                                                                                                                            |
+| `FiniteBtn **btns`                            | An array of FiniteBtns                                                                                                                                             |
+| `int _btns`                                   | The number of FiniteBtns currently visible.                                                                                                                        |
+| `int activeButton`                            | The Array position of the currently selected                                                                                                                       |
+| `FiniteGamepad **gamepads`                    | An array of FiniteGamepads (controllers)                                                                                                                           |
+| `int _gamepads`                               | The number of gamepads currently connected.                                                                                                                        |
+| `int primaryGamepadId`                        | The id of the "primary" controller. Usually 0.                                                                                                                     |
+| `bool canInput`                               | The system toggle that determines whether the window is allowed to recieve input. Does not measure whether the system is capable of recieving input from gamepads. |
+| `bool canHomeMenu`                            | A user level toggle that allows you to disable the home button                                                                                                     |
+| `bool gamepadAvailable`                       | A system toggle that tells whether the system is capable of recieving input.                                                                                       |
+| `void *data`                                  | Custom data                                                                                                                                                        |
+
+## Specification
+
+Developers must call the wayland "keep alive" functions [`wl_display_dispatch`](https://wayland.freedesktop.org/docs/html/apb.html#Client-classwl__display_1a30a9c4f020f3e77581c7a81ecdb4913d) for cairo based applications or [`wl_display_dispatch_pending`](https://wayland.freedesktop.org/docs/html/apb.html#Client-classwl__display_1ac4b6b5ad31932bc3830ff362d2938560) for Vulkan based applications to handle frame updating.
+
+While the library provides the [`finite_window_size_set`](functions/finite_window_size_set) function, Infinite windows should use the size provided by the `FiniteShell.details` struct which contains the screen resolution in pixels.
+
+Infinite compliant windows should call [`finite_shell_init`](functions/finite_shell_init) during the initialization phase of the window's lifespan (before the `wl_display_dispatch` loop) to get information about the current compositor. The wl_* data for the FiniteShell struct should not be filled out manually in production.
+
+Developers should not create a seperate `cairo_t` from the one in the FiniteShell to maintain compatibilty with `finite_draw_finish` and `finite_draw_cleanup`. Additionally, most functions in the FiniteDraw function family populate `FiniteShell.cr` automatically if its NULL
+
+Snapshots functions are deprecated. Use `cairo_save` and `cairo_restore`.
+
+Developers should **never** use `FiniteShell.gamepads[i]` at any time as shell.gamepads is not reliably static.

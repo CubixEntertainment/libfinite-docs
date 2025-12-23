@@ -1,0 +1,28 @@
+---
+title: FiniteTrigger
+description: The FiniteTrigger struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteTrigger was last modifed in **v0.7.0** </Aside>
+
+The `FiniteTrigger` struct stores data about a controller's triggers.
+
+```c
+typedef struct {
+    uint16_t axis;
+    double value;
+} FiniteTrigger;
+```
+
+## Properties
+
+| Type            | Description                           |
+| --------------- | ------------------------------------- |
+| `uint16_t axis` | The linux evdev code of the trigger.  |
+| `double value`  | The "pressure" value of the triggers. |
+
+## Specification
+
+Developers in general are discourageed from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU).

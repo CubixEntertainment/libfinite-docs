@@ -1,0 +1,34 @@
+---
+title: FiniteBtnRelationShips
+description: The FiniteBtnRelationShips struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteBtnRelationShips was last modified in **v0.4.0**</Aside>
+
+The `FiniteBtnRelationShips` struct describes the relationship between a given button and it's neighbors.
+
+```c
+typedef struct {
+    int left;
+    int right;
+    int down;
+    int up;
+    // optional diagonals
+    int leftUp;
+    int rightUp;
+    int leftDown;
+    int rightDown;
+} FiniteBtnRelationShips;
+```
+
+## Properties
+
+| Type                      | Description                                                      |
+| ------------------------- | ---------------------------------------------------------------- |
+| `int left,right,down....` | Each parameter refers to the id of the button in that direction. |
+
+## Standard Usage
+
+When creating a `FiniteBtn` this struct refers to relationship between it an other buttons. When there is more than one button you **must** include a valid `FiniteBtnRelationShips` by calling `finite_button_create_relation`.

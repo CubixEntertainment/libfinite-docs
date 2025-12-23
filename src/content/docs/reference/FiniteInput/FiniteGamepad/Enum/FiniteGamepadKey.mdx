@@ -1,0 +1,66 @@
+---
+title: FiniteGamepadKey
+description: The FiniteGamepadKey enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteGamepadKey was added in **v0.7.0** </Aside>
+
+A `FiniteGamepadKey` refers to specific gamepad input
+
+```c
+typedef enum {
+    FINITE_BTN_A,
+    FINITE_BTN_B,
+    FINITE_BTN_X,
+    FINITE_BTN_Y,
+    FINITE_BTN_LEFT,
+    FINITE_BTN_RIGHT,
+    FINITE_BTN_DOWN,
+    FINITE_BTN_UP,
+    FINITE_BTN_RIGHT_SHOULDER,
+    FINITE_BTN_RIGHT_TRIGGER,
+    FINITE_BTN_RIGHT_SPECIAL,
+    FINITE_BTN_LEFT_SHOULDER,
+    FINITE_BTN_LEFT_TRIGGER,
+    FINITE_BTN_LEFT_SPECIAL,
+    FINITE_BTN_LEFT_JOYSTICK,
+    FINITE_BTN_RIGHT_JOYSTICK,
+    FINITE_BTN_START,
+    FINITE_BTN_SELECT,
+    FINITE_BTN_HOME,
+    FINITE_BTN_NONE = INT16_MAX
+} FiniteGamepadKey;
+```
+
+## Properties
+
+| Name                      | Value                            |
+| ------------------------- | -------------------------------- |
+| FINITE_BTN_A              | A Button                         |
+| FINITE_BTN_B              | B Button                         |
+| FINITE_BTN_X              | X Button                         |
+| FINITE_BTN_Y              | Y Button                         |
+| FINITE_BTN_LEFT           | Left Dpad Butonn                 |
+| FINITE_BTN_RIGHT          | Right Dpad Button                |
+| FINITE_BTN_DOWN           | Down Dpad Button                 |
+| FINITE_BTN_UP             | Up Dpad Button                   |
+| FINITE_BTN_RIGHT_SHOULDER | Right Shoulder Button            |
+| FINITE_BTN_RIGHT_TRIGGER  | Right Trigger Button             |
+| FINITE_BTN_RIGHT_SPECIAL  | The r4 or rz on some controllers |
+| FINITE_BTN_LEFT_SHOULDER  | Left Shoulder Button             |
+| FINITE_BTN_LEFT_TRIGGER   | Left Trigger Button              |
+| FINITE_BTN_LEFT_SPECIAL   | The l4 or lz on some controllers |
+| FINITE_BTN_LEFT_JOYSTICK  | The Left Joystick Button         |
+| FINITE_BTN_RIGHT_JOYSTICK | The Right Joystick Button        |
+| FINITE_BTN_START          | The Start Button                 |
+| FINITE_BTN_SELECT         | The Select Button                |
+| FINITE_BTN_HOME           | The Home Button.                 |
+| FINITE_BTN_NONE           | Reserved.                        |
+
+## Specification
+
+Triggers are known to not work on some 8bitDO controllers.
+
+Analog Buttons are automatically mapped to their corresponding FINITE_BTN type

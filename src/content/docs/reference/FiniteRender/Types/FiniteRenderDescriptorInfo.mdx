@@ -1,0 +1,42 @@
+---
+title: FiniteRenderDescriptorInfo
+description: Describes a single descriptor binding for buffers or images in FiniteRender.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderDescriptorInfo was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderDescriptorInfo` structure defines a single descriptor binding used when creating or updating descriptor sets in FiniteRender.
+
+```c
+struct FiniteRenderDescriptorInfo {
+    FiniteDescriptorType type;
+
+    // Buffer-backed descriptor
+    VkBuffer buffer;
+    VkDeviceSize buffer_offset;
+    VkDeviceSize buffer_range;
+
+    // Image-backed descriptor
+    VkSampler image_sampler;
+    VkImageView image_view;
+    VkImageLayout image_layout;
+};
+```
+
+## Properties
+
+| Type                         | Description                                                        |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `FiniteDescriptorType type`  | Specifies whether this descriptor represents a buffer or an image. |
+| `VkBuffer buffer`            | Vulkan buffer handle (used if `type` indicates a buffer).          |
+| `VkDeviceSize buffer_offset` | Offset into the buffer for this descriptor.                        |
+| `VkDeviceSize buffer_range`  | Size of the buffer region to bind.                                 |
+| `VkSampler image_sampler`    | Vulkan sampler (used if `type` indicates an image).                |
+| `VkImageView image_view`     | Vulkan image view associated with this descriptor.                 |
+| `VkImageLayout image_layout` | Layout of the image in the descriptor set.                         |
+
+## Standard Usage
+
+This struct should be created manually and used as a params [`finite_render_write_to_descriptor`](/reference/finiterender/functions/finite_render_write_to_descriptor)

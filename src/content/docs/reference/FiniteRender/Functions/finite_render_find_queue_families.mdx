@@ -1,0 +1,42 @@
+---
+title: finite_render_find_queue_families
+description: The finite_render_find_queue_families function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_find_queue_families was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_find_queue_families` function searches a Vulkan physical device for graphics and present queue families and returns their indices in a `FiniteRenderQueueFamilies` struct.
+
+```c
+FiniteRenderQueueFamilies finite_render_find_queue_families(
+    VkPhysicalDevice pDevice,
+    VkSurfaceKHR vk_surface
+);
+```
+
+## Parameters
+
+| Type                       | Description                                      |
+| -------------------------- | ------------------------------------------------ |
+| `VkPhysicalDevice pDevice` | The Vulkan physical device to query.             |
+| `VkSurfaceKHR vk_surface`  | The Vulkan surface to check for present support. |
+
+## Code Example
+
+```c
+VkPhysicalDevice physicalDevice; 
+VkSurfaceKHR surface;
+
+FiniteRenderQueueFamilies queueFamilies = finite_render_find_queue_families(physicalDevice, surface);
+FINITE_LOG("Graphics family: %d, Present family: %d\n", queueFamilies.graphicsFamily, queueFamilies.presentFamily);
+```
+
+## Standard Usage
+
+Both pDevice and vk_surface must be valid Vulkan handles.
+
+_unique in the returned struct indicates whether the graphics and present families are the same (1) or different (2).

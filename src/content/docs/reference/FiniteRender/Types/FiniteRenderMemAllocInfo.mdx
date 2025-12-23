@@ -1,0 +1,31 @@
+---
+title: FiniteRenderMemAllocInfo
+description: The FiniteRenderMemAllocInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderMemAllocInfo was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderMemAllocInfo` struct specifies memory allocation preferences for Vulkan buffers in `FiniteRender`.
+
+```c
+typedef struct {
+    const void *next;
+    VkMemoryPropertyFlags flags;
+} FiniteRenderMemAllocInfo;
+```
+
+## Properties
+
+| Type                          | Description                                                                                               |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `const void *next`            | Optional pointer to extension-specific memory info (usually `NULL`).                                      |
+| `VkMemoryPropertyFlags flags` | Vulkan memory property flags used to select the memory type, e.g., `VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT`. |
+
+## Standard Usage
+
+This struct should be created manually and used as a param for a finite buffer function:
+    - [`finite_render_create_generic_buffer`](/reference/finiterender/functions/finite_render_create_generic_buffer)
+    - [`finite_render_create_vertex_buffer`](/reference/finiterender/functions/finite_render_create_vertex_buffer)
+    - [`finite_render_create_uniform_buffer`](/reference/finiterender/functions/finite_render_create_uniform_buffer)

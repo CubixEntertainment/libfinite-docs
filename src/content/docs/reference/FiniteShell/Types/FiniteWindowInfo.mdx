@@ -1,0 +1,44 @@
+---
+title: FiniteWindowInfo
+description: The FiniteWindowInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteWindowInfo was last modified in **v0.4.9**
+</Aside>
+
+The `FiniteWindowInfo` struct stores information about a window managed by a `FiniteShell`, including position and size.
+
+```c
+typedef struct {
+    struct wl_output *output;
+    int32_t xPos;
+    int32_t yPos;
+    int32_t width;
+    int32_t height;
+} FiniteWindowInfo;
+```
+
+## Properties
+
+| Type                       | Description                                         |
+| -------------------------- | ---------------------------------------------------- |
+| `struct wl_output *output` | The Wayland output associated with this window.      |
+| `int32_t xPos`             | The horizontal position of the window on the output. |
+| `int32_t yPos`             | The vertical position of the window on the output.   |
+| `int32_t width`            | The width of the window in pixels.                   |
+| `int32_t height`           | The height of the window in pixels.                  |
+
+## Notes
+
+`xPos` and `yPos` represent the top-left corner of the window relative to the Wayland output.
+
+## Standard Usage
+
+`width` and `height` represent the current resolution of the window. Their default values are the screen resolution. Developers should store these values for future use.
+
+All fields must reflect the actual compositor-provided window values; do not manually override them in production code.
+
+This struct is intended to be read-only for most applications. Changes should be applied through [`finite_window_size_set`](/reference/finiteshell/functions/finite_window_size_set) rather than modifying these fields directly.

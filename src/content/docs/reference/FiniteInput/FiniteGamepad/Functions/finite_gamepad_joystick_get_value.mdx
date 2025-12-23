@@ -1,0 +1,58 @@
+---
+title: finite_gamepad_init
+description: The finite_gamepad_init function
+sidebar:
+  order: 1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_gamepad_init was added in **v0.7.0** </Aside>
+
+The `finite_gamepad_joystick_get_value` function gets the given axis value from a [`FiniteJoystickType`]()
+
+```c
+double finite_gamepad_joystick_get_value(int id, FiniteShell *shell, FiniteJoystickType type)
+```
+
+## Parameters
+
+| Type                   | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `int id`               | The id of the gamepad to get input from      |
+| `FiniteShell *shell`   | The FiniteShell that the gamepad belongs to. |
+| `FiniteJoystickType type` | The value to return  |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+bool withGP = finite_gamepad_init(myShell);
+myShell->canHomeMenu = false;
+
+if (!withGP) {
+    FINITE_LOG_ERROR("Can't poll controller data");
+}
+
+if (finite_gamepad_key_valid(FINITE_BTN_A)) {
+    FINITE_LOG("A btn is valid");
+}
+
+
+while (wl_display_dispatch(myShell->display) != -1) {
+    double axis = finite_gamepad_joystick_get_value(0, myShell, FINITE_JOYSTICK_LEFT_X);
+    FINITE_LOG("Joystick Left Axis: %f", axis);
+}
+```
+
+## Specification
+
+Developers in general are discourageed from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU). To get joystick input, developers should use this function.

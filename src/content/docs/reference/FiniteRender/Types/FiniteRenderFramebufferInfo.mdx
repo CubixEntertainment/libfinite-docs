@@ -1,0 +1,39 @@
+---
+title: FiniteRenderFramebufferInfo
+description: The FiniteRenderFramebufferInfo struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteRenderFramebufferInfo was last modifed in **v0.6.0** </Aside>
+
+The `FiniteRenderFramebufferInfo` struct contains param information for creating a VkFramebuffer.
+
+```c
+typedef struct FiniteRenderFramebufferInfo  FiniteRenderFramebufferInfo;
+struct FiniteRenderFramebufferInfo {
+    const void *next;
+    VkFramebufferCreateFlags flags;
+    uint32_t _attachments;
+    VkImageView *attachments;
+    uint32_t width;
+    uint32_t height;
+    uint32_t layers;
+};
+```
+
+## Properties
+
+| Type                             | Decription                                          |
+| -------------------------------- | --------------------------------------------------- |
+| `const void *next`               | An extension of the VkRenderFrameBufferInfo or NULL |
+| `VkFramebufferCreateFlags flags` | The VkFramebuffer flags                             |
+| `uint32_t _attachments`          | The number of attachments                           |
+| `VkImageView *attachments`       | The VkImageView attachments.                        |
+| `uint32_t width`                 | The width of the framebuffer.                       |
+| `uint32_t height`                | The height of the framebuffer.                      |
+| `uint32_t layer`                 | The depth of the framebuffer.                       |
+
+## Standard Usage
+
+This struct should be created manually and used as a params [`finite_render_create_framebuffers`](/reference/finiterender/functions/finite_render_create_framebuffers)

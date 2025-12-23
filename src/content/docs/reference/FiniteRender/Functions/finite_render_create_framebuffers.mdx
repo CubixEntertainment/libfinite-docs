@@ -1,0 +1,52 @@
+---
+title: finite_render_create_framebuffers
+description: The finite_render_create_framebuffers function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_framebuffers was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_framebuffers` function creates an array of Vulkan framebuffers for a given `FiniteRender` context based on the provided framebuffer info.
+
+```c
+void finite_render_create_framebuffers(
+    FiniteRender *render,
+    FiniteRenderFramebufferInfo *info
+);
+```
+
+## Parameters
+
+| Type                                | Description                                                                           |
+| ----------------------------------- | ------------------------------------------------------------------------------------- |
+| `FiniteRender *render`              | The Vulkan rendering context. Must be valid and have a created render pass.           |
+| `FiniteRenderFramebufferInfo *info` | Contains attachment views, width, height, and layer information for the framebuffers. |
+
+```c
+FiniteRenderFramebufferInfo fb_info = {
+    ._attachments = 1,
+    .attachments = {VK_NULL_HANDLE},
+    .width = 800,
+    .height = 600,
+    .layers = 1,
+    .next = NULL,
+    .flags = 0
+};
+
+finite_render_create_framebuffers(render, &fb_info);
+```
+
+## Notes
+
+If an attachment in info->attachments is VK_NULL_HANDLE, the current render->vk_view[i] is used automatically.
+
+The program will exit if vkCreateFramebuffer fails for any framebuffer.
+
+## Standard Usage
+
+`render` must be fully initialized, including `FiniteRender.vk_device` and a valid `FiniteRender.vk_renderPass`.
+
+The function allocates memory internally for VkFramebufferCreateInfo and stores the resulting VkFramebuffers in render->vk_frameBufs. Do not free manually.

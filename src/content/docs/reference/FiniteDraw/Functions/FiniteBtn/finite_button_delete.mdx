@@ -1,0 +1,40 @@
+---
+title: finite_button_delete
+description: The finite_button_delete function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_button_delete was last modified in **v0.6.0**
+</Aside>
+
+The `finite_button_delete` function removes a `FiniteBtn` from a `FiniteShell`, freeing its memory and maintaining the integrity of the `FiniteShell.btns` array.
+
+```c
+void finite_button_delete(FiniteShell *shell, int id);
+```
+
+## Parameters
+
+| Type                 | Description                                                  |
+| -------------------- | ------------------------------------------------------------- |
+| `FiniteShell *shell` | The shell containing the button to delete.                    |
+| `int id`             | The `id` of the button to delete in the shell’s button array. |
+
+## Code Example
+
+```c
+FiniteBtn *btn = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+FiniteBtn *btn2 = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+
+finite_button_delete(shell, 1);
+```
+
+## Standard Usage
+
+The `shell` must be valid and contain the button to delete.
+
+`id` must be within the range of existing buttons (`0` to `shell->_btns - 1`).
+
+After deletion, all buttons after the removed one are shifted to maintain contiguous indexing.

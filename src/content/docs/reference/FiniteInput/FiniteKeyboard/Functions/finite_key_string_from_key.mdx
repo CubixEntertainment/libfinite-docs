@@ -1,0 +1,49 @@
+---
+title: finite_key_string_from_key
+description: The finite_key_string_from_key function.
+sidebar:
+  order: 6
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_key_string_from_key was last modifed in **v0.6.0** </Aside>
+
+The `finite_key_string_from_key` function attempt to convert a [`FiniteKey`](/reference/finiteinput/finitekeyboard/enums/finitekey) to a string
+
+```c
+const char *finite_key_string_from_key(FiniteKey key)
+```
+
+## Parameters
+
+| Type            | Description             |
+| --------------- | ----------------------- |
+| `FiniteKey key` | The FiniteKey to lookup |
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+
+while (wl_display_dispatch(myShell->display) != -1) {
+    if (!finite_key_valid(FINITE_KEY_A)) {
+        FINITE_LOG_ERROR("Finite Key A is not valid");
+    }
+
+    if (finite_key_pressed(FINITE_KEY_A, kbd)) {
+        FINITE_LOG("%s was pressed", finite_key_string_from_key(FINITE_KEY_A));
+    }
+}
+```
+
+## Standard Usage
+
+To convert a string to a `FiniteKey`, use [`finite_key_from_string`](/reference/finiteinput/finitekeyboard/functions/finite_key_from_string/)

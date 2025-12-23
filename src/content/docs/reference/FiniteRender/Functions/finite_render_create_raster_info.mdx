@@ -1,0 +1,42 @@
+---
+title:  finite_render_create_raster_info
+description: The  finite_render_create_raster_info function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+ finite_render_create_raster_info was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_raster_info` function creates a `VkPipelineRasterizationStateCreateInfo` struct from a FiniteRenderRasterState configuration.
+
+```c
+VkPipelineRasterizationStateCreateInfo  finite_render_create_render_pass(FiniteRender *render, FiniteRenderAttachmentDescriptionInfo **att_desc_info, FiniteRenderAttachmentRefInfo **ref_info, FiniteRenderSubpassDescriptionInfo **subpass_desc_info,  FiniteRenderSubpassDependencyInfo **subpass_dep_info, FiniteRenderRenderPassInfo *info);
+```
+
+## Properties
+
+| Type                             | Description                                   |
+| -------------------------------- | --------------------------------------------- |
+| `FiniteRender *render`           | A pointer to the FiniteRender instance        |
+| `FiniteRenderRasterState *state` | A pointer to the rasterization state settings |
+
+```c
+FiniteRenderRasterState rasterStateParams = {
+    .depthClampEnable = false,
+    .rasterizerDiscardEnable = false,
+    .polygonMode = VK_POLYGON_MODE_FILL,
+    .cullMode = VK_CULL_MODE_BACK_BIT,
+    .frontFace = VK_FRONT_FACE_CLOCKWISE,
+    .depthBiasEnable = false,
+    .depthBiasConstantFactor = 0.0f,
+    .depthBiasClamp = 0.0f,
+    .depthBiasSlopeFactor = 0.0f,
+    .lineWidth = 1.0f
+};
+
+VkPipelineRasterizationStateCreateInfo rasterState = 
+    finite_render_create_raster_info(render, &rasterStateParams);
+
+```

@@ -1,0 +1,47 @@
+---
+title: finite_render_create_multisample_info
+description: The finite_render_create_multisample_info function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_multisample_info was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_multisample_info` function creates a Vulkan multisample state from the provided `FiniteRenderMultisampleStateInfo` for a `FiniteRender` context.
+
+```c
+VkPipelineMultisampleStateCreateInfo finite_render_create_multisample_info(
+    FiniteRender *render,
+    FiniteRenderMultisampleStateInfo *info
+);
+```
+
+## Parameters
+
+| Type                                     | Description                                                                 |
+| ---------------------------------------- | --------------------------------------------------------------------------- |
+| `FiniteRender *render`                   | The Vulkan rendering context. Must be valid.                                |
+| `FiniteRenderMultisampleStateInfo *info` | Contains multisample configuration, flags, sample count, and coverage info. |
+
+## Code Example
+
+FiniteRenderMultisampleStateInfo ms_info = {
+    .flags = 0,
+    .rasterizationSamples = VK_SAMPLE_COUNT_4_BIT,
+    .sampleShadingEnable = true,
+    .minSampleShading = 0.5f,
+    .sampleMask = NULL,
+    .alphaToCoverageEnable = false,
+    .alphaToOneEnable = false,
+    .next = NULL
+};
+
+VkPipelineMultisampleStateCreateInfo multisampleState = finite_render_create_multisample_info(render, &ms_info);
+
+## Standard Usage
+
+Both render and info must not be NULL
+
+The returned VkPipelineMultisampleStateCreateInfo can be used directly in VkGraphicsPipelineCreateInfo.

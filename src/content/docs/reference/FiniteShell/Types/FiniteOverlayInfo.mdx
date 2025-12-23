@@ -1,0 +1,30 @@
+---
+title: FiniteOverlayInfo
+description: The FiniteOverlayInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteOverlayInfo was last modified in **v0.6.5**</Aside>
+
+The `FiniteOverlayInfo` struct stores configuration data for a layer_shell window in a `FiniteShell`, including anchor, size, and margins.
+
+```c
+typedef struct {
+    uint32_t anchor;
+    int width;
+    int height;
+    FiniteOverlayMargin margin;
+} FiniteOverlayInfo;
+```
+
+| Type                         | Description                                                                                                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `uint32_t anchor`            | The [`zwlr_layer_shell_v1_anchor`](https://wayland.app/protocols/wlr-layer-shell-unstable-v1#zwlr_layer_surface_v1:enum:anchor) to snap to. Use the provided enum values. |
+| `int width`                  | Width of the overlay in pixels.                                                                                                                                           |
+| `int height`                 | Height of the overlay in pixels.                                                                                                                                          |
+| `FiniteOverlayMargin margin` | Margins around the overlay (top, bottom, left, right).                                                                                                                    |
+
+## Standard Usage
+
+This is created automatically by [`finite_overlay_set_margin`](/reference/finiteshell/functions/finite_overlay_set_margin)

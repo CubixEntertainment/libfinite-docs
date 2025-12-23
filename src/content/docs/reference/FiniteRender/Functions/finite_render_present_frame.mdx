@@ -1,0 +1,48 @@
+---
+title: finite_render_present_frame
+description: Presents a rendered frame to the swapchain.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_present_frame was last modified in **v0.6.0**</Aside>
+
+The `finite_render_present_frame` function attempts to present a rendered image to the swapchain using Vulkan’s presentation queue.
+
+```c
+bool finite_render_present_frame(
+    FiniteRender *render,
+    FiniteRenderPresentInfo *info,
+    bool safeExit
+);
+```
+
+## Parameters
+
+| Type                            | Description                                                                                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`          | The active FiniteRender instance used for presentation.                                                 |
+| `FiniteRenderPresentInfo *info` | Presentation configuration describing swapchains, semaphores, and image indices.                        |
+| `bool safeExit`                 | If `true`, the renderer will clean up and exit the application on failure instead of returning `false`. |
+
+## Code Example
+
+```c
+FiniteRenderPresentInfo presentInfo = {
+    .next = NULL,
+    ._waitSemaphores = 1,
+    .waitSemaphores = &render->renderFinishedSemaphore,
+    ._swapchains = 1,
+    .swapchains = &render->vk_swapchain,
+    .imageIndices = &imageIndex,
+    .results = NULL
+};
+
+finite_render_present_frame(render, &presentInfo, true);
+```
+
+## Standard Usage
+
+To detect presentation errors, provide a valid results array in FiniteRenderPresentInfo.
+
+This function does not perform synchronization beyond what is specified in FiniteRenderPresentInfo

@@ -1,0 +1,53 @@
+---
+title: finite_render_create_assembly_state
+description: The finite_render_create_assembly_state function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+  finite_render_create_assembly_state was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_assembly_state` function generates a Vulkan `VkPipelineInputAssemblyStateCreateInfo` struct from the provided `FiniteRenderAssemblyInfo`.
+
+```c
+VkPipelineInputAssemblyStateCreateInfo finite_render_create_assembly_state(
+    FiniteRender *render,
+    FiniteRenderAssemblyInfo *assemble
+);
+```
+
+## Parameters
+
+| Type                                 | Description                                                                                                                                                          |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`               | The rendering context. Must be a valid pointer.                                                                                                                      |
+| `FiniteRenderAssemblyInfo *assemble` | The [`FiniteRenderAssemblyInfo`](/reference/finiterender/types/finiterenderassemblyinfo/). Contains topology, flags, and primitive restart settings for the pipeline. |
+
+## Code Example
+
+```c
+FiniteRenderAssemblyInfo assemble_info = {
+    .topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+    .primitiveRestartEnable = false,
+    .flags = 0,
+    .next = NULL
+};
+
+VkPipelineInputAssemblyStateCreateInfo state = finite_render_create_assembly_state(render, &assemble_info);
+```
+
+## Notes
+
+`primitiveRestartEnable` is converted to VK_TRUE or VK_FALSE automatically.
+
+This function does not return a pointer.
+
+## Standard Usage
+
+`render` and `assemble` must not be NULL.
+
+The `pNext` field is taken from `FiniteRenderAssemblyInfo.next` to allow Vulkan extensions
+
+The returned VkPipelineInputAssemblyStateCreateInfo can be used directly in Vulkan pipeline creation.

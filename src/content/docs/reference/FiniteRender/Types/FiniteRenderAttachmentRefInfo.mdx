@@ -1,0 +1,31 @@
+---
+title: FiniteRenderAttachmentRefInfo
+description: The FiniteRenderAttachmentRefInfo struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteRenderAttachmentRefInfo was last modifed in **v0.6.0** </Aside>
+
+The `FiniteRenderAttachmentRefInfo` struct contains information for creating a VkAttachmenReference.
+
+```c
+typedef struct FiniteRenderAttachmentRefInfo  FiniteRenderAttachmentRefInfo;
+struct FiniteRenderAttachmentRefInfo {
+    uint32_t _attachment;
+    VkImageLayout layout;
+    FiniteAttachmentDescriptor type;
+};
+```
+
+## Properties
+
+| Type                         | Decription                                                |
+| ---------------------------- | --------------------------------------------------------- |
+| `uint32_t _attachment`       | The number of attachments.                                |
+| `VkImageLayout layout`       | The layout the attachment is currently at.                |
+| `FiniteAttachmentDescriptor` | The type of descriptor the FintiteRenderAttachmentRef is. |
+
+## Standard Usage
+
+This struct should be created manually and used as a params [`finite_render_create_render_pass`](/reference/finiterender/functions/finite_render_create_render_pass)

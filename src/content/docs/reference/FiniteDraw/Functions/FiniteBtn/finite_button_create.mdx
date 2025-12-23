@@ -1,0 +1,58 @@
+---
+title: finite_button_create
+description: The finite_button_create function.
+sidebar: 
+    order: -1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_button_create was last modified in **v0.4.0**
+</Aside>
+
+The `finite_button_create` function allocates and initializes a new `FiniteBtn` and adds it to a `FiniteShell`.
+
+```c
+FiniteBtn *finite_button_create(
+    FiniteShell *shell,
+    void (*on_select_callback)(FiniteBtn *self, int id, void *data),
+    void (*on_focus_callback)(FiniteBtn *self, int id, void *data),
+    void (*on_unfocus_callback)(FiniteBtn *self, int id, void *data),
+    void *data
+);
+```
+
+## Properties
+
+| Type                                                               | Description                                              |
+| ------------------------------------------------------------------ | --------------------------------------------------------- |
+| `FiniteShell *shell`                                               | The `FiniteShell` to which this button will be added.     |
+| `void (*on_select_callback)(FiniteBtn *self, int id, void *data)`  | Function called when the button is activated or selected. |
+| `void (*on_focus_callback)(FiniteBtn *self, int id, void *data)`   | Function called when the button gains focus.              |
+| `void (*on_unfocus_callback)(FiniteBtn *self, int id, void *data)` | Function called when the button loses focus.              |
+| `void *data`                                                       | Custom data passed to all callbacks.                      |
+
+## Code Example
+
+```c
+void select_cb(FiniteBtn *self, int id, void *data) {
+    FINITE_LOG("Button %d selected!\n", id);
+}
+
+FiniteBtn *btn = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+```
+
+## Notes
+
+`isActive` for the first button is set to true for the first button.
+
+`self` is set to the newly created button pointer for safe callback usage.
+
+## Standard Usage
+
+Buttons must be created with a valid `FiniteShell`.
+
+Callbacks should not block the main compositor loop.
+
+Use `FiniteDirectionType` values in `FiniteBtn.relations` for navigation. Do not use `FINITE_DIRECTION_DONE`.

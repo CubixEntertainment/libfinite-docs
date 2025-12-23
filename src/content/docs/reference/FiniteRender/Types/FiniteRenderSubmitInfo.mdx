@@ -1,0 +1,40 @@
+---
+title: FiniteRenderSubmitInfo
+description: The FiniteRenderSubmitInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderSubmitInfo was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderSubmitInfo` struct defines submission information for Vulkan command buffers in the FiniteRender system.
+
+```c
+typedef struct {
+    const void *next;
+    uint32_t _waitSemaphores;
+    const VkSemaphore *waitSemaphores;
+    const VkPipelineStageFlags *waitDstStageMask;
+    uint32_t _commandBuffs;
+    const VkCommandBuffer *commandBuffs;
+    uint32_t _signalSemaphores;
+    const VkSemaphore *signalSemaphores;
+} FiniteRenderSubmitInfo;
+```
+
+## Parameters
+
+| Type                                           | Description                                                           |
+| ---------------------------------------------- | --------------------------------------------------------------------- |
+| `const void *next`                             | Optional pointer to extension-specific Vulkan info (usually `NULL`).  |
+| `uint32_t _waitSemaphores`                     | Number of semaphores to wait on before executing the command buffers. |
+| `const VkSemaphore *waitSemaphores`            | Array of semaphores to wait on.                                       |
+| `const VkPipelineStageFlags *waitDstStageMask` | Array of pipeline stages corresponding to each wait semaphore.        |
+| `uint32_t _commandBuffs`                       | Number of command buffers to submit.                                  |
+| `const VkCommandBuffer *commandBuffs`          | Array of command buffers to execute.                                  |
+| `uint32_t _signalSemaphores`                   | Number of semaphores to signal once execution completes.              |
+| `const VkSemaphore *signalSemaphores`          | Array of semaphores to signal after execution.                        |
+
+## Standard Usage
+
+This struct should be created manually and used as a param to [`finite_render_submit_frame_debug`](/reference/finiterender/functions/finite_render_submit_frame_debug)

@@ -1,0 +1,42 @@
+---
+title: FiniteRenderReturnBuffer
+description: Describes a Vulkan buffer and its associated memory returned from FiniteRender buffer creation functions.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderReturnBuffer was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderReturnBuffer` struct represents a fully created Vulkan buffer and its memory allocation, including layout information for vertex and optional index data.
+
+```c
+struct FiniteRenderReturnBuffer {
+    bool _indices;
+    VkBuffer buf;
+    VkDeviceMemory mem;
+    VkDeviceSize vertexOffset;
+    VkDeviceSize indexOffset;
+    uint32_t vertexSize;
+    uint32_t indexSize;
+    uint32_t indexCount;
+    uint32_t vertexCount;
+};
+```
+
+## Properties
+
+| Type                        | Description                                            |
+| --------------------------- | ------------------------------------------------------ |
+| `bool _indices`             | Indicates whether this buffer contains index data.     |
+| `VkBuffer buf`              | The Vulkan buffer handle.                              |
+| `VkDeviceMemory mem`        | The Vulkan device memory bound to the buffer.          |
+| `VkDeviceSize vertexOffset` | Byte offset to the start of vertex data in the buffer. |
+| `VkDeviceSize indexOffset`  | Byte offset to the start of index data in the buffer.  |
+| `uint32_t vertexSize`       | Size in bytes of the vertex data region.               |
+| `uint32_t indexSize`        | Size in bytes of the index data region.                |
+| `uint32_t indexCount`       | Number of indices stored in the buffer.                |
+| `uint32_t vertexCount`      | Number of vertices stored in the buffer.               |
+
+## Standard Usage
+
+This struct should be created manually and used as a param for functions that offer a Return Buffer

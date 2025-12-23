@@ -1,0 +1,48 @@
+---
+title: finite_render_create_viewport_state
+description: The finite_render_create_viewport_state function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_viewport_state was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_viewport_state` function creates a Vulkan viewport state from the provided viewport and scissor rectangles for a `FiniteRender` context.
+
+```c
+VkPipelineViewportStateCreateInfo finite_render_create_viewport_state(
+    FiniteRender *render,
+    FiniteRenderViewportState *state
+);
+```
+
+## Parameters
+
+| Type                               | Description                                                   |
+| ---------------------------------- | ------------------------------------------------------------- |
+| `FiniteRender *render`             | The Vulkan rendering context. Must be valid.                  |
+| `FiniteRenderViewportState *state` | Contains viewport and scissor information, counts, and flags. |
+
+## Code Example
+
+```c
+FiniteRenderViewportState vp_state = {
+    ._viewports = 1,
+    .viewports = &viewport,
+    ._scissors = 1,
+    .scissors = &scissor,
+    .flags = 0
+};
+
+VkPipelineViewportStateCreateInfo viewportState = finite_render_create_viewport_state(render, &vp_state);
+```
+
+## Standard Usage
+
+Both render and state must not be NULL
+
+The returned VkPipelineViewportStateCreateInfo can be used directly in VkGraphicsPipelineCreateInfo.
+
+Ensure state->viewports and state->scissors remain valid for the lifetime of the pipeline creation call.

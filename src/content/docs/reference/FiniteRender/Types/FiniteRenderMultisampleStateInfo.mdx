@@ -1,0 +1,43 @@
+---
+title: FiniteRenderMultisampleStateInfo
+description: The FiniteRenderMultisampleStateInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteRenderMultisampleStateInfo was last modified in **v0.6.0**
+</Aside>
+
+The `FiniteRenderMultisampleStateInfo` struct stores multisample state configuration for Vulkan pipeline creation.
+
+```c
+typedef struct {
+    const void* next;
+    VkPipelineMultisampleStateCreateFlags flags;
+    VkSampleCountFlagBits rasterizationSamples;
+    bool sampleShadingEnable;
+    float minSampleShading;
+    const VkSampleMask* sampleMask;
+    bool alphaToCoverageEnable;
+    bool alphaToOneEnable;
+} FiniteRenderMultisampleStateInfo;
+```
+
+## Parameters
+
+| Type                                          | Description                                                  |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| `const void* next`                            | Pointer to extension-specific structure or `NULL`.           |
+| `VkPipelineMultisampleStateCreateFlags flags` | Flags controlling multisampling behavior.                    |
+| `VkSampleCountFlagBits rasterizationSamples`  | Number of samples per pixel (e.g., `VK_SAMPLE_COUNT_1_BIT`). |
+| `bool sampleShadingEnable`                    | Enable or disable sample shading.                            |
+| `float minSampleShading`                      | Minimum fraction of samples for sample shading (0.0–1.0).    |
+| `const VkSampleMask* sampleMask`              | Mask specifying which samples are active.                    |
+| `bool alphaToCoverageEnable`                  | Enable alpha-to-coverage for blending.                       |
+| `bool alphaToOneEnable`                       | Enable alpha-to-one mode.                                    |
+
+
+## Standard Usage
+
+This struct should be created manually and used as a param to [`finite_render_create_multisample_info`](/reference/finiterender/functions/finite_render_create_multisample_info)

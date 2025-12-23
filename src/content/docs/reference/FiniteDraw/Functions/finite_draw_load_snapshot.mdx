@@ -1,0 +1,44 @@
+---
+title: finite_draw_load_snapshot
+description: The finite_draw_load_snapshot function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_load_snapshot was last modifed in **v0.6.0** </Aside>
+
+The `finite_draw_load_snapshot` function attempts to restore a cairo surface from a restore point.
+
+```c
+void finite_draw_load_snapshot(FiniteShell *shell)
+```
+
+## Parameters
+
+| Type                 | Description                                                             |
+| -------------------- | ----------------------------------------------------------------------- |
+| `FiniteShell *shell` | The [`FiniteShell`](../../../finiteshell/finiteshell)where the window is. |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+finite_draw_load_snapshot(myShell);
+finite_draw_finish(myShell);
+```
+
+## Standard Usage
+
+<Aside type="caution">
+  finite_draw_load_snapshot was deprecated in **v0.7.0** and will be removed in v1.0.0.
+  Use `cairo_restore` instead.
+</Aside>
+
+This function must have a valid `FiniteShell`
+
+This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.
+
+This function copys all current data on screen and stores it in `FiniteShell.snapshot` in `FiniteShell`
+
+At some point [`finite_draw_finish`](../finite_draw_finish) should be called to apply the changes made by the snapshot visually.

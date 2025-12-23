@@ -1,0 +1,42 @@
+---
+title: FiniteRenderColorAttachmentInfo
+description: The FiniteRenderColorAttachmentInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteRenderColorAttachmentInfo was last modified in **v0.6.0**
+</Aside>
+
+The `FiniteRenderColorAttachmentInfo` struct stores information for configuring a single color attachment in a Vulkan pipeline's color blend state.
+
+```c
+typedef struct {
+    bool blendEnable;
+    VkBlendFactor srcColorBlendFactor;
+    VkBlendFactor dstColorBlendFactor;
+    VkBlendOp colorBlendOp;
+    VkBlendFactor srcAlphaBlendFactor;
+    VkBlendFactor dstAlphaBlendFactor;
+    VkBlendOp alphaBlendOp;
+    VkColorComponentFlags colorWriteMask;
+} FiniteRenderColorAttachmentInfo;
+```
+
+## Properties
+
+| Type                                   | Description                                                    |
+| -------------------------------------- | -------------------------------------------------------------- |
+| `bool blendEnable`                     | Enables or disables blending for this color attachment.        |
+| `VkBlendFactor srcColorBlendFactor`    | Source color blend factor.                                     |
+| `VkBlendFactor dstColorBlendFactor`    | Destination color blend factor.                                |
+| `VkBlendOp colorBlendOp`               | Color blend operation.                                         |
+| `VkBlendFactor srcAlphaBlendFactor`    | Source alpha blend factor.                                     |
+| `VkBlendFactor dstAlphaBlendFactor`    | Destination alpha blend factor.                                |
+| `VkBlendOp alphaBlendOp`               | Alpha blend operation.                                         |
+| `VkColorComponentFlags colorWriteMask` | Mask specifying which color channels are written (e.g., RGBA). |
+
+## Standard Usage
+
+This struct should be created manually and used as a params [`finite_render_create_color_blend_attachment`](/reference/finiterender/functions/finite_render_create_color_blend_attachment)

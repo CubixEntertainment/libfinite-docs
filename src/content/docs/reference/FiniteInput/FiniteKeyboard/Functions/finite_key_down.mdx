@@ -1,0 +1,52 @@
+---
+title: finite_key_down
+description: The finite_key_down function.
+sidebar:
+  order: 4
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_key_down was last modifed in **v0.6.0** </Aside>
+
+The `finite_key_down` returns whether a given [`FiniteKey`](/reference/finiteinput/finitekeyboard/enums/finitekey) is being pushed down.
+
+```c
+bool finite_key_down(FiniteKey key, FiniteKeyboard *board)
+```
+
+## Parameters
+
+| Type                    | Description                                |
+| ----------------------- | ------------------------------------------ |
+| `FiniteKey key`         | The FiniteKey to check the state of        |
+| `FiniteKeyboard *board` | The FiniteKeyboard to check the state from |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+
+while (wl_display_dispatch(myShell->display) != -1) {
+    if (!finite_key_valid(FINITE_KEY_A)) {
+        FINITE_LOG_ERROR("Finite Key A is not valid");
+    }
+
+    if (finite_key_down(FINITE_KEY_A, kbd)) {
+        FINITE_LOG("A is down");
+    }
+}
+```
+
+## Standard Usage
+
+Developers should **ALWAYS** call [`finite_key_valid`](/reference/finiteinput/finitekeyboard/functions/finite_key_valid/) to verify a `FINITE_KEY`'s existence in the internal finite_key_lookup table. Just because an enum exists does not mean that the evdev code for that input option is present.

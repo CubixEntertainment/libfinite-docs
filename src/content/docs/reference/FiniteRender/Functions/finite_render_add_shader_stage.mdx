@@ -1,0 +1,52 @@
+---
+title: finite_render_add_shader_stage
+description: The finite_render_add_shader_stage function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_add_shader_stage was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_add_shader_stage` function adds a new shader stage to a `FiniteRender` context, preparing it for pipeline creation.
+
+```c
+bool finite_render_add_shader_stage(
+    FiniteRender *render,
+    FiniteRenderShaderStageInfo *stage
+);
+```
+
+## Parameters
+
+| Type                                 | Description                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`               | The Vulkan rendering context. Must be valid.                                                |
+| `FiniteRenderShaderStageInfo *stage` | Contains shader module, type (vertex/fragment), entry name, flags, and specialization info. |
+
+## Code Example
+
+```c
+FiniteRenderShaderStageInfo stage_info = {
+    .shader = vertexModule,
+    .stage = FINITE_SHADER_TYPE_VERTEX,
+    .name = "main",
+    .flags = 0,
+    .specializationInfo = NULL,
+    .next = NULL
+};
+
+bool success = finite_render_add_shader_stage(render, &stage_info);
+if (!success) {
+    printf("Failed to add shader stage.\n");
+}
+```
+
+## Standard Usage
+
+`render` and `stage` must not be NULL.
+
+If `stage->name` is NULL, it defaults to "main"
+
+Returns true on success, false on allocation failure or invalid input.

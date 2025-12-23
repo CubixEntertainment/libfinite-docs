@@ -1,0 +1,63 @@
+---
+title: finite_render_copy_buffer
+description: Copies data between two Vulkan buffers using a one-shot command buffer.
+sidebar:
+  order: 11
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_copy_buffer was last modified in **v0.6.0**</Aside>
+
+The `finite_render_copy_buffer` function performs a GPU-side copy from one Vulkan buffer to another using a temporary one-shot command buffer.
+
+```c
+void finite_render_copy_buffer( FiniteRender *render, VkBuffer src, VkBuffer dest, VkDeviceSize size)
+```
+
+## Parameters
+
+| Type                   | Description                                                               |
+| ---------------------- | ------------------------------------------------------------------------- |
+| `FiniteRender *render` | The FiniteRender instance that owns the Vulkan device and graphics queue. |
+| `VkBuffer src`         | Source buffer to copy data from.                                          |
+| `VkBuffer dest`        | Destination buffer to copy data into.                                     |
+| `VkDeviceSize size`    | Number of bytes to copy.                                                  |
+
+## Code Example
+
+```c
+bool prog;
+FiniteRenderReturnBuffer point;
+prog = finite_render_create_vertex_buffer(render, &vertex_buffer_info, &mem_alloc_info, sizeof(Vertex) * _verts, &point);
+if (!prog) {
+    exit(EXIT_FAILURE);
+}
+
+// as a dev you must manually map the vertex buffer when using custom vertex
+void *data;
+vkMapMemory(render->vk_device, point.mem, 0, vertex_buffer_info.size, 0, &data);
+memcpy(data, vertices, (size_t) (sizeof(Vertex) * _verts));
+// ! Make sure to offset the data so memcpy doesnt overwrite
+void *index = (char *)data + sizeof(Vertex) *_verts;
+memcpy(index, indexData, (size_t) (sizeof(uint16_t) * _indexes));
+vkUnmapMemory(render->vk_device, point.mem);
+
+vertex_buffer_info.useFlags = VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+mem_alloc_info.flags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+
+prog = finite_render_create_vertex_buffer(render, &vertex_buffer_info, &mem_alloc_info, sizeof(Vertex) * _verts, NULL);
+if (!prog) {
+    exit(EXIT_FAILURE);
+}
+
+finite_render_copy_buffer(render, point.buf, render->vk_vertexBuf, (point.vertexSize + point.indexSize));
+```
+
+## Standard Usage
+
+Both buffers must be created with VK_BUFFER_USAGE_TRANSFER_SRC_BIT and/or VK_BUFFER_USAGE_TRANSFER_DST_BIT as appropriate.
+
+The copy operation is synchronous and blocks until the GPU finishes execution.
+
+Intended for setup and resource transfer operations, not per-frame usage.

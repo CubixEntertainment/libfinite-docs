@@ -1,0 +1,34 @@
+---
+title: FiniteColorGroup
+description: The FiniteColorGroup struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteColorGroup was last modified in **v0.4.0** </Aside>
+
+The `FiniteColorGroup` struct stores RGBA color values as doubles, used for rendering with cairo.
+
+```c
+typedef struct {
+    double r;
+    double g;
+    double b;
+    double a;
+} FiniteColorGroup;
+```
+
+## Properties
+
+| Type       | Description                             |
+| ---------- | --------------------------------------- |
+| `double r` | Red component (0.0 to 1.0).             |
+| `double g` | Green component (0.0 to 1.0).           |
+| `double b` | Blue component (0.0 to 1.0).            |
+| `double a` | Alpha (opacity) component (0.0 to 1.0). |
+
+## Standard Usage
+
+All values must be normalized between 0.0 and 1.0. To convert from standard 0–255 RGB values, divide by 255.0.
+
+Compatible with `FiniteTextGroup` or other structures that reference RGBA colors.

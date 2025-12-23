@@ -1,0 +1,52 @@
+---
+title: finite_render_create_generic_buffer
+description: The finite_render_create_generic_buffer function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_create_generic_buffer was last modified in **v0.6.0**</Aside>
+
+The `finite_render_create_generic_buffer` function creates a Vulkan buffer with associated memory and optionally separates vertex and index data.
+
+```c
+bool finite_render_create_generic_buffer(FiniteRender *render, FiniteRenderBufferInfo *info, FiniteRenderMemAllocInfo *mem_info, uint64_t vertexSize, FiniteRenderReturnBuffer *rtrn)
+```
+
+## Parameters
+
+| Type                                 | Description                                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`               | The [`FiniteRender`](../finiterender/finiterender) object associated with the Vulkan device. |
+| `FiniteRenderBufferInfo *info`       | Buffer creation info struct.                                                                 |
+| `FiniteRenderMemAllocInfo *mem_info` | Memory allocation info struct for selecting memory type and flags.                           |
+| `uint64_t vertexSize`                | Size in bytes of the vertex portion of the buffer.                                           |
+| `FiniteRenderReturnBuffer *rtrn`     | Pointer to a struct that receives the created buffer, memory, and vertex/index offsets.      |
+
+## Code Example
+
+```c
+FiniteRenderReturnBuffer buf;
+FiniteRenderBufferInfo bufferInfo = {
+    .next = NULL,
+    .flags = 0,
+    .size = 1024,
+    .useFlags = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT,
+    .sharing = VK_SHARING_MODE_EXCLUSIVE,
+    ._fIndex = 0,
+    .fIndex = NULL
+};
+
+FiniteRenderMemAllocInfo memInfo = {
+    .next = NULL,
+    .flags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+};
+
+bool result = finite_render_create_generic_buffer(myRender, &bufferInfo, &memInfo, 512, &buf);
+```
+
+## Standard Usage
+
+This function must have valid FiniteRender, FiniteRenderBufferInfo, and FiniteRenderMemAllocInfo structs.
+
+vertexSize must be smaller than or equal to info->size. The remaining portion is considered index data.

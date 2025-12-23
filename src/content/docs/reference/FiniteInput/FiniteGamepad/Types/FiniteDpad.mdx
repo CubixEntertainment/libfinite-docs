@@ -1,0 +1,32 @@
+---
+title: FiniteDpad
+description: The FiniteDpad struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteDpad was last modifed in **v0.7.0** </Aside>
+
+The `FiniteDpad` struct stores data about a controller's dpad.
+
+```c
+typedef struct {
+    uint16_t xAxis;
+    int xValue;
+    uint16_t yAxis;
+    int yValue;
+} FiniteDpad;
+```
+
+## Properties
+
+| Type             | Description                                                                                               |
+| ---------------- | --------------------------------------------------------------------------------------------------------- |
+| `uint16_t xAxis` | The linux evdev code of the joystick's.                                                                   |
+| `double xValue`  | The "range" of the input value from -1 to +1. Negatives are Left & Up while positives are Right and Down. |
+| `uint16_t yAxis` | The linux evdev code of the joystick's Y Axis.                                                            |
+| `double yValue`  | The "range" of the input value from -1 to +1. Negatives are Left & Up while positives are Right and Down. |
+
+## Specification
+
+Developers in general are discourageed from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU).

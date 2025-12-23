@@ -1,0 +1,72 @@
+---
+title: finite_render_write_to_descriptor
+description: Writes descriptor data to a Vulkan descriptor set in FiniteRender.
+---
+
+<Aside>finite_render_write_to_descriptor was last modified in **v0.6.0**</Aside>
+
+Writes one or more descriptors to a Vulkan descriptor set. Depending on the `FiniteRenderDescriptorInfo` type, it can update buffer or image descriptors.
+
+```c
+bool finite_render_write_to_descriptor( FiniteRender *render, FiniteRenderWriteSetInfo **info, FiniteRenderDescriptorInfo *desc_info, uint32_t _infos);
+```
+
+## Properties
+
+| Type                                    | Description                                                        |
+| --------------------------------------- | ------------------------------------------------------------------ |
+| `FiniteRender *render`                  | The render context containing Vulkan device handles.               |
+| `FiniteRenderWriteSetInfo **info`       | Array of descriptor write information structures.                  |
+| `FiniteRenderDescriptorInfo *desc_info` | Optional descriptor info containing buffer or image data to write. |
+| `uint32_t _infos`                       | The number of elements in the `info` array.                        |
+
+## Code Example
+
+```c
+
+
+FiniteRenderBufferInfo buffer_info = {
+    .size = 1024,
+    .useFlags = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+    .sharing = VK_SHARING_MODE_EXCLUSIVE,
+    ._fIndex = 1,
+    .fIndex = (uint32_t[]){0}
+};
+
+FiniteRenderMemAllocInfo mem_info = {
+    .flags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+};
+
+FiniteRenderReturnBuffer ubo;
+finite_render_create_generic_buffer(
+    render,
+    &buffer_info,
+    &mem_info,
+    sizeof(float) * 16, // example size
+    &ubo
+);
+
+FiniteRenderDescriptorInfo desc_info = {
+    .type = FINITE_DESCRIPTOR_BUFFER,
+    .buffer = ubo.buf,
+    .buffer_offset = 0,
+    .buffer_range = buffer_info.size
+};
+
+FiniteRenderWriteSetInfo write_info = {
+    .dstSet = render->myDescriptorSet,
+    .dstBinding = 0,
+    .dstArrayElement = 0,
+    .descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+    ._descriptors = 1,
+    .bufferInfo = NULL,
+    .imageInfo = NULL,
+    .texelBufferView = NULL,
+    .next = NULL
+};
+
+FiniteRenderWriteSetInfo *infos[] = { &write_info };
+
+finite_render_write_to_descriptor(render, infos, &desc_info, 1);
+```
+

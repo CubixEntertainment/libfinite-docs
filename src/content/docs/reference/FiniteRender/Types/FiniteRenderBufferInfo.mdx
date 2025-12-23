@@ -1,0 +1,43 @@
+---
+title: FiniteRenderBufferInfo
+description: The FiniteRenderBufferInfo struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteRenderBufferInfo was last modified in **v0.6.0**
+</Aside>
+
+The `FiniteRenderBufferInfo` struct stores information required to create a Vulkan buffer in the FiniteRender system.
+
+```c
+typedef struct {
+    const void *next;
+    VkBufferCreateFlags flags;
+    VkDeviceSize size;
+    VkBufferUsageFlags useFlags;
+    VkSharingMode sharing;
+    uint32_t _fIndex;
+    uint32_t *fIndex;
+} FiniteRenderBufferInfo;
+```
+
+## Properties
+
+| Type                          | Description                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------- |
+| `const void *next`            | Pointer for Vulkan extension chaining, usually `NULL`.                                        |
+| `VkBufferCreateFlags flags`   | Vulkan buffer creation flags.                                                                 |
+| `VkDeviceSize size`           | Size of the buffer in bytes.                                                                  |
+| `VkBufferUsageFlags useFlags` | Vulkan usage flags indicating how the buffer will be used (vertex, index, uniform, etc.).     |
+| `VkSharingMode sharing`       | Specifies whether the buffer is exclusive to a single queue or shared across multiple queues. |
+| `uint32_t _fIndex`            | Number of elements in the `fIndex` array.                                                     |
+| `uint32_t *fIndex`            | Optional array of queue family indices for sharing the buffer across multiple queues.         |
+
+## Standard Usage
+
+This struct should be created manually and used as a param for a finite buffer function:
+    - [`finite_render_create_generic_buffer`](/reference/finiterender/functions/finite_render_create_generic_buffer)
+    - [`finite_render_create_vertex_buffer`](/reference/finiterender/functions/finite_render_create_vertex_buffer)
+    - [`finite_render_create_uniform_buffer`](/reference/finiterender/functions/finite_render_create_uniform_buffer)

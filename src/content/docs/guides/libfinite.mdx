@@ -1,0 +1,20 @@
+---
+title: Meet Libfinite
+description: A guide in my new Starlight docs site.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside>Documentation for **v0.7.0**</Aside>
+
+Welcome to the Infinite Developer Family! I'm so glad you or your project manager has decided to bring your project to Infinite. This documenation page will provide some information on how to use the Infinite API and how to build an Infinite Compliant game.
+
+## Project Goals
+
+The objective of Infinite Library is to create an abstractable, simple and lightweight development library for Infinite Game Developers that handles the complexities of interacting with the console behind simple, easy to understand functions while still giving developers freedom of choice to implement their own versions of these functions.
+
+As a developer, you can easily mix and match the implementation of features provided by the Infinite SDK and your own implementations to create a virtually seamless transition to the Infinite hardware. If you want extended functionality of any libfinite function, you can always write a local version yourself. libfinite functions don't call on each other (with a few exceptions, such as [`finite_render_begin_oneshot_command`](../reference/functions/finite_render_begin_oneshot_command)) so you're free to do what you want (within reason).
+
+## Engine Support
+
+As of libfinite 0.7.0, not engines have native libfinite support (as engine support is a later focus) but you can still work with libfinite to bring support for the library in your custom engines.

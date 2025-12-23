@@ -1,0 +1,52 @@
+---
+title: finite_audio_play
+description: The finite_audio_play function.
+sidebar:
+  order: 5
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_audio_play was last modifed in **v0.7.0** </Aside>
+
+The `finite_audio_play` attempts to play an audio file from a [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice)
+
+```c
+void finite_audio_play(FinitePlaybackDevice *dev)
+```
+
+## Parameters
+
+| Type                        | Description                                                                                                    |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `FinitePlaybackDevice *dev` | The [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice) to get the audio to play from. |
+
+## Code Example
+
+```c
+    #include <finite/audio.h>
+    #include <finite/log.h>
+
+    FinitePlaybackDevice *dev = finite_audio_device_init();
+    char *jingle = "jingle2.mp3";
+
+    finite_audio_get_audio_params(jingle, dev);
+    // print out the audio duration
+    finite_audio_get_audio_duration(dev);
+
+    // use params to init audio
+    finite_audio_init_audio(dev, jingle, false);
+
+    // audio is made so now play
+
+    finite_audio_play(dev);
+    FINITE_LOG("Done\n");
+    // clean up when finished
+    finite_audio_cleanup(dev);
+```
+
+## Standard Usage
+
+This function requires a valid [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice) .
+
+Playing audio is a halting function. For the best performance, handle audio in a seperate thread.

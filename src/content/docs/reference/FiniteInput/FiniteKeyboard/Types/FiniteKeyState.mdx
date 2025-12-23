@@ -1,0 +1,32 @@
+---
+title: FiniteKeyState
+description: The FiniteKeyState struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteShell was last modifed in **v0.7.0** </Aside>
+
+The `FiniteKeyState` struct stores the state of a speicific keyboard input
+
+```c
+typedef struct {
+    uint16_t id;
+    bool isHeld;
+    bool isDown;
+    bool isUp;
+} FiniteKeyState;
+```
+
+## Properties
+
+| Type          | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- |
+| `uint16_t id` | The linux evdev code of the given input.                                         |
+| `bool isHeld` | Whether the button is being held down. Acts as combined state of isDown and isUp |
+| `bool isDown` | Whether the button is currently being pressed down.                              |
+| `bool isUp`   | Whether the button is not being pressed down.                                    |
+
+## Specification
+
+`FiniteKeyState`s should **not** be created manually. Developers should let [`finite_input_keyboard_init`](/reference/finiteinput/functions/finite_input_keyboard_init/) handle creating and managing the FiniteKeyState of each individual key.

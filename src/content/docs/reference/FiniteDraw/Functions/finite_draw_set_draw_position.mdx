@@ -1,0 +1,49 @@
+---
+title: finite_draw_set_draw_position
+description: The finite_draw_set_draw_position function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_set_draw_position was last modifed in **v0.6.0** </Aside>
+
+The `finite_draw_set_draw_position` function attempts to set the draw position relative to screen.
+
+```c
+void finite_draw_set_draw_position(FiniteShell *shell, double x, double y)
+```
+
+## Parameters
+
+| Type                 | Description                                                          |
+| -------------------- | -------------------------------------------------------------------- |
+| `FiniteShell *shell` | The [`FiniteShell`](../../../types/FiniteShell) where the window is. |
+| `double x`           | The x position to set the draw position to.                          |
+| `double y`           | The y position to set the draw position to.                          |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+finite_draw_set_font(myShell, "KunbhSans", false, false, 24);
+
+FiniteColorGroup white = {
+    .r = 0,
+    .g = 0,
+    .b = 0
+};
+
+finite_draw_set_draw_position(myShell, 30, 20);
+finite_draw_set_text(myShell, "Hello there!", &white);
+```
+
+## Notes
+
+If `shell.cr` is undefined, this function will create a new Cairo draw tool and set it to `shell.cr`
+
+## Standard Usage
+
+This function must have a valid [`FiniteShell`](../../../finiteshell/finiteshell)
+
+This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

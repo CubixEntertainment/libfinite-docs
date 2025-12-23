@@ -1,0 +1,56 @@
+---
+title: FiniteBtn
+description: The FiniteBtn struct.
+sidebar:
+    order: -1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteBtn was last modified in **v0.4.0**
+</Aside>
+
+The `FiniteBtn` struct represents an interactive button in a `FiniteShell` window. It stores state, relationships, and callback functions for selection and focus management.
+
+```c
+struct FiniteBtn {
+    FiniteBtn *self;
+    bool isActive;
+    int id;
+    FiniteBtnRelationShips *relations;
+    void *data;
+    FiniteShell *link;
+    void (*on_select_callback)(FiniteBtn *self, int id, void *data);
+    void (*on_focus_callback)(FiniteBtn *self, int id, void *data);
+    void (*on_unfocus_callback)(FiniteBtn *self, int id, void *data);
+};
+```
+
+## Properties
+
+| Type                                                               | Description                                                    |
+| ------------------------------------------------------------------ | --------------------------------------------------------------- |
+| `FiniteBtn *self`                                                  | Pointer to itself, useful for internal handling and callbacks.  |
+| `bool isActive`                                                    | Whether the button is currently active or selected.             |
+| `int id`                                                           | Identifier for the button, typically used in callbacks.         |
+| `FiniteBtnRelationShips *relations`                                | Stores directional relationships to other buttons (navigation). |
+| `void *data`                                                       | Custom data passed to callbacks.                                |
+| `FiniteShell *link`                                                | The FiniteShell this button belongs to.                         |
+| `void (*on_select_callback)(FiniteBtn *self, int id, void *data)`  | Called when the button is activated or selected.                |
+| `void (*on_focus_callback)(FiniteBtn *self, int id, void *data)`   | Called when the button gains focus.                             |
+| `void (*on_unfocus_callback)(FiniteBtn *self, int id, void *data)` | Called when the button loses focus.                             |
+
+## Notes
+
+Button ids refer to the position of the data in the buttons array inside of [`FiniteShell`](../FiniteShell/). This means that if a button is deleted, all [`FiniteBtnRelationShips`](../FiniteBtnRelationShips) and other references to buttons that come after that button are **invalid**. If you have a lot of buttons that rely on each other, be extreme careful when deleting buttons.
+
+Additionall, when creating temporary buttons, ensure all base buttons have been made first to avoid unexpected behavior
+
+It's important to note that FiniteBtn does not store location data. It's up to you as the developer to figure out where buttons are. There are several different ways to do this, such as storing the button's location in a custom struct store in FiniteBtn.data or simply hardcoding the location.
+
+Buttons do not handle rendering. Developers should use FiniteShell.cr to draw them.
+
+## Standard Usage
+
+Button ids can change. It's best to call `finite_button_delete_all` and readding buttons instead of trying to manage individual states manually.

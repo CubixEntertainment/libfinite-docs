@@ -1,0 +1,33 @@
+---
+title: finite_render_create_swapchain_images
+description: The finite_render_create_swapchain_images function
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_render_create_swapchain_images was last modifed in **v0.6.0** </Aside>
+
+The `finite_render_create_swapchain_images` function retrieves swapchain images and creates image views for rendering.
+
+```c
+void finite_render_create_swapchain_images(FiniteRender *render);
+```
+
+## Parameters
+
+| Type                   | Description                                                 |
+| ---------------------- | ----------------------------------------------------------- |
+| `FiniteRender *render` | The render context to store the retrieved images and views. |
+
+## Code Examples
+
+```c
+#include <finite/log.h>
+#include <finite/render.h>
+
+finite_render_create_swapchain_images(render);
+```
+
+## Standard Usage
+
+Call this after creating the swapchain. It will populate the render object with image handles and image views for each swapchain image.

@@ -1,0 +1,49 @@
+---
+title: finite_shm_alloc
+description: The finite_shm_alloc function.
+sidebar:
+    order: 4
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside> finite_shm_alloc was last modifed in **v0.6.0** </Aside>
+
+The `finite_shm_alloc` function allocates a new shared memory buffer to allow rendering to a [`FiniteShell`](../../finiteshell).
+
+```c
+void finite_shm_alloc(FiniteShell *shell, bool withAlpha)
+```
+
+## Parameters
+
+| Type                 | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `FiniteShell *shell` | The FiniteShell to allocate memory for.                  |
+| `bool withAlpha`     | Whether or not the window should support alpha channels. |
+
+## Code Example
+
+```c
+finite_log_init(stdout, LOG_LEVEL_DEBUG, true);
+shell = finite_shell_init("wayland-0"); // get the device
+
+finite_window_init(shell);
+
+// try and draw
+finite_shm_alloc(shell, false);
+
+FiniteColorGroup test = { 0.827, 0.247, 0.286 };
+finite_draw_rect(shell, 0,0, 200, 100, &test, NULL);
+
+finite_draw_finish(shell, 200, 100, shell->stride, false);
+int state = wl_display_dispatch(shell->display);
+
+while (state != -1) {}
+FINITE_LOG("Done.");
+finite_draw_cleanup(shell);
+```
+
+## Standard Usage
+
+When creating an overlay Developers should not ateempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](../finite_overlay_set_size_and_position)

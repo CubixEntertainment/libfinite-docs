@@ -1,0 +1,49 @@
+---
+title: Getting Started
+description: The libfinite quick-start guide!
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## Prerequisites
+
+To get started developing with libfinite, you'll need these prerequisites
+
+<Aside>The Infinite Library is intended to be used on a Linux based system.</Aside>
+
+🔸 [cglm](https://github.com/recp/cglm) - A C based Graphics Math library
+
+🔸 [Wayland](https://gitlab.freedesktop.org/wayland/wayland) - The window compositing protocol.
+
+🔸 [Wayland Protocols](https://gitlab.freedesktop.org/wayland/wayland-protocols) - Additional Non Standard features for Wayland. (v1.24 or higher)
+
+🔸 [Cairo](https://cairographics.org/) - Graphics Library for drawing data to buffers.
+
+🔸 [Vulkan](https://github.com/KhronosGroup/Vulkan-Loader/) - An explicit graphical libary that gives users the full control over the rendering process.
+
+🔸 [xkbcommon](https://github.com/xkbcommon/libxkbcommon) - Keymap library.
+
+🔸 [libevdev](https://www.freedesktop.org/wiki/Software/libevdev/) - evdev device library
+
+🔸 [sndfile](https://github.com/libsndfile/libsndfile) - C library for reading and writing audio data
+
+🔸 [ALSA](https://www.alsa-project.org/wiki/Main_Page) - The Advanced Linux Sound Architecture
+
+🔸 [Meson](https://github.com/mesonbuild/meson) - The Meson Build System
+
+Also make sure you've built the library from source as `sudo`
+
+```sh
+meson setup build --prefix=/usr
+sudo ninja -C build install
+```
+
+## Required Files
+
+In order to build a libfinite project you'll need these files which we've graciously provided.
+
+- [xdg-shell.xml](../starter-files/xdg-shell.xml)
+- [layer-shell.xml](../starter-files/layer-shell.xml)
+- [meson.build](../starter-files/meson.build)
+
+These files should be in the root of your project. They are required to make libfinite work correctly.

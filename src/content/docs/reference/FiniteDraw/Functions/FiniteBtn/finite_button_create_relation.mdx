@@ -1,0 +1,49 @@
+---
+title: finite_button_create_relation
+description: The finite_button_create_relation function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_button_create_relation was last modified in **v0.6.0**
+</Aside>
+
+The `finite_button_create_relation` function establishes a directional navigation relationship between buttons in a `FiniteShell`.
+
+```c
+void finite_button_create_relation(
+    FiniteShell *shell,
+    FiniteBtn *btn,
+    FiniteDirectionType dir,
+    int relation
+);
+```
+
+## Parameters
+
+| Type                      | Description                                                               |
+| ------------------------- | -------------------------------------------------------------------------- |
+| `FiniteShell *shell`      | The shell containing the buttons.                                          |
+| `FiniteBtn *btn`          | The button for which the relationship will be created.                     |
+| `FiniteDirectionType dir` | The directional relationship to establish (e.g., `FINITE_DIRECTION_UP`).   |
+| `int relation`            | The `id` of the button that `btn` should relate to in the given direction. |
+
+## Code Example
+
+```c
+void select_cb(FiniteBtn *self, int id, void *data) {
+    FINITE_LOG("Button %d selected!\n", id);
+}
+
+FiniteBtn *btn = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+FiniteBtn *btn2 = finite_button_create(shell, select_cb, NULL, NULL, NULL);
+
+finite_button_create_relation(shell, btn, FINITE_DIRECTION_UP, btn2.id);
+```
+
+## Standard Usage
+
+`FiniteBtn` must already exist in `FiniteShell.btns`.
+
+`relation` must be a valid button id within the shell.

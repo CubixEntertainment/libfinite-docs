@@ -1,0 +1,58 @@
+---
+title: finite_overlay_set_margin
+sidebar:
+  order: 7
+  badge:
+    text: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_overlay_set_margin was added in **v0.6.4** </Aside>
+
+The `finite_overlay_set_margin` function sets margin of the active layer-shell window.
+
+```c
+void finite_overlay_set_margin(FiniteShell *shell, int top, int bottom, int left, int right);
+
+```
+
+## Parameters
+
+| Type                 | Description                             |
+| -------------------- | --------------------------------------- |
+| `FiniteShell *shell` | The FiniteShell to create a window for. |
+| `int top`            | The top margin                          |
+| `int bottom`         | The bottom margin                       |
+| `int left`           | The left margin                         |
+| `int right`          | The right margin                        |
+
+## Code Example
+
+```c
+finite_log_init(stdout, LOG_LEVEL_DEBUG, true);
+shell = finite_shell_init("wayland-0"); // get the device
+
+finite_overlay_init(shell, 3, "overlay");
+finite_overlay_set_size_and_position(shell, 200, 100, ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT);
+finite_overlay_set_margin(shell, 0 , 50, 0, 50);
+
+// try and draw
+finite_shm_alloc(shell, false);
+
+FiniteColorGroup test = { 0.827, 0.247, 0.286 };
+finite_draw_rect(shell, 0,0, 200, 100, &test, NULL);
+
+finite_draw_finish(shell, 200, 100, shell->stride, false);
+int state = wl_display_dispatch(shell->display);
+
+while (state != -1) {}
+FINITE_LOG("Done.");
+finite_draw_cleanup(shell);
+```
+
+## Standard Usage
+
+When creating an overlay Developers should not attempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](/reference/finiteshell/functions/finite_overlay_set_size_and_position)
+
+This function should be called **AFTER** `finite_overlay_set_size_and_position`. Margins set for anchors the shell does not control will have no effect.

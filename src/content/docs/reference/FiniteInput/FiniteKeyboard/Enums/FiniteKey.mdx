@@ -1,0 +1,251 @@
+---
+title: FiniteKey
+description: The FiniteKey enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteKey was last modifed in **v0.6.0** </Aside>
+
+A `FiniteKey` refers to specific keyboard input
+
+```c
+typedef enum {
+    // Letters
+    FINITE_KEY_A,
+    FINITE_KEY_B,
+    FINITE_KEY_C,
+    FINITE_KEY_D,
+    FINITE_KEY_E,
+    FINITE_KEY_F,
+    FINITE_KEY_G,
+    FINITE_KEY_H,
+    FINITE_KEY_I,
+    FINITE_KEY_J,
+    FINITE_KEY_K,
+    FINITE_KEY_L,
+    FINITE_KEY_M,
+    FINITE_KEY_N,
+    FINITE_KEY_O,
+    FINITE_KEY_P,
+    FINITE_KEY_Q,
+    FINITE_KEY_R,
+    FINITE_KEY_S,
+    FINITE_KEY_T,
+    FINITE_KEY_U,
+    FINITE_KEY_V,
+    FINITE_KEY_W,
+    FINITE_KEY_X,
+    FINITE_KEY_Y,
+    FINITE_KEY_Z,
+
+    // Numbers
+    FINITE_KEY_0,
+    FINITE_KEY_1,
+    FINITE_KEY_2,
+    FINITE_KEY_3,
+    FINITE_KEY_4,
+    FINITE_KEY_5,
+    FINITE_KEY_6,
+    FINITE_KEY_7,
+    FINITE_KEY_8,
+    FINITE_KEY_9,
+
+    // Modifiers
+    FINITE_KEY_LEFT_SHIFT,
+    FINITE_KEY_RIGHT_SHIFT,
+    FINITE_KEY_LEFT_CTRL,
+    FINITE_KEY_RIGHT_CTRL,
+    FINITE_KEY_LEFT_ALT,
+    FINITE_KEY_RIGHT_ALT,
+    FINITE_KEY_LEFT_META,
+    FINITE_KEY_RIGHT_META,
+
+    // Function Keys
+    FINITE_KEY_F1,
+    FINITE_KEY_F2,
+    FINITE_KEY_F3,
+    FINITE_KEY_F4,
+    FINITE_KEY_F5,
+    FINITE_KEY_F6,
+    FINITE_KEY_F7,
+    FINITE_KEY_F8,
+    FINITE_KEY_F9,
+    FINITE_KEY_F10,
+    FINITE_KEY_F11,
+    FINITE_KEY_F12,
+
+    // Arrows
+    FINITE_KEY_UP,
+    FINITE_KEY_DOWN,
+    FINITE_KEY_LEFT,
+    FINITE_KEY_RIGHT,
+
+    // Other Keys
+    FINITE_KEY_SPACE,
+    FINITE_KEY_ENTER,
+    FINITE_KEY_ESCAPE,
+    FINITE_KEY_TAB,
+    FINITE_KEY_BACKSPACE,
+    FINITE_KEY_CAPS_LOCK,
+
+    // Symbols and Punctuation
+    FINITE_KEY_MINUS,
+    FINITE_KEY_EQUALS,
+    FINITE_KEY_LEFT_BRACKET,
+    FINITE_KEY_RIGHT_BRACKET,
+    FINITE_KEY_BACKSLASH,
+    FINITE_KEY_SEMICOLON,
+    FINITE_KEY_APOSTROPHE,
+    FINITE_KEY_GRAVE, // `
+    FINITE_KEY_COMMA,
+    FINITE_KEY_PERIOD,
+    FINITE_KEY_SLASH,
+
+    // Meta
+    FINITE_KEY_PRINT_SCREEN,
+    FINITE_KEY_SCROLL_LOCK,
+    FINITE_KEY_PAUSE,
+    FINITE_KEY_INSERT,
+    FINITE_KEY_DELETE,
+    FINITE_KEY_HOME,
+    FINITE_KEY_END,
+    FINITE_KEY_PAGE_UP,
+    FINITE_KEY_PAGE_DOWN,
+
+    // NumPad
+    FINITE_KEY_NUM_LOCK,
+    FINITE_KEY_KP_DIVIDE,
+    FINITE_KEY_KP_MULTIPLY,
+    FINITE_KEY_KP_MINUS,
+    FINITE_KEY_KP_PLUS,
+    FINITE_KEY_KP_ENTER,
+    FINITE_KEY_KP_0,
+    FINITE_KEY_KP_1,
+    FINITE_KEY_KP_2,
+    FINITE_KEY_KP_3,
+    FINITE_KEY_KP_4,
+    FINITE_KEY_KP_5,
+    FINITE_KEY_KP_6,
+    FINITE_KEY_KP_7,
+    FINITE_KEY_KP_8,
+    FINITE_KEY_KP_9,
+    FINITE_KEY_KP_PERIOD,
+
+    // Sentinel
+    FINITE_KEY_INVALID,
+    FINITE_KEY_COUNT
+} FiniteKey;
+```
+
+## Properties
+
+| Name                     | Value                                                                                                    |
+| ------------------------ | -------------------------------------------------------------------------------------------------------- |
+| FINITE_KEY_A             | A                                                                                                        |
+| FINITE_KEY_B             | B                                                                                                        |
+| FINITE_KEY_C             | C                                                                                                        |
+| FINITE_KEY_D             | D                                                                                                        |
+| FINITE_KEY_E             | E                                                                                                        |
+| FINITE_KEY_F             | F                                                                                                        |
+| FINITE_KEY_G             | G                                                                                                        |
+| FINITE_KEY_H             | H                                                                                                        |
+| FINITE_KEY_I             | I                                                                                                        |
+| FINITE_KEY_J             | J                                                                                                        |
+| FINITE_KEY_K             | K                                                                                                        |
+| FINITE_KEY_L             | L                                                                                                        |
+| FINITE_KEY_M             | M                                                                                                        |
+| FINITE_KEY_N             | N                                                                                                        |
+| FINITE_KEY_O             | O                                                                                                        |
+| FINITE_KEY_P             | P                                                                                                        |
+| FINITE_KEY_Q             | Q                                                                                                        |
+| FINITE_KEY_R             | R                                                                                                        |
+| FINITE_KEY_S             | S                                                                                                        |
+| FINITE_KEY_T             | T                                                                                                        |
+| FINITE_KEY_U             | U                                                                                                        |
+| FINITE_KEY_V             | V                                                                                                        |
+| FINITE_KEY_W             | W                                                                                                        |
+| FINITE_KEY_X             | X                                                                                                        |
+| FINITE_KEY_Y             | Y                                                                                                        |
+| FINITE_KEY_Z             | Z                                                                                                        |
+| FINITE_KEY_0             | 0                                                                                                        |
+| FINITE_KEY_1             | 1                                                                                                        |
+| FINITE_KEY_0             | 2                                                                                                        |
+| FINITE_KEY_3             | 3                                                                                                        |
+| FINITE_KEY_4             | 4                                                                                                        |
+| FINITE_KEY_5             | 5                                                                                                        |
+| FINITE_KEY_6             | 6                                                                                                        |
+| FINITE_KEY_7             | 7                                                                                                        |
+| FINITE_KEY_8             | 8                                                                                                        |
+| FINITE_KEY_9             | 9                                                                                                        |
+| FINITE_KEY_LEFT_SHIFT    | LeftShift                                                                                                |
+| FINITE_KEY_RIGHT_SHIFT   | RightShift                                                                                               |
+| FINITE_KEY_LEFT_CTRL     | LeftCtrl (Control)                                                                                       |
+| FINITE_KEY_RIGHT_CTRL    | RightCtrl (Control)                                                                                      |
+| FINITE_KEY_LEFT_ALT      | LeftAlt                                                                                                  |
+| FINITE_KEY_RIGHT_ALT     | RightAlt                                                                                                 |
+| FINITE_KEY_LEFT_META     | Left "meta". The windows key on most keyboards.                                                          |
+| FINITE_KEY_RIGHT_META    | Right "meta". The windows key on most keyboards.                                                         |
+| FINITE_KEY_F1            | F1                                                                                                       |
+| FINITE_KEY_F2            | F2                                                                                                       |
+| FINITE_KEY_F3            | F3                                                                                                       |
+| FINITE_KEY_F4            | F4                                                                                                       |
+| FINITE_KEY_F5            | F5                                                                                                       |
+| FINITE_KEY_F6            | F6                                                                                                       |
+| FINITE_KEY_F7            | F7                                                                                                       |
+| FINITE_KEY_F8            | F8                                                                                                       |
+| FINITE_KEY_F9            | F9                                                                                                       |
+| FINITE_KEY_F10           | F10                                                                                                      |
+| FINITE_KEY_F11           | F11                                                                                                      |
+| FINITE_KEY_F12           | F12                                                                                                      |
+| FINITE_KEY_UP            | Up Arrow Key                                                                                             |
+| FINITE_KEY_DOWN          | Down Arrow Key                                                                                           |
+| FINITE_KEY_LEFT          | Left Arrow Key                                                                                           |
+| FINITE_KEY_RIGHT         | Right Arrow Key                                                                                          |
+| FINITE_KEY_SPACE         | Spacebar                                                                                                 |
+| FINITE_KEY_ENTER         | Enter                                                                                                    |
+| FINITE_KEY_ESCAPE        | Esc (Escape)                                                                                             |
+| FINITE_KEY_TAB           | Tab                                                                                                      |
+| FINITE_KEY_BACKSPACE     | Backspace                                                                                                |
+| FINITE_KEY_CAPS_LOCK     | Caps Lock                                                                                                |
+| FINITE_KEY_MINUS         | Minus (-)                                                                                                |
+| FINITE_KEY_EQUALS        | Equal Sign                                                                                               |
+| FINITE_KEY_LEFT_BRACKET  | LeftBracket                                                                                              |
+| FINITE_KEY_RIGHT_BRACKET | RightBracket                                                                                             |
+| FINITE_KEY_BACKSLASH     | Backlash ( \ )                                                                                           |
+| FINITE_KEY_SEMICOLON     | Semicolon ( ; )                                                                                          |
+| FINITE_KEY_APOSTROPHE    | Apostrophe '                                                                                             |
+| FINITE_KEY_GRAVE         | Also called a backtick. ( ` )                                                                            |
+| FINITE_KEY_COMMA         | Comma ( , )                                                                                              |
+| FINITE_KEY_PERIOD        | Period.                                                                                                  |
+| FINITE_KEY_SLASH         | Slash ( / )                                                                                              |
+| FINITE_KEY_PRINT_SCREEN  | The PrintScreen key on some keyboards.                                                                   |
+| FINITE_KEY_SCROLL_LOCK   | The Scrollock key on some keyboards.                                                                     |
+| FINITE_KEY_PAUSE         | The Pause key on some keyboards                                                                          |
+| FINITE_KEY_INSERT        | The Insert Key on most keyboards                                                                         |
+| FINITE_KEY_DELETE        | The Delete Key on most keyboards                                                                         |
+| FINITE_KEY_HOME          | The Home Key on some keyboard. Not to be confused with `FINITE_KEY_LEFT_META` or `FINITE_KEY_RIGHT_META` |
+| FINITE_KEY_END           | The End Key on some keyboards                                                                            |
+| FINITE_KEY_PAGE_UP       | The PageUp key on some keyboards                                                                         |
+| FINITE_KEY_PAGE_DOWN     | The PageDown key on some keyboards                                                                       |
+| FINITE_KEY_NUM_LOCK      | The Keypad/NumberPad lock key on some keyboards                                                          |
+| FINITE_KEY_KP_DIVIDE     | The / key on Keypads                                                                                     |
+| FINITE_KEY_KP_MULTIPLY   | The \* key on keypads                                                                                    |
+| FINITE_KEY_KP_MINUS      | The - key on keypads                                                                                     |
+| FINITE_KEY_KP_PLUS       | The + key on keypads                                                                                     |
+| FINITE_KEY_KP_ENTER      | The Enter key on keypads                                                                                 |
+| FINITE_KEY_KP_0          | Keypad 0                                                                                                 |
+| FINITE_KEY_KP_1          | Keypad 1                                                                                                 |
+| FINITE_KEY_KP_2          | Keypad 2                                                                                                 |
+| FINITE_KEY_KP_3          | Keypad 3                                                                                                 |
+| FINITE_KEY_KP_4          | Keypad 4                                                                                                 |
+| FINITE_KEY_KP_5          | Keypad 5                                                                                                 |
+| FINITE_KEY_KP_6          | Keypad 6                                                                                                 |
+| FINITE_KEY_KP_7          | Keypad 7                                                                                                 |
+| FINITE_KEY_KP_8          | Keypad 8                                                                                                 |
+| FINITE_KEY_KP_9          | Keypad 9                                                                                                 |
+| FINITE_KEY_KP_PERIOD     | The . Key on keypads                                                                                     |
+
+## Notes
+
+FINITE_KEY_LEFT_BRACKET/FINITE_KEY_RIGHT_BRACKET is `()` on some keyboards and `{}` on others. We are slightly unsure why this can map to both.

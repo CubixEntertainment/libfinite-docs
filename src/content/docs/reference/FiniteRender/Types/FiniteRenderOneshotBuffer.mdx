@@ -1,0 +1,27 @@
+---
+title: FiniteRenderOneshotBuffer
+description: A temporary Vulkan command buffer and command pool used for one-time operations.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderOneshotBuffer was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderOneshotBuffer` struct stores a Vulkan command buffer and its associated command pool intended for short-lived, single-use operations.
+
+```c
+struct FiniteRenderOneshotBuffer {
+    VkCommandBuffer buffer;
+    VkCommandPool pool;
+};
+```
+
+## Properties
+
+| Type                     | Description                                                     |
+| ------------------------ | --------------------------------------------------------------- |
+| `VkCommandBuffer buffer` | The Vulkan command buffer used for one-time command submission. |
+| `VkCommandPool pool`     | The Vulkan command pool that owns the command buffer.           |
+
+
+This struct should be created with [` finite_render_begin_onshot_command`](/reference/finiterender/functions/finite_render_begin_onshot_command) and used as a param to [`finite_render_finish_onshot_command`](/reference/finiterender/functions/finite_render_finish_onshot_command)

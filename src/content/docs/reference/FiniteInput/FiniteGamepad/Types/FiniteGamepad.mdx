@@ -1,0 +1,53 @@
+---
+title: FiniteGamepad
+description: The FiniteGamepad struct
+sidebar:
+  order: 0
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteGamepad was added in **v0.7.0** </Aside>
+
+The `FiniteGamepad` struct stores information about a controller.
+
+```c
+struct FiniteGamepad {
+    int fd;
+    int order;
+    char *path; // the device node of the controller
+
+    bool canInput; // whether input is disabled on this device
+
+    FiniteShell *shell;
+    FiniteJoystick *lAxis;
+    FiniteJoystick *rAxis;
+    FiniteDpad *dpad;
+    FiniteTrigger *lt;
+    FiniteTrigger *rt;
+
+    FiniteGamepadKeyState btns[1024];
+};
+```
+
+## Properties
+
+| Type                         | Description                                                                                   |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| `int fd`                     | The file descriptor of the gamepad. Points to a device in /dev                                |
+| `int order`                  | The place in the array of devices of the gamepad.                                             |
+| `char *path`                 | The path to the device node for the gamepad                                                   |
+| `bool canInput`              | Whether the gamepad is allowed to send input events.                                          |
+| `FiniteShell *shell`         | The [`FiniteShell`](/reference/finiteshell/finiteshell/) the gamepad is connected to.         |
+| `FiniteJoystick *lAxis`      | The left joystick axis.                                                                       |
+| `FiniteJoystick *rAxis`      | The right joystick axis.                                                                      |
+| `FiniteDpad *dpad`           | The dpad of the controller.                                                                   |
+| `FiniteTrigger *lt`          | The left trigger axis for analog triggers                                                     |
+| `FiniteTrigger *rt`          | The right trigger axis for analog trigger                                                     |
+| `FiniteGamepadKeyState btns` | An array of `FiniteGamepadKeyState`s that store infomation about indvidiual states of buttons |
+
+## Specification
+
+Developers in general are discourageed from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU).
+
+FiniteTriggers are known to not work on 8BitDo controllers.

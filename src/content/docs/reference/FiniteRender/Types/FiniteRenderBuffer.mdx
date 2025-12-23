@@ -1,0 +1,38 @@
+---
+title: FiniteRenderBuffer
+description: Describes a sub-allocation layout for vertex and index data within a Vulkan buffer.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderBuffer was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderBuffer` struct describes how vertex and optional index data are laid out within a Vulkan buffer managed by FiniteRender.
+
+```c
+struct FiniteRenderBuffer {
+    bool _indices;
+    VkDeviceSize vertexOffset;
+    VkDeviceSize indexOffset;
+    uint32_t vertexSize;
+    uint32_t indexSize;
+    uint32_t indexCount;
+    uint32_t vertexCount;
+};
+```
+
+## Properties
+
+| Type                        | Description                                            |
+| --------------------------- | ------------------------------------------------------ |
+| `bool _indices`             | Indicates whether this buffer contains index data.     |
+| `VkDeviceSize vertexOffset` | Byte offset to the start of vertex data in the buffer. |
+| `VkDeviceSize indexOffset`  | Byte offset to the start of index data in the buffer.  |
+| `uint32_t vertexSize`       | Size in bytes of the vertex data region.               |
+| `uint32_t indexSize`        | Size in bytes of the index data region.                |
+| `uint32_t indexCount`       | Number of indices stored in the buffer.                |
+| `uint32_t vertexCount`      | Number of vertices stored in the buffer.               |
+
+## Standard Usage
+
+This struct should be created manually and used as a param for a finite buffer function.

@@ -1,0 +1,38 @@
+---
+title: finite_render_finish_oneshot_command
+description: Ends, submits, waits for, and destroys a one-shot Vulkan command buffer.
+sidebar:
+  order: 13
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_finish_oneshot_command was last modified in **v0.6.0**</Aside>
+
+The `finite_render_finish_oneshot_command` function finalizes a one-shot Vulkan command buffer created with `finite_render_begin_oneshot_command`, submits it to the graphics queue, waits for completion, and cleans up all temporary resources.
+
+```c
+void finite_render_finish_oneshot_command(FiniteRender *render, FiniteRenderOneshotBuffer cmd_block)
+```
+
+## Parameters
+
+| Type                                  | Description                                                       |
+| ------------------------------------- | ----------------------------------------------------------------- |
+| `FiniteRender *render`                | The FiniteRender instance that owns the Vulkan device and queues. |
+| `FiniteRenderOneshotBuffer cmd_block` | The one-shot command buffer and its associated command pool.      |
+
+## Code Example
+
+```c
+FiniteRenderOneshotBuffer cmd =
+    finite_render_begin_oneshot_command(render);
+
+/* record commands here */
+
+finite_render_finish_oneshot_command(render, cmd);
+```
+
+## Standard Usage
+
+This function is used interally by `finite_render_copy_buffer` but is exposed for custom usage.

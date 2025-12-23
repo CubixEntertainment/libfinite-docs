@@ -1,0 +1,50 @@
+---
+title: FiniteDirectionType
+description: The FiniteDirectionType enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteDirectionType was last modified in **v0.7.0**
+</Aside>
+
+The `FiniteDirectionType` enum defines all possible directional inputs for navigation between `FiniteBtn` instances in a `FiniteShell`.
+
+```c
+typedef enum {
+    FINITE_DIRECTION_UP,
+    FINITE_DIRECTION_DOWN,
+    FINITE_DIRECTION_LEFT,
+    FINITE_DIRECTION_RIGHT,
+    FINITE_DIRECTION_LEFT_UP,
+    FINITE_DIRECTION_LEFT_DOWN,
+    FINITE_DIRECTION_RIGHT_UP,
+    FINITE_DIRECTION_RIGHT_DOWN,
+    FINITE_DIRECTION_DONE
+} FiniteDirectionType;
+```
+
+## Properties
+
+| Type                          | Description                        |
+| ----------------------------- | ----------------------------------- |
+| `FINITE_DIRECTION_UP`         | Up direction.                       |
+| `FINITE_DIRECTION_DOWN`       | Down direction.                     |
+| `FINITE_DIRECTION_LEFT`       | Left direction.                     |
+| `FINITE_DIRECTION_RIGHT`      | Right direction.                    |
+| `FINITE_DIRECTION_LEFT_UP`    | Up-left diagonal direction.         |
+| `FINITE_DIRECTION_LEFT_DOWN`  | Down-left diagonal direction.       |
+| `FINITE_DIRECTION_RIGHT_UP`   | Up-right diagonal direction.        |
+| `FINITE_DIRECTION_RIGHT_DOWN` | Down-right diagonal direction.      |
+| `FINITE_DIRECTION_DONE`       | Reserved value.                     |
+
+## Standard Usage
+
+`FINITE_DIRECTION_DONE` is reserved and should not be used in application code.
+
+This enum is intended for use with `FiniteBtn` instances in a `FiniteShell`.
+
+Directional values define navigation relationships between buttons.
+
+Functions that consume this enum (e.g., in `FiniteBtn.relations`) expect valid directional values, excluding FINITE_DIRECTION_DONE.

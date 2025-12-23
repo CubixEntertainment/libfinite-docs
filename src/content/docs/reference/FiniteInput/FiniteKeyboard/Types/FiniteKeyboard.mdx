@@ -1,0 +1,42 @@
+---
+title: FiniteKeyboard
+description: The FiniteKeyboard struct
+sidebar:
+  order: 0
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteShell was last modifed in **v0.7.0** </Aside>
+
+The `FiniteShell` struct stores information about a keyboard.
+
+```c
+typedef struct {
+    FiniteInput *input;
+
+    struct wl_keyboard *keyboard;
+    struct xkb_context *xkb_ctx;
+    struct xkb_keymap *xkb_keymap;
+    struct xkb_state  *xkb_state;
+
+    FiniteKeyState keys[256];
+} FiniteKeyboard;
+```
+
+## Properties
+
+| Type                            | Description                                                                                         |
+| ------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `FiniteInput *input`            | The FiniteInput struct that contains the needed compositor information. This is an internal type.   |
+| `struct wl_keyboard *keyboard`  | The [`wl_keyboard`](https://wayland-book.com/seat/keyboard.html) related to the keyboard.           |
+| `struct xkb_context *xkb_ctx`   | The xkb keyboard context for the keyboard.                                                          |
+| `struct xkb_keymap *xkb_keymap` | The xkb keymap data for the keyboard that determines what keyboard layout is in use.                |
+| `struct xkb_state  *xkb_state`  | The xkb state of the keyboard                                                                       |
+| `FiniteKeyState keys`           | An array of FiniteKeyStates. Each item represents a possible input, but not all inputs may be used. |
+
+## Specification
+
+`FiniteKeyboard`s should **not** be the only input source. Developers should use [`FiniteGamepad`](/reference/finiteinput/types/finitegamepad) as their main source of user input.
+
+`FiniteKeyboard` refers to physically connected keyboard. As 0.7.0, there is no built in solution for Virtual Keybaord, but that is planned for future updates.

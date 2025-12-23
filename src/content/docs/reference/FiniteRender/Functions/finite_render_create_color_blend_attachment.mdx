@@ -1,0 +1,45 @@
+---
+title: finite_render_create_color_blend_attachment
+description: The finite_render_create_color_blend_attachment function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_color_blend_attachment was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_color_blend_attachment` function creates a Vulkan `VkPipelineColorBlendAttachmentState` from a `FiniteRenderColorAttachmentInfo`.
+
+```c
+VkPipelineColorBlendAttachmentState finite_render_create_color_blend_attachment(
+    FiniteRenderColorAttachmentInfo *att
+);
+```
+
+## Parameters
+
+| Type                                   | Description                                                            |
+| -------------------------------------- | ---------------------------------------------------------------------- |
+| `FiniteRenderColorAttachmentInfo *att` | Pointer to a struct describing blending and color write mask behavior. |
+
+## Code Example
+
+```c
+FiniteRenderColorAttachmentInfo att_info = {
+    .blendEnable = true,
+    .srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA,
+    .dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA,
+    .colorBlendOp = VK_BLEND_OP_ADD,
+    .srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE,
+    .dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO,
+    .alphaBlendOp = VK_BLEND_OP_ADD,
+    .colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT
+};
+
+VkPipelineColorBlendAttachmentState blendAttachment = finite_render_create_color_blend_attachment(&att_info);
+```
+
+## Standard Usage
+
+att must not be NULL

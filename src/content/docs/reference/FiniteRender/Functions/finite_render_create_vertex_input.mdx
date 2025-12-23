@@ -1,0 +1,49 @@
+---
+title: finite_render_create_vertex_input
+description: The finite_render_create_vertex_input function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_vertex_input was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_vertex_input` function creates a Vulkan vertex input state from the provided vertex binding and attribute descriptions for a `FiniteRender` context.
+
+```c
+VkPipelineVertexInputStateCreateInfo finite_render_create_vertex_input(
+    FiniteRender *render,
+    FiniteRenderVertexInputInfo *vertex
+);
+```
+
+## Parameters
+
+| Type                                  | Description                                                               |
+| ------------------------------------- | ------------------------------------------------------------------------- |
+| `FiniteRender *render`                | The Vulkan rendering context. Must be valid.                              |
+| `FiniteRenderVertexInputInfo *vertex` | Contains vertex binding descriptions, attribute descriptions, and counts. |
+
+## Code Example
+
+```c
+FiniteRenderVertexInputInfo vertex_info = {
+    ._vertexBindings = 1,
+    .vertexBindingDescriptions = &bindingDescription,
+    ._vertexAtributes = 2,
+    .vertexAttributeDescriptions = attributeDescriptions,
+    .flags = 0,
+    .next = NULL
+};
+
+VkPipelineVertexInputStateCreateInfo inputState = finite_render_create_vertex_input(render, &vertex_info);
+```
+
+## Standard Usage
+
+Both render and vertex must not be NULL.
+
+The returned `VkPipelineVertexInputStateCreateInfo` can be used directly in `VkGraphicsPipelineCreateInfo`.
+
+Ensure `vertex->vertexBindingDescriptions` and `vertex->vertexAttributeDescriptions` remain valid for the lifetime of the pipeline creation call.

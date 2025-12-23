@@ -1,0 +1,53 @@
+---
+title: finite_key_valid
+description: The finite_key_valid function
+sidebar:
+  order: 2
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_key_valid was added in **v0.7.0** </Aside>
+
+The `finite_key_valid` function checks if a [`FiniteKey`](/reference/finiteinput/finitekeyboard/enums/finitekey) is valid
+
+```c
+bool finite_key_valid(FiniteKey key)
+```
+
+## Parameters
+
+| Type            | Description                         |
+| --------------- | ----------------------------------- |
+| `FiniteKey key` | The FiniteKey to check the state of |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+
+while (wl_display_dispatch(myShell->display) != -1) {
+    if (!finite_key_valid(FINITE_KEY_A)) {
+        FINITE_LOG_ERROR("Finite Key A is not valid");
+    }
+
+    if (!finite_key_up(FINITE_KEY_A, kbd)) {
+        FINITE_LOG("A is down");
+    }
+}
+```
+
+## Specification
+
+Developers should **ALWAYS** call `finite_gamepad_key_valid` to verify a `FINITE_GAMEPAD_KEY`'s existence in the internal finite_gamepad_key_lookup table. Just because an enum exists does not mean that the evdev code for that input option is present.
+
+As of v0.7.0, the finite controller hasnt been finished. As such theres been no testing for modular controllers. It's expected that buttons should work as written, however.

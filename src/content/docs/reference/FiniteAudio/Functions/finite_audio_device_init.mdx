@@ -1,0 +1,56 @@
+---
+title: finite_audio_device_init
+description: The finite_audio_device_init function.
+sidebar: 
+    order: 1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_audio_device_init was last modifed in **v0.6.0** </Aside>
+
+The `finite_audio_device_init`attempts to create a new [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice)
+
+```c
+bool finite_audio_device_init()
+```
+
+## Parameters
+
+| Type                        | Description                                                                                               |
+| --------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `FinitePlaybackDevice *dev` | The [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice) to attach the audio to.   |
+| `char* audio`               | The path to the audio file                                                                                |
+| `bool autocreate            | Determines if this function should attempt to grab the hardware params for the audio before attaching it. |
+
+## Code Example
+
+```c
+    #include <finite/audio.h>
+    #include <finite/log.h>
+
+    FinitePlaybackDevice *dev = finite_audio_device_init();
+    char *jingle = "jingle2.mp3";
+
+    finite_audio_get_audio_params(jingle, dev);
+    // print out the audio duration
+    finite_audio_get_audio_duration(dev);
+
+    // use params to init audio
+    finite_audio_init_audio(dev, jingle, false);
+
+    // audio is made so now play
+
+    finite_audio_play(dev);
+    FINITE_LOG("Done\n");
+    // clean up when finished
+    finite_audio_cleanup(dev);
+```
+
+## Notes
+
+As of v0..0 [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice)  is not attached to a window. That is subject to change.
+
+## Standard Usage
+
+This function should be created once for a single audio. Do not reuse [`FinitePlaybackDevices`](/reference/finiteaudio/types/finiteplaybackdevice) .

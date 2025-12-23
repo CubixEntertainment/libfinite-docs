@@ -1,0 +1,29 @@
+---
+title: FiniteRenderShaderStages
+description: The FiniteRenderShaderStages struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteRenderShaderStages was last modified in **v0.6.0**</Aside>
+
+The `FiniteRenderSwapchainInfo` struct contains information for creating a VkSwapchain.
+
+```c
+typedef struct FiniteRenderShaderStages FiniteRenderShaderStages ;
+struct FiniteRenderShaderStages {
+    uint32_t _stages;
+    VkPipelineShaderStageCreateInfo *infos;
+};
+```
+
+## Properties
+
+| Type                                     | Decription                            |
+| ---------------------------------------- | ------------------------------------- |
+| `uint32_t _stage`                        | The number of Pipelines Shader stages |
+| `VkPipelineShaderStageCreateInfo *infos` | An array of Pipeline Shader Stages    |
+
+## Standard Usage
+
+This struct should be created manually and used as a param to [`finite_render_add_shader_stage`](/reference/finiterender/functions/finite_render_add_shader_stage)

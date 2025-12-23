@@ -1,0 +1,40 @@
+---
+title: finite_shell_init
+description: The finite_shell_init function.
+sidebar:
+    order: 1
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside> finite_shell_init was last modifed in **v0.6.0** </Aside>
+
+The `finite_shell_init` function creates a new [`FiniteShell`](../../finiteshell).
+
+```c
+FiniteShell *finite_shell_init(char *device)
+```
+
+## Parameters
+
+| Type           | Description                                                |
+| -------------- | ---------------------------------------------------------- |
+| `char *device` | The Wayland device to conenct to. Defaults to "wayland-0". |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+```
+
+## Standard Usage
+
+When creating a new application, you **must** call this function. Although libfinite support custom implementations of some function, all libfinite functions that interact with the window expect a [`FiniteShell`](../../FiniteShell).
+
+In production, you should use "wayland-0" as the Wayland Device.

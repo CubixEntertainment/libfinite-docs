@@ -1,0 +1,53 @@
+---
+title: finite_overlay_init
+description: The finite_overlay_init function.
+sidebar:
+    order: 5
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_overlay_init was last modifed in **v0.6.4** </Aside>
+
+The `finite_overlay_init` function creates a new layer-shell window with a given [`FiniteShell`](../../finiteshell).
+
+```c
+void finite_overlay_init(FiniteShell *shell, int layer, char *name)
+```
+
+## Parameters
+
+| Type                 | Description                                                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FiniteShell *shell` | The FiniteShell to create a window for.                                                                                                                             |
+| `int layer`          | The int value of the [`zwlr_layer_shell_v1_layer`](https://wayland.app/protocols/wlr-layer-shell-unstable-v1#zwlr_layer_shell_v1:enum:layer) to draw on. Usually 3. |
+| `char *name`         | The name of the layer-shell window.                                                                                                                                 |
+
+## Code Example
+
+```c
+finite_log_init(stdout, LOG_LEVEL_DEBUG, true);
+shell = finite_shell_init("wayland-0"); // get the device
+
+finite_overlay_init(shell, 3, "overlay");
+finite_overlay_set_size_and_position(shell, 200, 100, ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT);
+
+
+// try and draw
+finite_shm_alloc(shell, false);
+
+FiniteColorGroup test = { 0.827, 0.247, 0.286 };
+finite_draw_rect(shell, 0,0, 200, 100, &test, NULL);
+
+finite_draw_finish(shell, 200, 100, shell->stride, false);
+int state = wl_display_dispatch(shell->display);
+
+while (state != -1) {}
+FINITE_LOG("Done.");
+wl_surface_destroy(shell->isle_surface);
+finite_draw_cleanup(shell);
+```
+
+## Standard Usage
+
+When creating an overlay Developers should not ateempt to set the shared memory buffer (shm) until **AFTER** calling [`finite_overlay_set_size_and_position`](../finite_overlay_set_size_and_position)

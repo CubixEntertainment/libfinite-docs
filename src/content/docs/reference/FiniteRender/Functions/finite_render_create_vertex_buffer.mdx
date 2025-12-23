@@ -1,0 +1,58 @@
+---
+title: finite_render_create_vertex_buffer
+description: The finite_render_create_vertex_buffer function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_create_vertex_buffer was last modified in **v0.6.0**</Aside>
+
+The `finite_render_create_vertex_buffer` function creates a vertex buffer (and optionally an index buffer) on the GPU, allocates memory, and sets offsets for vertex and index data.
+
+```c
+bool finite_render_create_vertex_buffer(FiniteRender *render, FiniteRenderBufferInfo *info, FiniteRenderMemAllocInfo *mem_info, uint64_t vertexSize, FiniteRenderReturnBuffer *rtrn)
+```
+
+## Parameters
+
+| Type                                 | Description                                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`               | The [`FiniteRender`](../finiterender/finiterender) object associated with the Vulkan device. |
+| `FiniteRenderBufferInfo *info`       | Buffer creation info struct.                                                                 |
+| `FiniteRenderMemAllocInfo *mem_info` | Memory allocation info struct for selecting memory type and flags.                           |
+| `uint64_t vertexSize`                | Size in bytes of the vertex portion of the buffer.                                           |
+| `FiniteRenderReturnBuffer *rtrn`     | Optional pointer to receive buffer and memory handles for custom usage.                      |
+
+## Code Example
+
+```c
+FiniteRenderBufferInfo bufferInfo = {
+    .next = NULL,
+    .flags = 0,
+    .size = 4096,
+    .useFlags = 0,
+    .sharing = VK_SHARING_MODE_EXCLUSIVE,
+    ._fIndex = 0,
+    .fIndex = NULL
+};
+
+FiniteRenderMemAllocInfo memInfo = {
+    .next = NULL,
+    .flags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+};
+
+FiniteRenderReturnBuffer rtrn;
+bool success = finite_render_create_vertex_buffer(myRender, &bufferInfo, &memInfo, 1024, &rtrn);
+```
+
+## Standard Usage
+
+Must have valid FiniteRender, FiniteRenderBufferInfo, and FiniteRenderMemAllocInfo structs.
+
+Automatically sets VK_BUFFER_USAGE_VERTEX_BUFFER_BIT; if there is extra space, it adds VK_BUFFER_USAGE_INDEX_BUFFER_BIT as well.
+
+If rtrn is provided, the function outputs the created buffer and memory info there; otherwise, the buffer is added to render->buffers.
+
+Tracks vertex and index offsets for each buffer to allow interleaved or multiple buffers in a single Vulkan allocation.
+
+Developers must write vertex and index data to the mapped memory before issuing GPU commands.

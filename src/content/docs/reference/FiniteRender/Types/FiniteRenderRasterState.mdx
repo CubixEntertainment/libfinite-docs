@@ -1,0 +1,49 @@
+---
+title: FiniteRenderRasterState
+description: The FiniteRenderRasterState struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteRenderRasterState was last modifed in **v0.6.0** </Aside>
+
+The `FiniteRenderRasterState` struct contains important information for creating rasterization information.
+
+```c
+struct FiniteRenderRasterState {
+    const void* next;
+    VkPipelineRasterizationStateCreateFlags flags;
+    bool depthClampEnable;
+    bool rasterizerDiscardEnable;
+    VkPolygonMode polygonMode;
+    VkCullModeFlags cullMode;
+    VkFrontFace frontFace;
+    bool depthBiasEnable;
+    float depthBiasConstantFactor;
+    float depthBiasClamp;
+    float depthBiasSlopeFactor;
+    float lineWidth;
+};
+
+```
+
+## Properties
+
+| Type                                            | Description                                            |
+| ----------------------------------------------- | ------------------------------------------------------ |
+| `const void *next`                              | Extension pointer for Vulkan or `NULL`                 |
+| `VkPipelineRasterizationStateCreateFlags flags` | Vulkan rasterization flags                             |
+| `bool depthClampEnable`                         | Enable depth clamping                                  |
+| `bool rasterizerDiscardEnable`                  | Discard all primitives before rasterization            |
+| `VkPolygonMode polygonMode`                     | Polygon mode (`VK_POLYGON_MODE_FILL`, etc.)            |
+| `VkCullModeFlags cullMode`                      | Culling mode (`VK_CULL_MODE_BACK_BIT`, etc.)           |
+| `VkFrontFace frontFace`                         | Front-facing winding (`VK_FRONT_FACE_CLOCKWISE`, etc.) |
+| `bool depthBiasEnable`                          | Enable depth bias                                      |
+| `float depthBiasConstantFactor`                 | Constant depth bias factor                             |
+| `float depthBiasClamp`                          | Maximum depth bias                                     |
+| `float depthBiasSlopeFactor`                    | Slope depth bias factor                                |
+| `float lineWidth`                               | Width of lines                                         |
+
+## Standard Usage
+
+This struct should be created manually and used as a param to [`finite_render_create_raster_info`](/reference/finiterender/functions/finite_render_create_raster_info)

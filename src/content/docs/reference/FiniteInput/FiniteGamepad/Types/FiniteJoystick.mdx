@@ -1,0 +1,39 @@
+---
+title: FiniteJoystick
+description: The FiniteJoystick struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteJoystick was last modifed in **v0.7.0** </Aside>
+
+The `FiniteJoystick` struct stores data about a controller's joystick.
+
+```c
+typedef struct {
+    char *name;
+    uint16_t xAxis;
+    double xValue; // value between -1 and 1
+    int xMin;
+    int xMax;
+    int xFlat; // deadzone
+    uint16_t yAxis;
+    double yValue;
+    int yMin;
+    int yMax;
+    int yFlat;
+} FiniteJoystick;
+```
+
+## Properties
+
+| Type          | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- |
+| `uint16_t id` | The linux evdev code of the given input.                                         |
+| `bool isHeld` | Whether the button is being held down. Acts as combined state of isDown and isUp |
+| `bool isDown` | Whether the button is currently being pressed down.                              |
+| `bool isUp`   | Whether the button is not being pressed down.                                    |
+
+## Specification
+
+Developers in general are discourageed from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU).

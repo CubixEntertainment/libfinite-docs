@@ -1,0 +1,38 @@
+---
+title: FiniteGradientPoint
+description: The FiniteGradientPoint struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteGradientPoint was last modified in **v0.6.0**
+</Aside>
+
+The `FiniteGradientPoint` struct represents a point in a gradient with a specific position and color.
+
+```c
+typedef struct {
+    double stop;
+    double r;
+    double g;
+    double b;
+    double a;
+} FiniteGradientPoint;
+```
+
+## Properties
+
+| Type          | Description                                          |
+| ------------- | ---------------------------------------------------- |
+| `double stop` | The position of the gradient stop (0.0 to 1.0).      |
+| `double r`    | Red component of the color (0.0 to 1.0).             |
+| `double g`    | Green component of the color (0.0 to 1.0).           |
+| `double b`    | Blue component of the color (0.0 to 1.0).            |
+| `double a`    | Alpha (opacity) component of the color (0.0 to 1.0). |
+
+## Standard Usage
+
+The `stop` value should be between 0.0 (start of gradient) and 1.0 (end of gradient).
+
+Each `FiniteGradientPoint` defines a single point in a gradient. multiple points are needed to form a full gradient.

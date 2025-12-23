@@ -1,0 +1,36 @@
+---
+title: finite_render_begin_oneshot_command
+description: Begins recording a temporary one-shot Vulkan command buffer.
+sidebar:
+  order: 12
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_begin_oneshot_command was last modified in **v0.6.0**</Aside>
+
+The `finite_render_begin_oneshot_command` function creates and begins recording a temporary Vulkan command buffer intended for a single submission.
+
+```c
+FiniteRenderOneshotBuffer finite_render_begin_oneshot_command(FiniteRender *render)
+```
+
+## Parameter
+
+| Type                   | Description                                                           |
+| ---------------------- | --------------------------------------------------------------------- |
+| `FiniteRender *render` | The FiniteRender instance used to create the command pool and buffer. |
+
+## Code Example
+
+```c
+FiniteRenderOneshotBuffer cmd = finite_render_begin_oneshot_command(render);
+
+/* record commands here */
+
+finite_render_finish_onshot_command(render, &cmd);
+```
+
+## Standard Usage
+
+This function is used interally by `finite_render_copy_buffer` but is exposed for custom usage.

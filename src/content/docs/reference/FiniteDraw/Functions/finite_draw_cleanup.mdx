@@ -1,0 +1,52 @@
+---
+title: finite_draw_cleanup
+description: The finite_draw_cleanup function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_cleanup was last modifed in **v0.7.0** </Aside>
+
+The `finite_overlay_init` function attempts to clean up and destroy the window.
+
+```c
+bool finite_draw_cleanup(FiniteShell *shell)
+```
+
+## Parameters
+
+| Type                 | Description                                                                |
+| -------------------- | -------------------------------------------------------------------------- |
+| `FiniteShell *shell` | The [`FiniteShell`](../../../finiteshell/finiteshell) where the window is. |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+FiniteGradientPoint points[2] = {
+    {0, 0.325, 0.325, 0.325, alpha},
+    {0.5, 0.207, 0.207, 0.207, alpha}
+};
+
+cairo_pattern_t *pat = finite_draw_pattern_linear(0,0, (double)shell->details->width, (double)shell->details->height, points, 2);
+
+finite_draw_rect(shell, 0,0, shell->details->width, shell->details->height, NULL, pat);
+cairo_pattern_destroy(pat);
+
+finite_draw_finish(shell, shell->details->width, shell->details->height, shell->stride, true);
+
+while (wl_display_dispatch(shell->display) != -1) {
+    FINITE_LOG("Window is open.");
+}
+
+finite_draw_cleanup(shell);
+```
+
+## Standard Usage
+
+This function must have a valid `FiniteShell`
+
+This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell` implementation (`FiniteShell.cairo_surface`) beforehand.
+
+This function destroys and cleans up. It **must** be called at the end of an application that uses Cairo.

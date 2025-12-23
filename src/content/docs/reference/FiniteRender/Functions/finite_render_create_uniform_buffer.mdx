@@ -1,0 +1,51 @@
+---
+title: finite_render_create_uniform_buffer
+description: The finite_render_create_uniform_buffer function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_create_uniform_buffer was last modified in **v0.6.0**</Aside>
+
+The `finite_render_create_uniform_buffer` function creates one uniform buffer per frame in flight, allocates memory for each, and maps them for CPU access.
+
+```c
+bool finite_render_create_uniform_buffer(FiniteRender *render, FiniteRenderBufferInfo *info, FiniteRenderMemAllocInfo *mem_info)
+```
+
+## Parameters
+
+| Type                                 | Description                                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`               | The [`FiniteRender`](../finiterender/finiterender) object associated with the Vulkan device. |
+| `FiniteRenderBufferInfo *info`       | Buffer creation info struct.                                                                 |
+| `FiniteRenderMemAllocInfo *mem_info` | Memory allocation info struct for selecting memory type and flags.                           |
+
+## Code Example
+
+```c
+FiniteRenderBufferInfo bufferInfo = {
+    .next = NULL,
+    .flags = 0,
+    .size = 1024,
+    .useFlags = 0,
+    .sharing = VK_SHARING_MODE_EXCLUSIVE,
+    ._fIndex = 0,
+    .fIndex = NULL
+};
+
+FiniteRenderMemAllocInfo memInfo = {
+    .next = NULL,
+    .flags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+};
+
+bool result = finite_render_create_uniform_buffer(myRender, &bufferInfo, &memInfo);
+```
+
+## Standard Usage
+
+Must have valid FiniteRender, FiniteRenderBufferInfo, and FiniteRenderMemAllocInfo structs.
+
+Allocates one uniform buffer and memory per frame in flight (controlled by MAX_FRAMES_IN_FLIGHT).
+
+The buffers are mapped automatically for CPU access and stored in render->uniformData.

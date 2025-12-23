@@ -1,0 +1,50 @@
+---
+title: finite_audio_get_audio_duration
+description: The finite_audio_get_audio_duration function.
+sidebar: 
+    order: 2
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_audio_get_audio_duration was last modifed in **v0.6.0** </Aside>
+
+The `finite_audio_get_audio_duration` grabs a [`FinitePlaybackDuration`](/reference/finiteaudio/types/finiteplaybackduration) of a given a [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice)
+
+```c
+FinitePlaybackDuration  finite_audio_get_audio_duration(FinitePlaybackDevice *dev)
+```
+
+## Parameters
+
+| Type                        | Description                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------------- |
+| `FinitePlaybackDevice *dev` | The [`FinitePlaybackDevice`](../../../types/FinitePlaybackDevice) to get the audio duration from. |
+
+## Code Example
+
+```c
+    #include <finite/audio.h>
+    #include <finite/log.h>
+
+    FinitePlaybackDevice *dev = finite_audio_device_init();
+    char *jingle = "jingle2.mp3";
+
+    finite_audio_get_audio_params(jingle, dev);
+    // print out the audio duration
+    finite_audio_get_audio_duration(dev);
+
+    // use params to init audio
+    finite_audio_init_audio(dev, jingle, false);
+
+    // audio is made so now play
+
+    finite_audio_play(dev);
+    FINITE_LOG("Done\n");
+    // clean up when finished
+    finite_audio_cleanup(dev);
+```
+
+## Standard Usage
+
+This function requires a valid [`FinitePlaybackDevice`](/reference/finiteaudio/types/finiteplaybackdevice).

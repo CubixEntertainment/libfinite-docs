@@ -1,0 +1,41 @@
+---
+title: finite_input_keyboard_init
+description: The finite_input_keyboard_init function.
+sidebar:
+  order: 1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_input_keyboard_init was last modifed in **v0.6.0** </Aside>
+
+The `finite_input_keyboard_init` function creates a new [`FiniteKeyboard`](/reference/finiteinput/finitekeyboard/types/finitekeyboard).
+
+```c
+FiniteKeyboard *finite_input_keyboard_init(struct wl_display *device)
+```
+
+## Parameters
+
+| Type                        | Description                        |
+| --------------------------- | ---------------------------------- |
+| `struct wl_display *device` | The Wayland display to conenct to. |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+```
+
+## Standard Usage
+
+Developers should create a FiniteShell before attempting to connect a physical keyboard to the window. Keyboard input is closely binded with wayland so this is the expected behavior.

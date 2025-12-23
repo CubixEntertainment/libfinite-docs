@@ -1,0 +1,32 @@
+---
+title: finite_render_submit_frame
+description: Submits a frame to a Vulkan queue using FiniteRender.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_render_submit_frame was last modified in **v0.6.0**</Aside>
+
+The `finite_render_submit_frame` function submits a frame to the Vulkan graphics queue using a `FiniteRenderSubmitInfo` structure and optionally uses a fence for synchronization.
+
+```c
+bool finite_render_submit_frame(FiniteRender *render, FiniteRenderSubmitInfo *info, uint32_t fenceId, bool safeExit);
+```
+
+## Parameters
+
+| Type                           | Description                                                             |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| `const char *file`             | Source file name for logging purposes.                                  |
+| `const char *func`             | Function name for logging purposes.                                     |
+| `int line`                     | Line number for logging purposes.                                       |
+| `FiniteRender *render`         | Pointer to the `FiniteRender` instance.                                 |
+| `FiniteRenderSubmitInfo *info` | Pointer to the submission info defining semaphores and command buffers. |
+| `uint32_t fenceId`             | Index of the fence to signal after submission, or -1 for no fence.      |
+| `bool safeExit`                | If true, will clean up and exit the program on critical errors.         |
+
+## Standard Usage
+
+`fenceId` should be used to synchronize GPU operations
+
+`safeExit` should be true to force the program to terminate on submission failure.

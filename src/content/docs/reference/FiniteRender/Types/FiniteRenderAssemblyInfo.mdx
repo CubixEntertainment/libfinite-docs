@@ -1,0 +1,33 @@
+---
+title: FiniteRenderAssemblyInfo
+description: The FiniteRenderAssemblyInfo struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteRenderAssemblyInfo was last modifed in **v0.6.0** </Aside>
+
+The `FiniteRenderAssemblyInfo` struct contains param information for creating a VkPipelineInputAssemblyStateCreateInfo.
+
+```c
+typedef struct FiniteRenderAssemblyInfo FiniteRenderAssemblyInfo;
+struct FiniteRenderAssemblyInfo {
+    const void* next;
+    VkPipelineInputAssemblyStateCreateFlags flags;
+    VkPrimitiveTopology topology;
+    bool primitiveRestartEnable;
+};
+```
+
+## Properties
+
+| Type | Decription |
+| ---- | ---------- |
+|`const void *next`| An extension of the VkPipelineInputAssemblyStateCreateInfo  or NULL|
+|`VkPipelineInputAssemblyStateCreateFlags flags`| The Assembly Flags. |
+|`VkPrimitiveTopology toplogy`| The VKTopology data |
+|`bool primitiveRestartEnable`| The Vertex Binding Descriptions |
+
+## Standard Usage
+
+This struct should be created manually and used as a param to [`finite_render_create_assembly_state`](/reference/finiterender/functions/finite_render_create_assembly_state)

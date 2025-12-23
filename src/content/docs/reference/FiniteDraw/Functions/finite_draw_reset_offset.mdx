@@ -1,0 +1,59 @@
+---
+title: finite_draw_reset_offset
+description: The finite_draw_reset_offset function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_draw_reset_offset was last modified in **v0.6.0**
+</Aside>
+
+The `finite_draw_reset_offset` function attempts to undo a previously applied Cairo translation on the active drawing context.
+
+```c
+void finite_draw_reset_offset(FiniteShell *shell, double x, double y);
+````
+
+## Parameters
+
+| Type                 | Description                                    |
+| -------------------- | ----------------------------------------------- |
+| `FiniteShell *shell` | The active `FiniteShell` containing the window. |
+| `double x`           | The horizontal offset to reverse.               |
+| `double y`           | The vertical offset to reverse.                 |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+// Apply a translation
+cairo_translate(shell->cr, 64.0, 32.0);
+
+// Undo the translation
+finite_draw_reset_offset(shell, 64.0, 32.0);
+```
+
+## Notes
+
+This function applies a `cairo_translate(cr, -x, -y)` to the active Cairo context.
+
+This function does not reset the Cairo transformation matrix and only reverses a
+translation operation.
+
+## Standard Usage
+
+<Aside type="caution">
+  finite_draw_reset_offset was deprecated in **v0.7.0** and will be removed in
+  **v1.0.0**. Use `cairo_save` and `cairo_restore` to manage transformation state
+  instead.
+</Aside>
+
+This function must be provided a valid `FiniteShell`.
+
+This function requires a valid Cairo context in `FiniteShell.cr`.
+
+This function should only be used to reverse a translation when the original offset
+values are known.
+

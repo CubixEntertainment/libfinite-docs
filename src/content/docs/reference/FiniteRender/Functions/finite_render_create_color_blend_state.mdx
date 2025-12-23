@@ -1,0 +1,62 @@
+---
+title: finite_render_create_color_blend_state
+description: The finite_render_create_color_blend_state function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_render_create_color_blend_state was last modified in **v0.6.0**
+</Aside>
+
+The `finite_render_create_color_blend_state` function creates a Vulkan `VkPipelineColorBlendStateCreateInfo` from a `FiniteRenderColorBlendInfo` and optional custom attachment.
+
+```c
+VkPipelineColorBlendStateCreateInfo finite_render_create_color_blend_state(
+    FiniteRender *render,
+    VkPipelineColorBlendAttachmentState *att,
+    FiniteRenderColorBlendInfo *blend
+);
+```
+
+## Parameters
+
+| Type                                       | Description                                                                                    |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `FiniteRender *render`                     | The FiniteRender instance used to manage pipeline creation.                                    |
+| `VkPipelineColorBlendAttachmentState *att` | Optional pointer to a single attachment to override the default attachments. Can be `NULL`.    |
+| `FiniteRenderColorBlendInfo *blend`        | Pointer to the color blend info describing attachments, logic operations, and blend constants. |
+
+## Code Example
+
+```c
+FiniteRenderColorBlendAttachmentInfo att_info = {
+    .blendEnable = true,
+    .srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA,
+    .dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA,
+    .colorBlendOp = VK_BLEND_OP_ADD,
+    .srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE,
+    .dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO,
+    .alphaBlendOp = VK_BLEND_OP_ADD,
+    .colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT
+};
+
+VkPipelineColorBlendAttachmentState attachment = finite_render_create_color_blend_attachment(&att_info);
+
+FiniteRenderColorBlendInfo blend_info = {
+    .flags = 0,
+    .logicOpEnable = false,
+    .logicOp = VK_LOGIC_OP_COPY,
+    ._attachments = 1,
+    .attachments = &attachment,
+    .blendConstants = {0.0f, 0.0f, 0.0f, 0.0f}
+};
+
+VkPipelineColorBlendStateCreateInfo blendState = finite_render_create_color_blend_state(myRender, &attachment, &blend_info);
+```
+
+## Standard Usage
+
+render and blend must not be NULL.
+
+If att is NULL, the function uses the _attachments array in blend.

@@ -1,0 +1,22 @@
+---
+title: FiniteShaderType
+description: The FiniteShaderType enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteShaderType was last modified in **v0.4.0**</Aside>
+
+The `FiniteShaderType` enum describes a type of shader to be used in [`FiniteRenderShaderStageInfo `](/reference/finiterender/types/finiteRendershaderstageinfo)
+
+```c
+typedef enum FiniteShaderType FiniteShaderType;
+enum FiniteShaderType {
+    FINITE_SHADER_TYPE_VERTEX,
+    FINITE_SHADER_TYPE_FRAGMENT
+};
+```
+
+## Standard Usage
+
+When creating a [`FiniteRenderShaderStageInfo`](/reference/finiterender/types/finiteRendershaderstageinfo) this enum is expected as a parameter.
