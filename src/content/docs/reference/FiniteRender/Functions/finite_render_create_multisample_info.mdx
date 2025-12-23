@@ -27,6 +27,7 @@ VkPipelineMultisampleStateCreateInfo finite_render_create_multisample_info(
 
 ## Code Example
 
+```c
 FiniteRenderMultisampleStateInfo ms_info = {
     .flags = 0,
     .rasterizationSamples = VK_SAMPLE_COUNT_4_BIT,
@@ -39,6 +40,7 @@ FiniteRenderMultisampleStateInfo ms_info = {
 };
 
 VkPipelineMultisampleStateCreateInfo multisampleState = finite_render_create_multisample_info(render, &ms_info);
+```
 
 ## Standard Usage
 
