@@ -12,6 +12,8 @@ Below is an example of a BAREBONES project that does nothing but set up a window
 #include <finite/log.h>
 
 int main() {
+    finite_log_init(stdout, LOG_LEVEL_DEBUG, false);
+
     // create a new shell
     FiniteShell *myShell = finite_shell_init("wayland-0");
 
@@ -39,4 +41,4 @@ int main() {
 
 ## Additional Examples
 
-- Read [libfinite-examples](https://github.com/CubixEntertainment/infinite-docs/tree/master/docs/examples) in the libfinite repo
+- Read [libfinite-examples](https://github.com/CubixEntertainment/libfinite/tree/main/examples) in the libfinite repo

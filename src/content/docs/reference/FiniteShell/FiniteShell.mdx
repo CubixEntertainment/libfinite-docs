@@ -20,6 +20,7 @@ struct FiniteShell{
     struct wl_registry *registry;
     struct wl_output *output;
     struct wl_shm *shm;
+    struct wl_seat *seat;
     struct wl_shm_pool *pool;
     struct wl_buffer *buffer;
     struct wl_compositor *isle;
@@ -59,6 +60,7 @@ struct FiniteShell{
 | `struct wl_registry *registry`                | The Wayland registry associated with the display.                                                                                                                  |
 | `struct wl_output *output`                    | The Wayland Output that is currently connected. The Islands compositor only allows one output at a time                                                            |
 | `struct wl_shm *shm`                          | The Wayland shm struct associated with the FiniteShell                                                                                                             |
+| `struct wl_seat *seat`                        | The Wayland seat associated with the FiniteShell                                                                                                                   |
 | `struct wl_shm_pool *pool`                    | The Wayland shm pool associated with the shm                                                                                                                       |
 | `struct wl_buffer *buffer`                    | The Wayland shm buffer associated with the FiniteShell                                                                                                             |
 | `struct wl_compositor *isle`                  | The Compositor connected the display                                                                                                                               |

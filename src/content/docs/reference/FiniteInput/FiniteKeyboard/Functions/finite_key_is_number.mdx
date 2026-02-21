@@ -1,0 +1,43 @@
+---
+title: finite_key_is_number
+description: The finite_key_is_number function.
+siderbar:
+  badge:
+    text: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_key_is_number was added in **v0.7.2** </Aside>
+
+The `finite_key_is_number` function checks if a given [FiniteKey](/reference/finiteinput/finitekeyboard/enums/finitekey) is a numeric character.
+
+```c
+bool finite_key_is_number(FiniteKey key)
+```
+
+## Parameters
+
+| Type                    | Description                                |
+| ----------------------- | ------------------------------------------ |
+| `FiniteKey key`         | The FiniteKey to check the state of        |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+#include <finite/log.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+
+if (finite_key_is_number(FINITE_KEY_0)) {
+    FINITE_LOG("Key is a number");
+}
+```

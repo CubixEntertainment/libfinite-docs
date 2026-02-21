@@ -97,6 +97,7 @@ typedef enum {
     FINITE_KEY_BACKSLASH,
     FINITE_KEY_SEMICOLON,
     FINITE_KEY_APOSTROPHE,
+    FINITE_KEY_QOUTE,
     FINITE_KEY_GRAVE, // `
     FINITE_KEY_COMMA,
     FINITE_KEY_PERIOD,
@@ -215,6 +216,7 @@ typedef enum {
 | FINITE_KEY_BACKSLASH     | Backlash ( \ )                                                                                           |
 | FINITE_KEY_SEMICOLON     | Semicolon ( ; )                                                                                          |
 | FINITE_KEY_APOSTROPHE    | Apostrophe '                                                                                             |
+| FINITE_KEY_QOUTE         | Alias for Apostrophe '                                                                                   |
 | FINITE_KEY_GRAVE         | Also called a backtick. ( ` )                                                                            |
 | FINITE_KEY_COMMA         | Comma ( , )                                                                                              |
 | FINITE_KEY_PERIOD        | Period.                                                                                                  |
@@ -249,3 +251,5 @@ typedef enum {
 ## Notes
 
 FINITE_KEY_LEFT_BRACKET/FINITE_KEY_RIGHT_BRACKET is `()` on some keyboards and `{}` on others. We are slightly unsure why this can map to both.
+
+In libfinite 0.7.2 the FINITE_KEY_QOUTE alias was added for clarity. It and it's sibling FINITE_KEY_APOSTROPHE are equivalent and can be safely used interchangably.

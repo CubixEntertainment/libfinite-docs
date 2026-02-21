@@ -1,0 +1,44 @@
+---
+title: finite_input_keyboard_rescan
+description: The finite_input_keyboard_rescan function.
+siderbar:
+  badge:
+    text: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_input_keyboard_rescan was added in **v0.7.2** </Aside>
+
+The `finite_input_keyboard_rescan` function attempts to scan for a recently added Wayland Keyboard.
+
+```c
+FiniteKeyboard *finite_input_keyboard_rescan(FiniteKeyboard *keyboard)
+```
+
+## Parameters
+
+| Type                        | Description             |
+| --------------------------- | ----------------------- |
+| `FiniteKeyboard *keyboard`  | The keyboard to rescan. |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+#include <finite/input.h>
+
+FiniteShell *myShell = finite_shell_init("wayland-0");
+
+if (!myShell) {
+    FINITE_LOG_FATAL("Unable to init shell");
+}
+
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+sleep(5);
+finite_input_keyboard_rescan(kbd);
+```
+
+## Standard Usage
+
+This function is used internally on textbox input requested and is provided for edge-cases where rescanning for keyboards is desired. It does not return information about connected gamepads.

@@ -7,7 +7,7 @@ sidebar:
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside> finite_input_keyboard_init was last modifed in **v0.6.0** </Aside>
+<Aside> finite_input_keyboard_init was last modifed in **v0.7.2** </Aside>
 
 The `finite_input_keyboard_init` function creates a new [`FiniteKeyboard`](/reference/finiteinput/finitekeyboard/types/finitekeyboard).
 
@@ -35,6 +35,10 @@ if (!myShell) {
 
 FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
 ```
+
+## Notes
+
+As of libfinite v0.7.2, this function returns a warning rather than exiting if there is no keyboard available.
 
 ## Standard Usage
 
