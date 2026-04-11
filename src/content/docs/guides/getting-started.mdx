@@ -23,20 +23,49 @@ To get started developing with libfinite, you'll need these prerequisites
 
 🔸 [xkbcommon](https://github.com/xkbcommon/libxkbcommon) - Keymap library.
 
-🔸 [libevdev](https://www.freedesktop.org/wiki/Software/libevdev/) - evdev device library
-
 🔸 [sndfile](https://github.com/libsndfile/libsndfile) - C library for reading and writing audio data
 
 🔸 [ALSA](https://www.alsa-project.org/wiki/Main_Page) - The Advanced Linux Sound Architecture
 
 🔸 [Meson](https://github.com/mesonbuild/meson) - The Meson Build System
 
-Also make sure you've built the library from source as `sudo`
+🔸 [libevdev](https://www.freedesktop.org/wiki/Software/libevdev/) - evdev device library
+
+🔸 [libcurl](https://curl.se/libcurl/) - cURL networking library
+
+🔸 [libudev](https://www.freedesktop.org/software/systemd/man/latest/libudev.htm) - udev device library
+
+🔸 [libwebsockets](https://libwebsockets.org/) - Websockets library
+
+## Building
+
+As of libfinite 0.8.0, libfinite ships with an IPC server called mailroom that emulates the behavior of some Cubix Infinite features. You'll need to build it and run it as root to make sure some function families that expect it work correctly.
+
+1) Build the library from source
 
 ```sh
 meson setup build --prefix=/usr
 sudo ninja -C build install
 ```
+
+The `--prefix=/usr` command installs the library in /usr instead of /usr/local
+
+2) Build mailroom from the mailroom folder
+
+```sh
+meson setup build --prefix=/usr
+sudo ninja -C build install
+```
+
+3) Run mailroom as root before starting your project
+
+```sh
+    export FINITE_IPC_MAIN_DIR=/run/user/1000/api.sock
+    export FINITE_GIPC_MAIN_DIR=/run/user/1000/gp.sock
+    sudo mailroom
+```
+
+Make sure you run those export commands before starting mailman so your game has access to them.
 
 ## Required Files
 
