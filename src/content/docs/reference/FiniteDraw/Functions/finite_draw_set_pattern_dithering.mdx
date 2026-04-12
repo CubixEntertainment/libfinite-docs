@@ -1,0 +1,44 @@
+---
+title: finite_draw_set_pattern_dithering
+description: The finite_draw_set_pattern_dithering function.
+sidebar:
+    badge: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_set_pattern_dithering was added in **v0.8.0** </Aside>
+
+The `finite_draw_set_pattern_dithering` function attempts to set the dithering mode of a given cairo_pattern. It's most useful in preventing 
+
+```c
+void finite_draw_set_pattern_dithering(cairo_pattern_t * pattern, FiniteDitherMode mode)
+```
+
+## Parameters
+
+| Type                          | Description                              |
+| ----------------------------- | ---------------------------------------- |
+| `cairo_pattern_t *pat`        | A single Cairo Pattern.                  |
+| `FiniteDitherMode mode`       | The dithering mode to set the pattern to.|
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+double xW = 338, yH = 68;
+double nW = (double)(width - 400), nY = (double)(height - 100);
+
+finite_draw_rounded_rect(shell, nW, nY, xW, yH, 20, &color, NULL, true);
+
+FiniteGradientPoint new_points[2] = {
+    {0, 1, 0.325, 0.325},
+    {1, 1, 0.474, 0.098}
+};
+
+cairo_pattern_t *pat = finite_draw_pattern_linear(nW, nY, (double)(width), (double)(height), new_points, 2);
+finite_draw_set_pattern_dithering(pat, FINITE_DITHER_MODE_QAULITY);
+finite_draw_stroke(shell, NULL, pat, 14);
+cairo_pattern_destroy(pat);
+```
