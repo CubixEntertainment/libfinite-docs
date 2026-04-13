@@ -5,32 +5,35 @@ description: The finite_draw_png function.
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside> finite_draw_png was last modifed in **v0.7.0** </Aside>
+<Aside> finite_draw_png was last modifed in **v0.8.0** </Aside>
 
 The `finite_draw_png` function attempt to draw a png image to screen at a given size and position.
 
 ```c
-void finite_draw_png(FiniteShell *shell, const char *path, double x, double y, double width, double height, bool fillOnFail);
+void finite_draw_png(FiniteShell *shell, const char *path, double x, double y, double width, double height, cairo_surface_t **cache,  FiniteColorGroup *fillOnFail);
 ```
 
 ## Parameters
 
-| Type                 | Description                                                                 |
-| -------------------- | --------------------------------------------------------------------------- |
-| `FiniteShell *shell` | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is.        |
-| `const char *path`   | The path to the png image.                                                  |
-| `double x`           | The X position of the png.                                                  |
-| `double y`           | The Y position of the png.                                                  |
-| `double width`       | The width (in pixels) of the png.                                           |
-| `double height`      | The height (in pixels) of the png.                                          |
-| `bool fillOnFail`    | Whether the image should be replaced by a colored box if it cant be loaded. |
+| Type                           | Description                                                                   |
+| ------------------------------ | ----------------------------------------------------------------------------- |
+| `FiniteShell *shell`           | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is. |
+| `const char *path`             | The path to the png image.                                                    |
+| `double x`                     | The X position of the png.                                                    |
+| `double y`                     | The Y position of the png.                                                    |
+| `double width`                 | The width (in pixels) of the png.                                             |
+| `double height`                | The height (in pixels) of the png.                                            |
+| `cairo_surface_t **cache`      | Optional `cairo_surface_t` to cache the image to for faster redraws           |
+| `FiniteColorGroup *fillOnFail` | The FiniteColorGroup to fill the image's space with if it fails to load.      |
 
 ## Code Example
 
 ```c
 #include <finite/draw.h>
 
-const char basePath[] = "/console/icons/input/"; // at some point we'll make an official icon set
+const char basePath[] = "/console/icons/input/";
+
+FiniteColorGroup fs = {0,0,0,1};
 
 char fullPath[PATH_MAX];
 strcpy(fullPath, basePath);
@@ -50,7 +53,7 @@ if (finite_gamepad_key_down(0, myShell, FINITE_BTN_DOWN)) {
     strcat(fullPath, "Dpad.png");
 }
 
-finite_draw_png(myShell, fullPath, x, y, image_width, image_height, true);
+finite_draw_png(myShell, fullPath, x, y, image_width, image_height, NULL, &fs);
 ```
 
 ## Standard Usage
