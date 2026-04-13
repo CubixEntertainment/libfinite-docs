@@ -1,0 +1,43 @@
+---
+title: finite_draw_hex_to_color_group_alpha
+description: The finite_draw_hex_to_color_group_alpha function.
+sidebar:
+    badge: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_hex_to_color_group_alpha was added in **v0.8.0** </Aside>
+
+The `finite_draw_hex_to_color_group_alpha` function attempts to convert a hex value to a [`FiniteColorGroup`](/reference/finitedraw/types/finitecolorgroup/).
+
+```c
+void finite_draw_hex_to_color_group_alpha(char hex[7])
+```
+
+## Parameters
+
+| Type          | Description                                 |
+| ------------- | ------------------------------------------- |
+| `char hex[7]` | A seven character hex string. (Ex. #f6ab31) |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+finite_draw_set_font(shell, "Kumbh Sans", false, true, 52);
+FiniteColorGroup transparent = finite_draw_hex_to_color_group_alpha("#00000062");
+
+finite_draw_set_draw_position(myShell, 30, 20);
+
+finite_draw_set_text(myShell, "Hello there!", &transparent);
+```
+
+## Standard Usage
+
+This function uses alpha. In order to use it, you must enable alpha color in [`finite_shm_alloc`](/reference/finiteshell/functions/finite_shm_alloc/)
+
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
+
+This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.
