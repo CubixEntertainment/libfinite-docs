@@ -65,10 +65,7 @@ export default defineConfig({
 					label: 'Demoes',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Cube', slug: 'examples/cube' },
-						{ label: 'Setup', slug: 'guides/getting-started' },
-						{ label: 'Specification', slug: 'guides/the-spec' },
-						{ label: 'Example Project', slug: 'guides/example' },
+						{ label: 'Cube', slug: 'examples/cube' }
 					],
 				},
 			],
