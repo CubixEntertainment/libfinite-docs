@@ -1,0 +1,39 @@
+---
+title: finite_user_request_auth
+description: The finite_user_request_auth function.
+sidebar:
+  order: 0
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_user_request_auth was added in **v0.8.0**</Aside>
+
+The `finite_user_request_auth` function attempts to allow users to sign in.
+
+```c
+FiniteAuthRequest *finite_user_request_auth(FiniteShell *shell, char id[36], char token[64], void (*callback)(char *code))
+```
+
+## Properties
+
+| Type                           | Description                                                         |
+| ------------------------------ | ------------------------------------------------------------------- |
+| `FiniteShell *shell`           | The `FiniteShell` making the auth request.                          |
+| `char *id`                     | The application's index id.                                         |
+| `char *token`                  | The request token. You can get a valid token via the Cubix Website. |
+| `void (*callback)(char *code)` | The code ready callback. Runs when an auth code has been generated  |
+
+## Code Example
+
+```c
+FiniteAuthRequest req* = finite_user_request_auth(shell, "", "", NULL);
+finite_user_get_by_id(req->user_id, myToken, myDev);
+
+enum FiniteUserStatus status = finite_user_get_status(req->user_id, myToken, myDev);
+FINITE_LOG("Status: %s", finite_user_status_to_string(status));
+```
+
+## Specification
+
+The return value of this function represents a **completed** auth request, not necessarily a successful one. The callback included only returns the code.

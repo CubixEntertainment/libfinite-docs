@@ -1,0 +1,30 @@
+---
+title: finite_user_status_to_string
+description: The finite_user_status_to_string function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_user_status_to_string was added in **v0.8.0**</Aside>
+
+The `finite_user_status_to_string` function attempts to convert a [`FiniteUserStatus`](/reference/finiteuser/enums/finiteuserstatus/) to a string.
+
+```c
+char *finite_user_status_to_string(enum FiniteUserStatus status)
+```
+
+## Properties
+
+| Type                           | Description                        |
+| ------------------------------ | ---------------------------------- |
+| `enum FiniteUserStatus status` | The `FiniteUserStatus` to convert. |
+
+## Code Example
+
+```c
+FiniteAuthRequest req* = finite_user_request_auth(shell, "", "", NULL);
+finite_user_get_by_id(req->user_id, myToken, myDev);
+
+enum FiniteUserStatus status = finite_user_get_status(req->user_id, myToken, myDev);
+FINITE_LOG("Status: %s", finite_user_status_to_string(status));
+```

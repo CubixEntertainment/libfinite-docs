@@ -1,0 +1,36 @@
+---
+title: finite_user_get_by_id
+description: The finite_user_get_by_id function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>finite_user_get_by_id was added in **v0.8.0**</Aside>
+
+The `finite_user_get_by_id` function attempts to get a [`FiniteUser`](/reference/finiteuser/finiteuser/) from a user_id.
+
+```c
+FiniteUser *finite_user_get_by_id(char *user_id, char* token, char *dev)
+```
+
+## Properties
+
+| Type            | Description                                                         |
+| --------------- | ------------------------------------------------------------------- |
+| `char *user_id` | The user's uuid. This is different from their index id.             |
+| `char *token`   | The request token. You can get a valid token via the Cubix Website. |
+| `char *dev`     | The device id. You can get a valid device_id via the Cubix Website. |
+
+## Code Example
+
+```c
+FiniteAuthRequest req* = finite_user_request_auth(shell, "", "", NULL);
+finite_user_get_by_id(req->user_id, myToken, myDev);
+
+enum FiniteUserStatus status = finite_user_get_status(req->user_id, myToken, myDev);
+FINITE_LOG("Status: %s", finite_user_status_to_string(status));
+```
+
+## Specification
+
+This function's primary use case as of libfinite 0.8.0 is to make sure developers can read information about the authenticated user. THis function can be used to look up other users by their user_id but better implementations that allow uername searching will be available in future libfinite updates.

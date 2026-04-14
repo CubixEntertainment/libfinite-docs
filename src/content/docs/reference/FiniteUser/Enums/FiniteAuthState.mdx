@@ -1,0 +1,30 @@
+---
+title: FiniteAuthState
+description: The FiniteAuthState enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteAuthState was added in **v0.8.0**
+</Aside>
+
+The `FiniteAuthState` enum defines the status of a [`FiniteAuthRequest`](/reference/finiteuser/types/finiteauthrequest/).
+
+```c
+enum FiniteAuthState {
+    AUTH_STATE_PENDING,
+    AUTH_STATE_SUCCESS,
+    AUTH_STATE_CODE_EXPIRED,
+    AUTH_STATE_ERROR
+}
+```
+
+## Properties
+
+| Type                      | Description                                                         |
+| ------------------------- | ------------------------------------------------------------------- |
+| `AUTH_STATE_PENDING`      | Awaiting authentication.                                            |
+| `AUTH_STATE_SUCCESS`      | User was authenticated successfully.                                |
+| `AUTH_STATE_CODE_EXPIRED` | The auth code is no longer valid and a new one should be generated. |
+| `AUTH_STATE_ERROR`        | Something went wrong.                                               |

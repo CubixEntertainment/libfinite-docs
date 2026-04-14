@@ -1,0 +1,36 @@
+---
+title: FiniteUserStatus
+description: The FiniteUserStatus enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteUserStatus was added in **v0.8.0**
+</Aside>
+
+The `FiniteUserStatus` enum defines the status of a user.
+
+```c
+enum FiniteUserStatus {
+    USER_STATUS_UNKNOWN,
+    USER_STATUS_ONLINE,
+    USER_STATUS_DND,
+    USER_STATUS_IDLE,
+    USER_STATUS_OFFLINE
+}
+```
+
+## Properties
+
+| Type                  | Description                                                        |
+| --------------------- | ------------------------------------------------------------------ |
+| `USER_STATUS_UNKNOWN` | Unknown status.                                                    |
+| `USER_STATUS_ONLINE`  | User is online.                                                    |
+| `USER_STATUS_DND`     | User is online but is not getting notifications.                   |
+| `USER_STATUS_IDLE`    | User is online but has not interacted with the system for a while. |
+| `USER_STATUS_OFFLINE` | user is not online.                                                |
+
+## Notes
+
+Any status that isn't `USER_STATUS_UNKNOWN` or `USER_STATUS_OFFLINE` is considered online.

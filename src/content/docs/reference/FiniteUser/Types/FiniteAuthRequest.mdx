@@ -1,0 +1,38 @@
+---
+title: FiniteAuthRequest
+description: The FiniteAuthRequest struct.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteAuthRequest was last modified in **v0.6.5**</Aside>
+
+The `FiniteAuthRequest` struct stores configuration data for a layer_shell window in a `FiniteShell`, including anchor, size, and margins.
+
+```c
+typedef struct {
+    int id; // request id
+    int game_id;
+    int iat;
+    enum FiniteAuthState auth_state;
+    char *state;
+    char *user_id;
+    char *device_id;
+    char *verify_code;
+} FiniteAuthRequest;
+```
+
+| Type                              | Description                                                                                               |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `int id`                          | The request id.                                                                                           |
+| `int game_id`                     | The application id.                                                                                       |
+| `int iat`                         | The timestamp of when the code expires                                                                    |
+| `enum FiniteAuthState auth_state` | A [`FiniteAuthState`](/reference/finiteuser/enums/finiteauthstate/) that refers to the state of the auth. |
+| `char *state`                     | String version of auth_state                                                                              |
+| `char *user_id`                   | The user_id of the authenticated user.                                                                    |
+| `char *device_id`                 | The device id of the requesting device.                                                                   |
+| `char *verify_code`               | The verify code.                                                                                          |
+
+## Standard Usage
+
+Despite how it may appear, this struct should primarily be used to get the user_id of a completed auth state. This struct represents a completed AuthRequest, not necessarily a successful one.

@@ -1,0 +1,38 @@
+---
+title: finite_user_get_status
+description: The finite_user_get_status function.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+finite_user_get_status was added in **v0.8.0**
+</Aside>
+
+The `finite_user_get_status` enum attempts to get the status of a given user.
+
+```c
+enum FiniteUserStatus finite_user_get_status(char *user_id, char* token, char *dev)
+```
+
+## Properties
+
+| Type            | Description                                                         |
+| --------------- | ------------------------------------------------------------------- |
+| `char *user_id` | The user's uuid. This is different from their index id.             |
+| `char *token`   | The request token. You can get a valid token via the Cubix Website. |
+| `char *dev`     | The device id. You can get a valid device_id via the Cubix Website. |
+
+## Code Example
+
+```c
+FiniteAuthRequest req* = finite_user_request_auth(shell, "", "", NULL);
+finite_user_get_by_id(req->user_id, myToken, myDev);
+
+enum FiniteUserStatus status = finite_user_get_status(req->user_id, myToken, myDev);
+FINITE_LOG("Status: %s", finite_user_status_to_string(status));
+```
+
+## Specification
+
+This function does make net request to the infinite API. You should cache this value to avoid calling it multiple times.
