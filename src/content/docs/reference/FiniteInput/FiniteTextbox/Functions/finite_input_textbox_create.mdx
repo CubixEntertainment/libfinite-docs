@@ -1,0 +1,57 @@
+---
+title: finite_input_textbox_create
+description: The finite_input_textbox_create function
+sidebar:
+  order: 1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FINITE_LOG was last modified in **v0.6.0**</Aside>
+
+The `finite_input_textbox_create` function attempts to allow user input on a [`FiniteTextbox`](/reference/finiteinput/finitetextbox/types/finitetextbox/)
+
+```c
+void finite_input_textbox_create(FiniteTextbox *textbox, FiniteKeyboard *kbd)
+```
+
+## Parameters
+
+| Type                     | Description                                |
+| ------------------------ | ------------------------------------------ |
+| `FiniteTextbox *textbox` | The `FiniteTextbox` to focus on.           |
+| `FiniteKeyboard *kbd`    | The `FiniteKeyboard` to use while focused. |
+
+## Code Example
+
+```c
+FiniteKeyboard *kbd = finite_input_keyboard_init(myShell->display);
+
+FiniteTextboxDetails boxDetails = {
+    .x = 20,
+    .y = 50,
+    .width = 250,
+    .height = 40,
+    .text_font = "Hack",
+    .isRounded = false,
+    .box_radius = 0,
+    .text_size = width * 0.014,
+    .stroke_weight = 0,
+    .text_align = TEXTBOX_ALIGN_LEFT,
+    .background_color = myColor,
+    .box_color = box_color,
+    .text_color = finite_draw_hex_to_color_group("#3256fa"),
+    .stroke_color = finite_draw_hex_to_color_group("#000000")
+};
+
+FiniteTextbox *textbox = finite_input_textbox_create(myShell, &boxDetails, TEXTBOX_RENDER_MODE_IMPLICIT, NULL);
+if (!textbox) {
+    FINITE_LOG_ERROR("Unable to create textbox");
+}
+
+finite_input_textbox_create(textbox, kbd);
+```
+
+## Specification
+
+`FiniteTextbox`s should **not** be created manually. Developers should let [`finite_input_textbox_create`](/reference/finiteinput/finitetextbox/functions/finite_input_textbox_create) handle creating the FiniteTextbox.
