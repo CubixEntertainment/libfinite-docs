@@ -47,6 +47,11 @@ export default defineConfig({
 							autogenerate: { directory: 'reference/FiniteRender' },
 						},
 						{
+							label: 'FiniteUser',
+							autogenerate: { directory: 'reference/FiniteUser' },
+							badge: 'New'
+						},
+						{
 							label: 'FiniteAudio',
 							autogenerate: { directory: 'reference/FiniteAudio' },
 						},
