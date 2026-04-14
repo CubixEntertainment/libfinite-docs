@@ -1,0 +1,70 @@
+---
+title: JSON
+description: JSON Utility for libfinite.
+sidebar:
+  order: 1
+  badge: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>FiniteJSON was last added in **v0.8.0**</Aside>
+
+The `FiniteJSON` utility family provides a simple and safe parser and lookup utility for handling JSON in libfinite. It uses the JSON tokenizer [jsmn](https://github.com/zserge/jsmn) under the hood.
+
+## Parsing
+
+Parsing json is handled through the `finite_json_parse` function.
+
+```c
+FiniteJSONValue *finite_json_parse(char *data)
+```
+
+| Type         | Description        |
+| ------------ | ------------------ |
+| `char *data` | The JSON to parse. |
+
+The parser returns an array of `FiniteJSONValue`s.
+
+```c
+struct FiniteJSONValue {
+    char *key;
+    char *value;
+    FiniteJSONValue **members;
+    int _members;
+    jsmntype_t type;
+};
+```
+
+### Specification
+
+In general, developers shouldn't use the `FiniteJSONValue` directly. Instead they should use the reading functions.
+
+## Reading
+
+FiniteJSON provides three functions for reading and traversing the data.
+
+```c
+char *finite_json_get_value(FiniteJSONValue *item);
+char *finite_json_get_value_from_key(FiniteJSONValue *item, char *key);
+int finite_json_get_index_from_key(FiniteJSONValue *item, char *key);
+```
+
+| Type                    | Description            |
+| ----------------------- | ---------------------- |
+| `FiniteJSONValue *item` | The JSON to traverse.  |
+| `char *key`             | The key to search for. |
+
+Each of these functions are similar but achieve different return values.
+
+- `finite_json_get_value` returns the value of the given item. It's the same thing as `item.value`
+- `finite_json_get_value_from_key` searchs the given items members for key then returns either it's value or NULL.
+- `finite_json_get_index_from_key` returns the index of a member of a given item. It's most useful for recursive data searching.
+
+## Cleanup
+
+At some point any `FiniteJSONValue` should be freed with `finite_json_cleanup`
+
+```c
+void finite_json_cleanup(FiniteJSONValue *item)
+```
