@@ -18,3 +18,7 @@ When creating windows, you must decide between using Vulkan (FiniteRender) and C
 3) _vars are indexing variables
 
 libfinite uses _vars to refer to indexes of arrays with the same name. For example `shell._btns` refers to the number of buttons this shell has.
+
+4) Run mailroom in the background
+
+To avoid games needing root to do certain tasks as well as emulate certain features from the infinite, devs should ALWAYS start mailroom before starting their project.

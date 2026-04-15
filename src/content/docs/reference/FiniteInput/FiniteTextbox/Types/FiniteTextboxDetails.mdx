@@ -1,0 +1,52 @@
+---
+title: FiniteTextboxDetails
+description: The FiniteTextboxDetails struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteTextboxDetails was added in **v0.7.0** </Aside>
+
+The `FiniteTextboxDetails` struct stores the drawing information on a specific [`FiniteTextbox`](/reference/finiteinput/finitetextbox/types/finitetextbox/).
+
+```c
+struct FiniteTextboxDetails {
+    double x;
+    double y;
+    double width;
+    double height;
+    char *text_font;
+    bool isRounded;
+    int box_radius;
+    int text_size;
+    int stroke_weight;
+    FiniteTextboxTextAlign text_align;
+    FiniteColorGroup background_color;
+    FiniteColorGroup box_color;
+    FiniteColorGroup text_color;
+    FiniteColorGroup stroke_color;
+};
+```
+
+## Properties
+
+| Type                                | Description                                                                                                                                                              |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `double x`                          | The x position of the textbox.                                                                                                                                           |
+| `double y`                          | The y position of the textbox.                                                                                                                                           |
+| `double width`                      | The width of the textbox.                                                                                                                                                |
+| `double height`                     | The height of the textbox.                                                                                                                                               |
+| `char *text_font`                   | The font of text within the textbox.                                                                                                                                     |
+| `bool isRounded`                    | Whether the textbox is a rounded rect.                                                                                                                                   |
+| `int box_radius`                    | If the textbox is a rounded rect, this is the corner radius.                                                                                                             |
+| `int text_size`                     | The size of the text within the textbox. To avoid errors, ensure this is less than the height.                                                                           |
+| `int stroke_weight`                 | The stroke of the box. For no stroke this should be zero.                                                                                                                |
+| `FiniteTextboxTextAlign text_align` | The [`FiniteTextboxTextAlign`](/reference/finiteinput/finitetextbox/enums/finitetextboxtextalign/) settings for the finite_textbox. By default it is TEXTBOX_ALIGN_LEFT. |
+| `FiniteColorGroup background_color` | The [`FiniteColorGroup`](/reference/finitedraw/types/finitecolorgroup/) of the background behind the textbox.                                                            |
+| `FiniteColorGroup box_color`        | The FiniteColorGroup of the textbox.                                                                                                                                     |
+| `FiniteColorGroup text_color`       | The FiniteColorGroup of the text within the textbox.                                                                                                                     |
+| `FiniteColorGroup stroke_color`     | The FiniteColorGroup of the stroke around the textbox.                                                                                                                   |
+
+## Specification
+
+This struct is used to tell libfinite how to handle redrawing the textbox when it's containing text changes. For more fine-grained control or to handle specific use cases (like gradient backgrounds) it might be better to use the `TEXTBOX_RENDER_MODE_EXPLICIT` and handle that yourself.

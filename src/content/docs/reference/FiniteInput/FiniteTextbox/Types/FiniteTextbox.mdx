@@ -1,0 +1,49 @@
+---
+title: FiniteTextbox
+description: The FiniteTextbox struct
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteTextbox was added in **v0.7.0** </Aside>
+
+The `FiniteTextbox` struct stores details about a single Textbox.
+
+```c
+
+struct FiniteTextbox {
+    bool focused;
+    char *text;
+    char *final_text; // what actually shows up
+    FiniteShell *shell;
+    FiniteTextboxDetails *details;
+    FiniteTextboxRenderMode redraw_mode;
+    void *data;
+    // callbacks for commit and done events
+    void (*on_focused)(FiniteTextbox *self, FiniteTextboxCommitType type, void *data);
+    void (*on_commit) (FiniteTextbox *self, FiniteTextboxCommitType type, void *data);
+    void (*on_done)   (FiniteTextbox *self, FiniteTextboxCommitType type, void *data);
+};
+
+```
+
+## Properties
+
+| Type                                                                                | Description                                                                                                          |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `bool focused`                                                                      | Whether or not the textbox is focused.                                                                               |
+| `char *text`                                                                        | The latest string input.                                                                                             |
+| `char *final_text`                                                                  | The text inside the textbox.                                                                                         |
+| `FiniteShell *shell`                                                                | The [`FiniteShell`](/reference/finiteshell/finiteshell/) the Textbox belongs to.                                     |
+| `FiniteTextboxDetails *details`                                                     | The Textbox settings as a [`FiniteTextboxDetails`](/reference/finiteinput/finitetextbox/types/finitetextboxdetails/) |
+| `FiniteTextboxRenderMode redraw_mode`                                               | What redraw mode should be used when the textbox changes.                                                            |
+| `void *data`                                                                        | Additional data to use in callbacks                                                                                  |
+| `void (*on_focused)(FiniteTextbox *self, FiniteTextboxCommitType type, void *data)` | Focused event callback.                                                                                              |
+| `void (*on_commit)(FiniteTextbox *self, FiniteTextboxCommitType type, void *data)`  | Commit event callback.                                                                                               |
+| `void (*on_done*)(FiniteTextbox *self, FiniteTextboxCommitType type, void *data)`   | Textbox unfocused callback.                                                                                          |
+
+## Specification
+
+`FiniteTextbox`s should **not** be created manually. Developers should let [`finite_input_textbox_create`](/reference/finiteinput/finitetextbox/functions/finite_input_textbox_create) handle creating the FiniteTextbox.
+
+`FiniteTextbox` should be considered unmutable as a developer. Changes should be made through the various `finite_input_textbox` functions rather than manual modifications.

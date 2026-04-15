@@ -1,0 +1,52 @@
+---
+title: finite_draw_set_wrapped_text
+description: The finite_draw_set_wrapped_text function.
+sidebar:
+  badge: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_set_wrapped_text was added in **v0.8.0** </Aside>
+
+The `finite_draw_set_wrapped_text` function attempts to draw text to the screen within a bounding box.
+
+```c
+void finite_draw_set_wrapped_text(FiniteShell *shell, char *text, double boxW, double boxH, FiniteColorGroup *color)
+```
+
+## Parameters
+
+| Type                      | Description                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| `FiniteShell *shell`      | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is. |
+| `char *text`              | The text the screen.                                                          |
+| `double boxW`             | The width of the bounding box                                                 |
+| `double boxH`             | The height of the bounding box                                                |
+| `FiniteColorGroup *color` | The color of the text to draw.                                                |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+finite_draw_set_font(myShell, "Kumbh Sans", false, false, 24);
+FiniteColorGroup white = {
+    .r = 0,
+    .g = 0,
+    .b = 0
+};
+
+char *string = "Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi.";
+
+finite_draw_set_draw_position(myShell, 30, 20);
+
+finite_draw_set_wrapped_text(myShell, string, 150, 200, &white);
+```
+
+## Standard Usage
+
+This function is intended to be used to draw colored text to screen within a box. For one line calls you may want [`finite_draw_set_text`](/reference/finitedraw/functions/finite_draw_set_text/) instead
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
+
+This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

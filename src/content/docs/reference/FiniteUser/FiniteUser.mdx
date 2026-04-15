@@ -1,0 +1,44 @@
+---
+title: FiniteUser
+description: Tools to allow Infinite developers to get information about who is actively using the console.
+sidebar:
+  order: -1
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> FiniteUser was added in **v0.8.0** </Aside>
+
+The `FiniteUser` struct stores information about a given infinite user.
+
+```c
+typedef struct {
+    char user[20];
+    char display[32];
+    char user_id[36]; // user's uuid not the index id
+    char *bio; // forgor the limit on bio
+    char *banner_link;
+    int last_online;
+    bool isOnline;
+    bool isMod;
+} FiniteUser;
+```
+
+## Properties
+
+| Type                | Description                                             |
+| ------------------- | ------------------------------------------------------- |
+| `char user[20]`     | The username of the user.                               |
+| `char display[32]`  | The display name of the user.                           |
+| `char user_id[36]`  | The user's uuid. This is different from their index id. |
+| `char *bio`         | The user's bio.                                         |
+| `char *banner_link` | An image link to the user's banner.                     |
+| `int last_online`   | A unix timestamp of when the user was last online.      |
+| `bool isOnline`     | Whether the user is currently online.                   |
+| `bool isMod`        | Whether the user is an administrator.                   |
+
+## Specification
+
+The FiniteUser function family requires the `mailroom` IPC Server in order to work correctly.
+
+For full functionality, you may need an infinite developer account in order to get fake auth keys.

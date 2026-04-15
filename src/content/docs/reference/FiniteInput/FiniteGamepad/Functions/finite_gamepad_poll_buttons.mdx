@@ -1,0 +1,52 @@
+---
+title: finite_gamepad_poll_buttons
+description: The finite_gamepad_poll_buttons function
+sidebar:
+  order: 1
+  badge: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_gamepad_poll_buttons was added in **v0.8.0** </Aside>
+
+The `finite_gamepad_poll_buttons` function begins polling for all [`FiniteShell`](/reference/finiteshell/finiteshell/)
+
+```c
+void *finite_gamepad_poll_buttons(FiniteShell *shell)
+```
+
+## Parameters
+
+| Type                   | Description                                   |
+| ---------------------- | --------------------------------------------- |
+| `FiniteShell *shell`   | The FiniteShell that the gamepads belongs to. |
+
+## Code Example
+
+```c
+
+
+bool withGP = finite_gamepad_init(myShell);
+myShell->canHomeMenu = false;
+
+if (!withGP) {
+    FINITE_LOG_ERROR("Can't poll controller data");
+}
+
+if (finite_gamepad_key_valid(FINITE_BTN_A)) {
+    FINITE_LOG("A btn is valid");
+}
+
+while (wl_display_dispatch(myShell->display) != -1) {
+    draw_controller();
+    finite_gamepad_poll_buttons(myShell);
+}
+
+```
+
+## Specification
+
+In libfinite 0.7.0 this function was previously async. This function is no longer async and must be run in a seperate thread. There are plans to make a seperate async version of this function but those implementations have not started work yet.
+
+While `finite_gamepad_poll_buttons` can be put anywhere in the main function, to avoid input drops it shouldn't be mixed with `wl_display_dispatch` when drawing is expensive. Devs should opt to handling input in a seperate thread.

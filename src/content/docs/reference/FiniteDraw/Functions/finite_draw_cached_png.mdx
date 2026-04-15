@@ -1,0 +1,151 @@
+---
+title: finite_draw_cached_png
+description: The finite_draw_cached_png function.
+sidebar:
+    badge: New
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside> finite_draw_cached_png was added in **v0.8.0** </Aside>
+
+The `finite_draw_cached_png` function attempt to draw a cached png image to screen at a given size and position.
+
+```c
+void finite_draw_cached_png(FiniteShell *shell, cairo_surface_t *cache, double x, double y, double width, double height,  FiniteColorGroup *fillOnFail);
+```
+
+## Parameters
+
+| Type                           | Description                                                                   |
+| ------------------------------ | ----------------------------------------------------------------------------- |
+| `FiniteShell *shell`           | The [`FiniteShell`](/reference/finiteshell/finiteshell/) where the window is. |
+| `cairo_surface_t *cache`       | The cached png to load.                                                       |
+| `double x`                     | The X position of the png.                                                    |
+| `double y`                     | The Y position of the png.                                                    |
+| `double width`                 | The width (in pixels) of the png.                                             |
+| `double height`                | The height (in pixels) of the png.                                            |
+| `FiniteColorGroup *fillOnFail` | The FiniteColorGroup to fill the image's space with if it fails to load.      |
+
+## Code Example
+
+```c
+#include <finite/draw.h>
+
+const char basePath[] = "/console/icons/input/";
+
+cairo_surface_t *surface;
+
+FiniteColorGroup fs = {0,0,0,1};
+
+char fullPath[PATH_MAX];
+strcpy(fullPath, basePath);
+if (finite_gamepad_key_down(0, myShell, FINITE_BTN_DOWN)) {
+    strcat(fullPath, finite_gamepad_key_string_from_key(FINITE_BTN_DOWN));
+    strcat(fullPath, ".png");
+} else if (finite_gamepad_key_down(0, myShell, FINITE_BTN_UP)) {
+    strcat(fullPath, finite_gamepad_key_string_from_key(FINITE_BTN_UP));
+    strcat(fullPath, ".png");
+} else if (finite_gamepad_key_down(0, myShell, FINITE_BTN_LEFT)) {
+    strcat(fullPath, finite_gamepad_key_string_from_key(FINITE_BTN_LEFT));
+    strcat(fullPath, ".png");
+} else if (finite_gamepad_key_down(0, myShell, FINITE_BTN_RIGHT)) {
+    strcat(fullPath, finite_gamepad_key_string_from_key(FINITE_BTN_RIGHT));
+    strcat(fullPath, ".png");
+} else {
+    strcat(fullPath, "Dpad.png");
+}
+
+finite_draw_png(myShell, fullPath, x, y, image_width, image_height, &surface &fs);
+
+finite_draw_cached_png(myShell, surface, x2, y2, image_width, image_height &fs);
+
+```
+
+## Notes
+
+This function exists as a tool to save memory when redrawing, especially for image animations, where redrawing the image in expensive. You only should `finite_draw_png` during your init draw phase and use `finite_draw_cached_png` in all subsequent calls. An example is shown below.
+
+```c
+FiniteShell *shell;
+
+struct surfaces {
+    cairo_surface_t *image1;
+    cairo_surface_t *image2;
+}
+
+int init() {
+    finite_log_init(stdout, LOG_LEVEL_DEBUG, true);
+    // create a new shell
+    shell = finite_shell_init("wayland-0");
+
+
+    finite_window_init(shell);
+
+    FiniteWindowInfo *det = shell->details;
+    width = det->width;
+    height = det->height;
+
+    // allocate the shared memory buffer
+    finite_shm_alloc(shell, true);
+    return 0;
+}
+
+static void draw_icon_box(double x, double y, char *text, char *icon, bool init, int id) {
+    if (!shell->cr) {
+        shell->cr = cairo_create(shell->cairo_surface);
+    }
+    
+    cairo_save(shell->cr);
+
+    double boxH = (height * 0.319);
+    double boxW = (width * 0.27);
+    finite_draw_rounded_rect(shell, x, y, boxW, boxH, (height * 0.022), &card, NULL, true);
+    cairo_clip(shell->cr);
+    cairo_translate(shell->cr, x, y);
+
+    double descH = (boxH - (boxH * 0.78));
+
+    if (strcmp(icon, "image1") == 0) {
+        if (!surfaces.image1) {
+            // cache if neeeded
+            finite_draw_png(shell, "/console/icons/controllerIco.png", (boxW * 0.28), (boxH * 0.22) , (boxW * 0.42), (boxH * 0.45), &surfaces.image1, &white);
+        } else {
+            finite_draw_cached_png(shell, surfaces.image1, (boxW * 0.28), (boxH * 0.22) , (boxW * 0.42), (boxH * 0.45), &white);
+        }
+    }
+
+    finite_draw_rect(shell, 0, (boxH * 0.78), boxW, descH, &cardDesc, NULL);
+
+    double size = (height * 0.029);
+    finite_draw_set_font(shell, "Kumbh Sans", false, false, size);
+    cairo_text_extents_t ext = finite_draw_get_text_extents(shell, text);
+    finite_draw_set_draw_position(shell, ((boxW * 0.07)), ((boxH * 0.78) + (descH / 2) + (ext.height / 2)));
+    finite_draw_set_text(shell, text, &white);
+
+    cairo_restore(shell->cr);
+
+    // don't call finite_draw_finished here as that can cause performance issues
+}
+
+
+int main() {
+    init();
+    draw_icon_box();
+    finite_draw_finish(shell, width, height, shell->stride, true);
+
+    while (wl_display_dispatch(shell->display) != -1) {
+        // handle animation here
+        draw_icon_box();
+        finite_draw_finish(shell, width, height, shell->stride, true);
+    }
+}
+```
+
+Do note this doesn't have any error checking.
+
+## Standard Usage
+
+This function must have a valid [`FiniteShell`](/reference/finiteshell/finiteshell/)
+
+This function uses Cairo which requires a valid cairo_surface_t in `FiniteShell.cairo_surface` beforehand.

@@ -2,9 +2,10 @@
 title: FiniteShell
 description: The core of libfinite windows
 sidebar:
-    order: -1
+  order: -1
 ---
-import { Aside } from '@astrojs/starlight/components';
+
+import { Aside } from "@astrojs/starlight/components";
 
 <Aside> FiniteShell was last modifed in **v0.7.0** </Aside>
 
@@ -38,9 +39,10 @@ struct FiniteShell{
     FiniteBtn **btns;
     int _btns;
     int activeButton;
-    FiniteGamepad **gamepads;
+    FiniteGamepad *gamepads;
     int _gamepads;
     int primaryGamepadId;
+    int client_fd;
     bool canInput;
     bool canHomeMenu;
     bool gamepadAvailable;
@@ -77,9 +79,10 @@ struct FiniteShell{
 | `FiniteBtn **btns`                            | An array of FiniteBtns                                                                                                                                             |
 | `int _btns`                                   | The number of FiniteBtns currently visible.                                                                                                                        |
 | `int activeButton`                            | The Array position of the currently selected                                                                                                                       |
-| `FiniteGamepad **gamepads`                    | An array of FiniteGamepads (controllers)                                                                                                                           |
+| `FiniteGamepad *gamepads`                     | An array of FiniteGamepads (controllers)                                                                                                                           |
 | `int _gamepads`                               | The number of gamepads currently connected.                                                                                                                        |
 | `int primaryGamepadId`                        | The id of the "primary" controller. Usually 0.                                                                                                                     |
+| `int client_fd`                               | The file descriptor of the connection between the client and the mailroom server for gamepads                                                                      |
 | `bool canInput`                               | The system toggle that determines whether the window is allowed to recieve input. Does not measure whether the system is capable of recieving input from gamepads. |
 | `bool canHomeMenu`                            | A user level toggle that allows you to disable the home button                                                                                                     |
 | `bool gamepadAvailable`                       | A system toggle that tells whether the system is capable of recieving input.                                                                                       |
@@ -91,7 +94,7 @@ Developers must call the wayland "keep alive" functions [`wl_display_dispatch`](
 
 While the library provides the [`finite_window_size_set`](/reference/finiteshell/functions/finite_window_size_set/) function, Infinite windows should use the size provided by the `FiniteShell.details` struct which contains the screen resolution in pixels.
 
-Infinite compliant windows should call [`finite_shell_init`](/reference/finiteshell/functions/finite_shell_init/) during the initialization phase of the window's lifespan (before the `wl_display_dispatch` loop) to get information about the current compositor. The wl_* data for the FiniteShell struct should not be filled out manually in production.
+Infinite compliant windows should call [`finite_shell_init`](/reference/finiteshell/functions/finite_shell_init/) during the initialization phase of the window's lifespan (before the `wl_display_dispatch` loop) to get information about the current compositor. The wl\_\* data for the FiniteShell struct should not be filled out manually in production.
 
 Developers should not create a seperate `cairo_t` from the one in the FiniteShell to maintain compatibilty with `finite_draw_finish` and `finite_draw_cleanup`. Additionally, most functions in the FiniteDraw function family populate `FiniteShell.cr` automatically if its NULL
 

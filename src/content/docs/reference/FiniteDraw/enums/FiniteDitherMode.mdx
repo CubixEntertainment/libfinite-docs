@@ -1,0 +1,34 @@
+---
+title: FiniteDitherMode
+description: The FiniteDitherMode enum.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside>
+FiniteDitherMode was added in **v0.8.0**
+</Aside>
+
+The `FiniteDitherMode` enum defines all possible dithering modes for a `cairo_pattern_t`.
+
+```c
+typedef enum {
+    FINITE_DITHER_MODE_NONE,
+    FINITE_DITHER_MODE_FASTEST,
+    FINITE_DITHER_MODE_BALANCED,
+    FINITE_DITHER_MODE_QAULITY
+} FiniteDitherMode;
+```
+
+## Properties
+
+| Type                          | Description                                         |
+| ----------------------------- | --------------------------------------------------- |
+| `FINITE_DITHER_MODE_NONE`     | Disable dithering                                   |
+| `FINITE_DITHER_MODE_FASTEST`  | Dithering mode where render speed is the priority   |
+| `FINITE_DITHER_MODE_BALANCED` | Dithering mode that doesnt priotize anything        |
+| `FINITE_DITHER_MODE_QAULITY`  | Dithering mode where render quality is the priority |
+
+## Standard Usage
+
+These values are meant to be used in the `finite_draw_set_pattern_dithering` to determine the quality of the gradient.
