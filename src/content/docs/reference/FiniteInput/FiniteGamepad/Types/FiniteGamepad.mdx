@@ -7,44 +7,41 @@ sidebar:
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside> FiniteGamepad was added in **v0.7.0** </Aside>
+<Aside> FiniteGamepad was last modified in **v0.8.0** </Aside>
 
 The `FiniteGamepad` struct stores information about a controller.
 
 ```c
 struct FiniteGamepad {
     int fd;
-    int order;
-    char *path; // the device node of the controller
+    int order; // the number the controller
+    char path[PATH_MAX]; // the device node of the controller
 
     bool canInput; // whether input is disabled on this device
 
-    FiniteShell *shell;
-    FiniteJoystick *lAxis;
-    FiniteJoystick *rAxis;
-    FiniteDpad *dpad;
-    FiniteTrigger *lt;
-    FiniteTrigger *rt;
-
+    FiniteJoystick lAxis;
+    FiniteJoystick rAxis;
+    FiniteDpad dpad;
+    FiniteTrigger lt;
+    FiniteTrigger rt;
     FiniteGamepadKeyState btns[1024];
 };
 ```
 
 ## Properties
 
-| Type                         | Description                                                                                   |
-| ---------------------------- | --------------------------------------------------------------------------------------------- |
-| `int fd`                     | The file descriptor of the gamepad. Points to a device in /dev                                |
-| `int order`                  | The place in the array of devices of the gamepad.                                             |
-| `char *path`                 | The path to the device node for the gamepad                                                   |
-| `bool canInput`              | Whether the gamepad is allowed to send input events.                                          |
-| `FiniteShell *shell`         | The [`FiniteShell`](/reference/finiteshell/finiteshell/) the gamepad is connected to.         |
-| `FiniteJoystick *lAxis`      | The left joystick axis.                                                                       |
-| `FiniteJoystick *rAxis`      | The right joystick axis.                                                                      |
-| `FiniteDpad *dpad`           | The dpad of the controller.                                                                   |
-| `FiniteTrigger *lt`          | The left trigger axis for analog triggers                                                     |
-| `FiniteTrigger *rt`          | The right trigger axis for analog trigger                                                     |
-| `FiniteGamepadKeyState btns` | An array of `FiniteGamepadKeyState`s that store infomation about indvidiual states of buttons |
+| Type                               | Description                                                                                   |
+| ---------------------------------- | --------------------------------------------------------------------------------------------- |
+| `int fd`                           | The file descriptor of the gamepad. Points to a device in /dev                                |
+| `int order`                        | The place in the array of devices of the gamepad.                                             |
+| `char path[PATH_MAX]`              | The path to the device node for the gamepad                                                   |
+| `bool canInput`                    | Whether the gamepad is allowed to send input events.                                          |
+| `FiniteJoystick lAxis`             | The left joystick axis.                                                                       |
+| `FiniteJoystick rAxis`             | The right joystick axis.                                                                      |
+| `FiniteDpad dpad`                  | The dpad of the controller.                                                                   |
+| `FiniteTrigger lt`                 | The left trigger axis for analog triggers                                                     |
+| `FiniteTrigger rt`                 | The right trigger axis for analog trigger                                                     |
+| `FiniteGamepadKeyState btns[1024]` | An array of `FiniteGamepadKeyState`s that store infomation about indvidiual states of buttons |
 
 ## Specification
 

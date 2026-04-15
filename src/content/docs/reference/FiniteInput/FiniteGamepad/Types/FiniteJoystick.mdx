@@ -5,15 +5,15 @@ description: The FiniteJoystick struct
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside> FiniteJoystick was last modifed in **v0.7.0** </Aside>
+<Aside> FiniteJoystick was last modifed in **v0.8.0** </Aside>
 
 The `FiniteJoystick` struct stores data about a controller's joystick.
 
 ```c
 typedef struct {
-    char *name;
+    char name[16];
     uint16_t xAxis;
-    double xValue; // value between -1 and 1
+    double xValue;
     int xMin;
     int xMax;
     int xFlat; // deadzone
@@ -27,13 +27,20 @@ typedef struct {
 
 ## Properties
 
-| Type          | Description                                                                      |
-| ------------- | -------------------------------------------------------------------------------- |
-| `uint16_t id` | The linux evdev code of the given input.                                         |
-| `bool isHeld` | Whether the button is being held down. Acts as combined state of isDown and isUp |
-| `bool isDown` | Whether the button is currently being pressed down.                              |
-| `bool isUp`   | Whether the button is not being pressed down.                                    |
+| Type             | Description                                                |
+| ---------------- | ---------------------------------------------------------- |
+| `char name[16]`  | The string name of the joystick.                           |
+| `uint16_t xAxis` | The linux evdev code for the xAxis of the joystick.        |
+| `double xValue`  | The value of the x axis. It will be in a range of -1 to 1. |
+| `int xMin`       | The reported real minimum value of the axis.               |
+| `int xMax`       | The reported real maximum value of the axis.               |
+| `int xFlat`      | The reported deadzone value of the axis.                   |
+| `uint16_t yAxis` | The linux evdev code for the yAxis of the joystick.        |
+| `double yValue`  | The value of the y axis. It will be in a range of -1 to 1. |
+| `int yMin`       | The reported real minimum value of the axis.               |
+| `int yMax`       | The reported real maximum value of the axis.               |
+| `int yFlat`      | The reported deadzone value of the axis.                   |
 
 ## Specification
 
-Developers in general are discourageed from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU).
+Developers in general are discouraged from trying to read data from a gamepad directly as they are a "voliatile type" Controllers can be disconnected at any time for any reason and as such this struct may not always exist when trying to read it even after verifying its existance (TOCTOU).

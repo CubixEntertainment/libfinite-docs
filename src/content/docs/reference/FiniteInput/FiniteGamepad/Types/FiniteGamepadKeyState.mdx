@@ -5,7 +5,7 @@ description: The FiniteGamepadKeyState struct
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside> FiniteGamepadKeyState added in **v0.7.0** </Aside>
+<Aside> FiniteGamepadKeyState last modified in **v0.8.0** </Aside>
 
 The `FiniteGamepadKeyState` struct stores information about the state of a specific button on the controller.
 
@@ -15,17 +15,21 @@ typedef struct {
     bool isHeld;
     bool isDown;
     bool isUp;
+    int heldSTime; // when did the keypress start
+    int heldETime; // when did the keypress end
 } FiniteGamepadKeyState;
 ```
 
 ## Properties
 
-| Type          | Description                                                                      |
-| ------------- | -------------------------------------------------------------------------------- |
-| `uint16_t id` | The linux evdev code of the given input.                                         |
-| `bool isHeld` | Whether the button is being held down. Acts as combined state of isDown and isUp |
-| `bool isDown` | Whether the button is currently being pressed down.                              |
-| `bool isUp`   | Whether the button is not being pressed down.                                    |
+| Type            | Description                                                                      |
+| --------------- | -------------------------------------------------------------------------------- |
+| `uint16_t id`   | The linux evdev code of the given input.                                         |
+| `bool isHeld`   | Whether the button is being held down. Acts as combined state of isDown and isUp |
+| `bool isDown`   | Whether the button is currently being pressed down.                              |
+| `bool isUp`     | Whether the button is not being pressed down.                                    |
+| `int heldSTime` | Timestamp of when the key started being pressed down.                            |
+| `int heldETime` | Timestamp of when the key stopped being pressed down.                            |
 
 ## Specification
 
